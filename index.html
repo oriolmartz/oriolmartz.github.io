@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Oriol Martínez Ribas · AI Engineer</title>
+<meta content="AI engineering portfolio of Oriol Martínez Ribas. End-to-end systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Serif:ital@1&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   A dossier opened on a candidate: dark instrument-panel canvas,
+   warm paper insets for anything "entered into evidence."
+   ============================================================ */
+:root{
+  /* canvas */
+  --ink-950:#151b24;
+  --ink-900:#1c2330;
+  --ink-850:#242d3a;
+  --ink-800:#2d3847;
+  --ink-750:#384457;
+  --line:#313d4d;
+  --line-soft:#273240;
+
+  /* text on ink */
+  --fg:#F2EEE6;
+  --fg-dim:#B5BEC9;
+  --fg-faint:#8994A3;
+
+  /* paper (evidence insets) */
+  --paper:#EFE7D3;
+  --paper-2:#E4D9BE;
+  --paper-ink:#1F1A13;
+  --paper-ink-dim:#666050;
+
+  /* accents — semantic, borrowed from the candidate's own products */
+  --amber:#C99B48;
+  --amber-bright:#E8BF71;
+  --amber-soft:rgba(201,155,72,.12);
+  --brick:#974933;
+  --brick-bright:#AE5940;
+  --brick-soft:rgba(151,73,51,.14);
+  --teal:#3E8C93;
+  --teal-bright:#5FADB2;
+  --teal-soft:rgba(62,140,147,.14);
+  --plum:#7C6699;
+  --plum-bright:#9E85BC;
+  --plum-soft:rgba(124,102,153,.14);
+  --cobalt:#426FD8;
+  --cobalt-bright:#8FB0FF;
+  --cobalt-soft:rgba(66,111,216,.16);
+
+  /* type */
+  --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --serif-i:'IBM Plex Serif', Georgia, serif;
+
+  --container:1240px;
+  --pad:clamp(20px, 5vw, 64px);
+  --r-sm:3px;
+  --r-md:5px;
+  --r-pill:100px;
+
+  --ease: cubic-bezier(.16,.8,.24,1);
+}
+
+*,*::before,*::after{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(1200px 560px at 12% -8%, rgba(201,155,72,.08), transparent 58%),
+    radial-gradient(900px 540px at 100% 18%, rgba(151,73,51,.06), transparent 58%),
+    linear-gradient(180deg, #1B2330 0%, var(--ink-950) 52%, #11161E 100%);
+  color:var(--fg);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer;}
+ul{list-style:none;}
+svg{display:block;}
+
+::selection{background:var(--amber); color:var(--ink-950);}
+
+/* faint grain so the dark canvas doesn't look like flat plastic */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:2;
+  opacity:.022;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:var(--pad);
+}
+
+.mono{font-family:var(--mono);}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--fg-faint);
+  display:flex;
+  align-items:center;
+  gap:.55em;
+}
+.eyebrow::before{
+  content:"";
+  width:7px; height:7px;
+  background:var(--amber);
+  display:inline-block;
+  flex:none;
+}
+
+/* visually-hidden but accessible */
+.vh{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+
+/* scroll reveal */
+.reveal{opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.is-visible{opacity:1; transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none; transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px var(--pad);
+  background:rgba(21,27,36,.76);
+  backdrop-filter:blur(10px) saturate(140%);
+  -webkit-backdrop-filter:blur(10px) saturate(140%);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease), background .3s var(--ease);
+}
+.nav.is-scrolled{border-bottom-color:var(--line);}
+.nav__mark{
+  font-family:var(--mono); font-weight:600; font-size:.95rem;
+  letter-spacing:.02em; color:var(--fg);
+  display:flex; align-items:center; gap:10px;
+}
+.nav__mark .bracket{color:var(--amber);}
+.nav__links{display:flex; align-items:center; gap:34px;}
+.nav__links a{
+  font-family:var(--mono); font-size:.78rem; font-weight:500;
+  letter-spacing:.04em; color:var(--fg-dim);
+  position:relative; padding:4px 0;
+  transition:color .25s var(--ease);
+}
+.nav__links a:hover{color:var(--fg);}
+.nav__links a::after{
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  background:var(--amber); transition:right .3s var(--ease);
+}
+.nav__links a:hover::after{right:0;}
+.nav__status{
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:.72rem; color:var(--fg-dim);
+  border:1px solid var(--line); padding:6px 12px; border-radius:var(--r-pill);
+}
+.nav__status .dot{
+  width:6px; height:6px; border-radius:50%; background:#6FCF97; flex:none;
+  box-shadow:0 0 0 3px rgba(111,207,151,.15);
+  animation:pulse-dot 2.4s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.4;}}
+.nav__toggle{display:none;}
+
+@media (max-width: 860px){
+  .nav__status{display:none;}
+  .nav__links{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; gap:0; background:rgba(10,12,16,.97);
+    border-bottom:1px solid var(--line); padding:8px 0;
+  }
+  .nav__links.is-open{display:flex;}
+  .nav__links a{width:100%; padding:16px var(--pad); border-top:1px solid var(--line-soft); box-sizing:border-box;}
+  .nav__toggle{
+    display:flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border:1px solid var(--line); flex-direction:column; gap:4px;
+  }
+  .nav__toggle span{width:16px; height:1px; background:var(--fg); transition:transform .25s var(--ease), opacity .25s var(--ease);}
+  .nav__toggle.is-active span:first-child{transform:translateY(2.5px) rotate(45deg);}
+  .nav__toggle.is-active span:last-child{transform:translateY(-2.5px) rotate(-45deg);}
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:calc(100svh - 70px);
+  display:flex; align-items:center; justify-content:center;
+  padding:112px var(--pad) 48px;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, var(--line-soft) 39px, var(--line-soft) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, var(--line-soft) 39px, var(--line-soft) 40px);
+  background-size:40px 40px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 58% 48% at 24% 15%, rgba(201,155,72,.09), transparent 62%),
+             radial-gradient(ellipse 45% 38% at 100% 100%, rgba(151,73,51,.055), transparent 64%),
+             linear-gradient(180deg, rgba(28,35,48,.3) 0%, rgba(21,27,36,.12) 52%, var(--ink-900) 100%);
+  pointer-events:none;
+}
+.hero__tab{
+  position:absolute; left:0; top:300px;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.18em;
+  color:var(--ink-950); background:var(--amber);
+  padding:14px 8px; border-radius:0 4px 4px 0;
+  z-index:3;
+}
+.hero__inner{
+  position:relative; z-index:2;
+  width:min(var(--container), 100%);
+  max-width:var(--container);
+  margin-inline:auto;
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(470px,1.08fr);
+  grid-template-areas:
+    "word word"
+    "lead proof"
+    "bottom bottom";
+  column-gap:clamp(52px,6vw,92px);
+  row-gap:clamp(24px,2.8vh,34px);
+  align-items:start;
+}
+.hero__word{
+  grid-area:word;
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:clamp(3.4rem,6.4vw,6rem);
+  line-height:.86;
+  letter-spacing:.075em;
+  color:var(--fg);
+  text-transform:uppercase;
+  white-space:nowrap;
+  text-shadow:0 20px 55px rgba(0,0,0,.16);
+}
+.hero__word::after{
+  content:"AI ENGINEERING · 2026";
+  display:inline-block;
+  margin-left:18px;
+  vertical-align:top;
+  transform:translateY(.8em);
+  font-size:.105em;
+  line-height:1;
+  letter-spacing:.18em;
+  color:var(--amber-bright);
+}
+.hero__lead{grid-area:lead; min-width:0; padding-top:4px;}
+.hero__proof{grid-area:proof; min-width:0; padding-top:2px;}
+.hero h1{
+  font-family:var(--mono); font-weight:600;
+  font-size:clamp(2.6rem,4.35vw,4.35rem);
+  line-height:1.02; letter-spacing:-.018em;
+  color:var(--fg); margin:18px 0 24px;
+}
+.hero h1 em{font-style:normal; color:var(--amber-bright);}
+.hero__lede{
+  font-size:clamp(1rem,1.22vw,1.12rem); line-height:1.7;
+  color:var(--fg-dim); max-width:57ch; margin-bottom:0;
+}
+.hero__lede b{color:var(--fg); font-weight:600;}
+
+/* evidence ledger */
+.ledger{
+  border:1px solid var(--line); border-left:2px solid var(--amber);
+  padding:22px 26px;
+  background:rgba(28,35,48,.84);
+  box-shadow:0 22px 50px rgba(0,0,0,.14);
+}
+.ledger__head{
+  font-family:var(--mono); font-size:.69rem; font-weight:600; letter-spacing:.16em;
+  color:var(--fg-faint); margin-bottom:16px; text-transform:uppercase;
+}
+.ledger__row{
+  display:flex; gap:15px; align-items:baseline;
+  padding:12px 0; border-top:1px solid var(--line-soft);
+}
+.ledger__row:first-of-type{border-top:none; padding-top:0;}
+.ledger__idx{
+  font-family:var(--mono); font-size:.78rem; color:var(--amber); flex:none; width:27px;
+}
+.ledger__text{font-size:.9rem; color:var(--fg-dim); line-height:1.5;}
+.ledger__text b{color:var(--fg); font-weight:600;}
+.ledger__text span{color:var(--fg-faint);}
+
+.hero__bottom{
+  grid-area:bottom;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:24px 34px;
+  padding-top:2px;
+}
+.stamp{
+  font-family:var(--mono); font-size:.72rem; font-weight:700; letter-spacing:.1em;
+  color:var(--amber-bright);
+  border:1.5px solid var(--amber-bright); border-radius:var(--r-pill);
+  padding:10px 18px;
+  transform:rotate(-2deg);
+  position:relative;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.stamp::before{content:"●"; margin-right:8px; font-size:.6rem; vertical-align:middle;}
+.btn-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-self:end;}
+.btn{
+  font-family:var(--mono); font-size:.82rem; font-weight:600; letter-spacing:.03em;
+  padding:13px 24px; border-radius:var(--r-sm);
+  display:inline-flex; align-items:center; gap:9px;
+  transition:background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
+  backface-visibility:hidden;
+  -webkit-font-smoothing:antialiased;
+  transform:translateZ(0);
+}
+.btn--solid{background:var(--amber); color:var(--ink-950); box-shadow:0 8px 18px rgba(0,0,0,.10);}
+.btn--solid:hover{background:var(--amber-bright); box-shadow:0 12px 26px rgba(0,0,0,.16);}
+.hero .btn--solid{animation:reviewPulse 2.3s ease-in-out infinite;}
+.hero .btn--solid:hover{animation-play-state:paused;}
+@keyframes reviewPulse{
+  0%,100%{background:var(--amber); box-shadow:0 8px 18px rgba(0,0,0,.10), 0 0 0 0 rgba(232,191,113,.00);}
+  50%{background:var(--amber-bright); box-shadow:0 12px 26px rgba(0,0,0,.16), 0 0 0 7px rgba(232,191,113,.14);}
+}
+.btn--ghost{border:1px solid var(--line); color:var(--fg-dim);}
+.btn--ghost:hover{border-color:var(--fg-faint); color:var(--fg); box-shadow:0 10px 22px rgba(0,0,0,.10);}
+.icon-links{display:flex; gap:18px;}
+.icon-links a{color:var(--fg-faint); transition:color .2s var(--ease); display:flex; align-items:center; justify-content:center;}
+.icon-links a:hover{color:var(--amber-bright);}
+.hero__scrollcue{
+  justify-self:center;
+  display:inline-flex; align-items:center; gap:12px;
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--fg-faint);
+}
+.hero__scrollcue::before{content:""; width:42px; height:1px; background:linear-gradient(90deg, var(--amber), rgba(201,155,72,0));}
+.hero__scrollcue a{display:inline-flex; align-items:center; gap:10px; color:var(--fg-dim); transition:color .2s var(--ease), transform .2s var(--ease);}
+.hero__scrollcue a:hover{color:var(--amber-bright); transform:translateY(1px);}
+.hero__scrollcue .arrow{color:var(--amber-bright); font-size:.9rem; line-height:1;}
+
+@media (max-width:1080px){
+  .hero{min-height:auto; padding:116px var(--pad) 46px;}
+  .hero__inner{
+    grid-template-columns:1fr;
+    grid-template-areas:"word" "lead" "proof" "bottom";
+    max-width:820px;
+    row-gap:28px;
+  }
+  .hero__word{font-size:clamp(3.5rem,10vw,5.6rem);}
+  .hero__lead,.hero__proof{padding-top:0;}
+  .hero__lede{max-width:64ch;}
+  .hero__bottom{grid-template-columns:auto 1fr;}
+  .hero__scrollcue{display:none;}
+}
+@media (max-width:700px){
+  .hero{padding:104px var(--pad) 34px;}
+  .hero__tab{display:none;}
+  .hero__word{font-size:clamp(2.8rem,13vw,4.4rem); letter-spacing:.04em;}
+  .hero__word::after{display:none;}
+  .hero h1{font-size:clamp(2.35rem,12vw,3.5rem);}
+  .ledger{padding:18px;}
+  .hero__bottom{grid-template-columns:1fr; justify-items:start;}
+  .btn-row{justify-self:start;}
+  .stamp{white-space:normal;}
+}
+
+/* ============================================================
+   SECTION INTROS (shared)
+   ============================================================ */
+.sec-intro{
+  max-width:var(--container); margin-inline:auto; box-sizing:border-box;
+  padding:54px var(--pad) 24px;
+}
+.sec-intro h2{
+  font-family:var(--mono); font-weight:600;
+  font-size:clamp(1.9rem, 3.6vw, 2.85rem);
+  line-height:1.1; letter-spacing:-.01em;
+  margin:16px 0 18px; max-width:720px;
+}
+.sec-intro p:not(.eyebrow){color:var(--fg-dim); font-size:1.02rem; line-height:1.7; max-width:56ch;}
+
+/* ============================================================
+   WORK / EXHIBITS
+   ============================================================ */
+.work{
+  border-top:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg, #263243 0%, #202A38 18%, #1D2633 100%);
+}
+.work .sec-intro{
+  padding:38px var(--pad) 36px;
+  display:grid;
+  grid-template-columns:minmax(210px,.62fr) minmax(0,1.38fr);
+  align-items:end;
+  gap:48px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.work .sec-intro .eyebrow{align-self:start; padding-top:5px;}
+.work .sec-intro p:not(.eyebrow){max-width:68ch; color:#C5CED9;}
+@media (max-width:760px){
+  .work .sec-intro{grid-template-columns:1fr; gap:18px; padding-top:30px; padding-bottom:30px;}
+  .work .sec-intro .eyebrow{padding-top:0;}
+}
+.exhibit{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:72px 0 80px;
+  position:relative;
+  background:rgba(255,255,255,.022);
+  overflow:hidden;
+}
+.exhibit:nth-of-type(even){background:rgba(255,255,255,.042);}
+.exhibit:nth-of-type(4){margin-top:34px;}
+@media (max-width:980px){
+  .exhibit:nth-of-type(4){margin-top:22px;}
+}
+
+/* per-project colour identity — each system gets its own signature accent */
+.exhibit:nth-of-type(1){--acc:var(--amber); --acc-bright:var(--amber-bright); --acc-soft:var(--amber-soft); --repo-fg:#18222D;}
+.exhibit:nth-of-type(2){--acc:var(--teal); --acc-bright:var(--teal-bright); --acc-soft:var(--teal-soft); --repo-fg:#F8FCFC;}
+.exhibit:nth-of-type(3){--acc:var(--brick); --acc-bright:var(--brick-bright); --acc-soft:var(--brick-soft); --repo-fg:#FFF8F4;}
+.exhibit:nth-of-type(4){--acc:var(--plum); --acc-bright:var(--plum-bright); --acc-soft:var(--plum-soft); --repo-fg:#FCF9FF;}
+.exhibit:nth-of-type(5){--acc:var(--cobalt); --acc-bright:var(--cobalt-bright); --acc-soft:var(--cobalt-soft); --repo-fg:#F8FAFF;}
+.exhibit::before{
+  content:"";
+  position:absolute; inset:0 0 auto 0; height:3px;
+  background:linear-gradient(90deg, var(--acc), transparent 72%);
+  opacity:.85;
+}
+.exhibit .container{position:relative; z-index:1;}
+
+/* huge faint case number sitting behind the copy — dossier watermark */
+.exhibit__watermark{
+  position:absolute; top:6px; right:clamp(14px,4vw,54px);
+  font-family:var(--mono); font-weight:700;
+  font-size:clamp(5.5rem,12vw,10.5rem);
+  line-height:.78; letter-spacing:-.05em;
+  color:var(--acc-soft);
+  z-index:0; pointer-events:none; user-select:none;
+}
+@media (max-width:760px){ .exhibit__watermark{display:none;} }
+
+/* case-file tab — light paper accent reintroduced into the dark canvas */
+.exhibit__tab{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:.66rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--paper-ink); background:var(--paper);
+  padding:7px 14px 7px 10px; border-radius:2px 10px 10px 2px;
+  margin-bottom:22px;
+  box-shadow:0 8px 18px rgba(0,0,0,.22);
+}
+.exhibit__tab-dot{width:7px; height:7px; border-radius:50%; background:var(--acc); flex:none;}
+
+.exhibit__head{
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:28px; flex-wrap:wrap; gap:10px;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+}
+.exhibit__ref{color:var(--acc-bright);}
+.exhibit__num{color:var(--fg-faint);}
+
+.exhibit__grid{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:34px 46px; align-items:start;}
+.exhibit__grid > div:first-child{display:contents;}
+.exhibit__title,.exhibit__dek,.exhibit__body{grid-column:1;}
+.project-media{grid-column:2; grid-row:1 / span 3; align-self:start;}
+.proof-grid,.tags,.exhibit__actions{grid-column:1 / -1;}
+/* even exhibits mirror the layout: media takes the left column */
+.exhibit:nth-of-type(even) .exhibit__grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);}
+.exhibit:nth-of-type(even) .exhibit__title,
+.exhibit:nth-of-type(even) .exhibit__dek,
+.exhibit:nth-of-type(even) .exhibit__body{grid-column:2;}
+.exhibit:nth-of-type(even) .project-media{grid-column:1;}
+@media (max-width:1180px){
+  .exhibit:nth-of-type(even) .exhibit__title,
+  .exhibit:nth-of-type(even) .exhibit__dek,
+  .exhibit:nth-of-type(even) .exhibit__body,
+  .exhibit:nth-of-type(even) .project-media{grid-column:auto;}
+}
+.exhibit__titlewrap{display:flex; align-items:center; gap:16px; margin-bottom:12px;}
+.exhibit__icon{
+  flex:none; width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--acc); border-radius:9px;
+  color:var(--acc-bright);
+  background:linear-gradient(160deg, var(--acc-soft), transparent);
+}
+.exhibit__icon svg{width:23px; height:23px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+.exhibit__title{
+  font-family:var(--mono); font-weight:600;
+  font-size:clamp(1.9rem, 3.4vw, 2.7rem); line-height:1.06; letter-spacing:-.01em;
+  margin-bottom:0;
+}
+.exhibit__dek{font-size:1.08rem; color:var(--acc-bright); font-weight:500; margin-bottom:18px; max-width:52ch; line-height:1.5;}
+.exhibit__body{color:var(--fg-dim); line-height:1.72; max-width:62ch; margin-bottom:0; font-size:.98rem;}
+.exhibit__body b{color:var(--fg); font-weight:600;}
+
+/* proof tiles */
+.proof-grid{
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line);
+  margin-bottom:22px;
+}
+.proof{
+  background:rgba(40,51,66,.78); padding:20px 18px 20px 20px; position:relative;
+  border-left:2px solid var(--acc-soft);
+  transition:border-color .3s var(--ease), background .3s var(--ease);
+}
+.exhibit:nth-of-type(even) .proof{background:rgba(49,61,77,.82);}
+.proof:hover{border-left-color:var(--acc);}
+.proof__cite{
+  position:absolute; top:12px; right:14px;
+  font-family:var(--mono); font-size:.65rem; color:var(--fg-faint);
+}
+.proof__value{
+  font-family:var(--mono); font-weight:600; color:var(--acc-bright);
+  font-size:clamp(1.3rem, 2vw, 1.6rem); margin-bottom:6px; line-height:1.1;
+}
+.proof__label{font-size:.78rem; color:var(--fg-dim); line-height:1.4;}
+
+/* tags */
+.tags{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:28px;}
+.tag{
+  font-family:var(--mono); font-size:.7rem; font-weight:500; letter-spacing:.02em;
+  border:1px solid rgba(255,255,255,.08); background:rgba(58,70,88,.62);
+  color:#D3DAE3; padding:6px 13px; border-radius:var(--r-pill);
+}
+.exhibit:nth-of-type(even) .tag{background:rgba(65,79,98,.72);}
+.tag--new{border-color:var(--acc); color:var(--acc-bright); background:var(--acc-soft);}
+
+.exhibit__actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:0;}
+.btn--outline{border:1px solid var(--line-soft); color:var(--fg);}
+.btn--outline:hover{border-color:var(--acc); color:var(--acc-bright); box-shadow:0 10px 22px rgba(0,0,0,.10);}
+.btn--play{background:var(--acc); color:var(--paper);}
+.btn--play:hover{background:var(--acc-bright); transform:translateY(-2px);}
+
+/* project media: product screens + visible video demo */
+.project-media{
+  display:grid;
+  grid-template-columns:minmax(0, 1.03fr) minmax(280px, .87fr);
+  gap:14px;
+  align-items:stretch;
+}
+.project-media__repo{
+  grid-column:1 / -1;
+  display:flex;
+  justify-content:center;
+  padding-top:2px;
+}
+.project-media__repo .btn{
+  min-width:230px;
+  justify-content:center;
+}
+.btn--repo{
+  background:var(--acc);
+  color:var(--repo-fg);
+  border:1px solid var(--acc);
+  box-shadow:0 10px 22px rgba(35,45,57,.16);
+}
+.btn--repo:hover{
+  background:var(--acc-bright);
+  color:var(--repo-fg);
+  border-color:var(--acc-bright);
+  box-shadow:0 14px 28px rgba(35,45,57,.22);
+  transform:translateY(-2px);
+}
+.btn--repo:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--acc) 42%, transparent);
+  outline-offset:3px;
+}
+.media-panel{
+  min-width:0;
+  border:1px solid rgba(255,255,255,.09);
+  border-top:2px solid var(--acc);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg, rgba(62,76,96,.34), rgba(39,49,63,.82));
+  box-shadow:0 12px 28px rgba(0,0,0,.10);
+  padding:14px;
+}
+.exhibit:nth-of-type(even) .media-panel{
+  background:linear-gradient(180deg, rgba(73,88,110,.32), rgba(46,57,72,.82));
+}
+.media-panel__head{
+  min-height:44px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:1px 2px 12px;
+}
+.media-panel__kicker{
+  display:block;
+  font-family:var(--mono);
+  font-size:.61rem;
+  font-weight:600;
+  line-height:1.3;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--acc-bright);
+  margin-bottom:3px;
+}
+.media-panel__title{
+  font-family:var(--mono);
+  font-size:.83rem;
+  font-weight:600;
+  line-height:1.3;
+  color:var(--fg);
+}
+.media-panel__index{
+  flex:none;
+  font-family:var(--mono);
+  font-size:.61rem;
+  line-height:1.35;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--fg-faint);
+  border:1px solid var(--line-soft);
+  border-radius:var(--r-pill);
+  padding:5px 9px;
+}
+
+.gallery__main{
+  border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden;
+  cursor:zoom-in; position:relative; background:rgba(34,44,57,.92);
+  aspect-ratio:16/10.15;
+}
+.gallery__main::after{
+  content:"";
+  position:absolute; inset:0;
+  border:1px solid rgba(255,255,255,.025);
+  pointer-events:none;
+}
+.gallery__main img{width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s var(--ease), filter .5s var(--ease);}
+.gallery__main--contain img{object-fit:contain; background:#F3EFE4; padding:5px;}
+.gallery__main:hover{box-shadow:0 0 0 1px var(--acc-soft) inset;}
+.gallery__main:hover img{transform:scale(1.018); filter:brightness(1.03);}
+.gallery__main--contain:hover img{transform:scale(1.008);}
+.gallery__main .cap{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:22px 14px 10px; font-family:var(--mono); font-size:.65rem; color:var(--fg-dim);
+  background:linear-gradient(0deg, rgba(10,12,16,.94), rgba(10,12,16,.48) 58%, transparent);
+}
+.gallery__thumbs{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:8px;
+}
+.gallery__thumb{
+  border:1px solid var(--line); border-radius:var(--r-sm); overflow:hidden;
+  cursor:zoom-in; aspect-ratio:4/3; position:relative; background:rgba(34,44,57,.92);
+}
+.gallery__thumb::after{
+  content:"+";
+  position:absolute; top:6px; right:6px;
+  width:18px; height:18px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:.7rem; color:var(--fg);
+  background:rgba(10,12,16,.76); border:1px solid rgba(234,230,220,.18);
+  border-radius:50%; opacity:0; transform:scale(.8);
+  transition:opacity .25s var(--ease), transform .25s var(--ease);
+}
+.gallery__thumb img{width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .4s var(--ease), filter .4s var(--ease);}
+.gallery__thumb--tall img{object-fit:contain; background:var(--ink-950); padding:5px;}
+.gallery__thumb:hover{box-shadow:0 0 0 1px var(--acc-soft) inset;}
+.gallery__thumb:hover img{transform:scale(1.05); filter:brightness(1.08);}
+.gallery__thumb:hover::after{opacity:1; transform:scale(1);}
+.gallery__thumb .cap{display:none;}
+.gallery__thumbs--3{grid-template-columns:repeat(3,1fr);}
+.gallery__thumbs--2{grid-template-columns:repeat(2,1fr);}
+
+.media-panel--video{
+  display:flex;
+  flex-direction:column;
+}
+.video-card{
+  position:relative;
+  flex:1;
+  min-height:0;
+  width:100%;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+  background:rgba(31,40,52,.96);
+  text-align:left;
+  aspect-ratio:16/10.15;
+  isolation:isolate;
+}
+.video-card::before{
+  content:"";
+  position:absolute; inset:0;
+  z-index:2;
+  background:
+    linear-gradient(180deg, rgba(8,9,12,.52) 0%, transparent 31%, transparent 52%, rgba(8,9,12,.9) 100%),
+    linear-gradient(90deg, rgba(214,162,63,.1), transparent 50%);
+  transition:background .35s var(--ease);
+}
+.video-card::after{
+  content:"";
+  position:absolute; inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 4px);
+  opacity:.32;
+}
+.video-card__poster{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:top;
+  filter:saturate(.74) contrast(1.03) brightness(.8);
+  transform:scale(1.015);
+  transition:transform .65s var(--ease), filter .45s var(--ease);
+}
+.video-card__top{
+  position:absolute; z-index:4; top:13px; left:13px; right:13px;
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:.57rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:rgba(234,230,220,.82);
+}
+.video-card__type{display:flex; align-items:center; gap:7px;}
+.video-card__type::before{
+  content:""; width:6px; height:6px; border-radius:50%; background:var(--acc-bright);
+  box-shadow:0 0 0 4px var(--acc-soft);
+}
+.video-card__format{color:rgba(234,230,220,.52);}
+.video-card__play{
+  position:absolute; z-index:5; left:50%; top:45%;
+  width:68px; height:68px;
+  transform:translate(-50%,-50%);
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  color:var(--paper);
+  background:var(--acc);
+  border:1px solid rgba(231,223,199,.38);
+  box-shadow:0 14px 38px rgba(0,0,0,.38), 0 0 0 9px var(--acc-soft);
+  transition:transform .35s var(--ease), background .35s var(--ease), box-shadow .35s var(--ease);
+}
+.video-card__play svg{width:22px; height:22px; margin-left:3px;}
+.video-card__copy{
+  position:absolute; z-index:4; left:15px; right:15px; bottom:19px;
+  display:flex; flex-direction:column; gap:3px;
+  padding-right:36px;
+}
+.video-card__copy strong{
+  font-family:var(--mono); font-size:.8rem; line-height:1.35; color:var(--fg);
+}
+.video-card__copy small{
+  font-size:.7rem; line-height:1.45; color:var(--fg-dim);
+}
+.video-card__corner{
+  position:absolute; z-index:4; right:14px; bottom:18px;
+  font-family:var(--mono); font-size:.62rem; color:var(--acc-bright);
+  transition:transform .3s var(--ease);
+}
+.video-card__rail{
+  position:absolute; z-index:5; left:0; right:0; bottom:0; height:3px;
+  background:rgba(234,230,220,.1);
+}
+.video-card__rail::before{
+  content:""; display:block; width:28%; height:100%; background:var(--acc-bright);
+  transform-origin:left; transform:scaleX(.18);
+  transition:transform .8s var(--ease);
+}
+.video-card:hover::before{
+  background:linear-gradient(180deg, rgba(8,9,12,.42) 0%, transparent 34%, transparent 50%, rgba(8,9,12,.86) 100%);
+}
+.video-card:hover .video-card__poster{transform:scale(1.055); filter:saturate(.88) contrast(1.05) brightness(.82);}
+.video-card:hover .video-card__play{transform:translate(-50%,-50%) scale(1.08); background:var(--acc-bright); box-shadow:0 18px 42px rgba(0,0,0,.45), 0 0 0 12px var(--acc-soft);}
+.video-card:hover .video-card__corner{transform:translateX(3px);}
+.video-card:hover .video-card__rail::before{transform:scaleX(1);}
+.video-card:focus-visible{outline:2px solid var(--acc); outline-offset:3px;}
+.video-card__note{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:10px 2px 0;
+  font-family:var(--mono); font-size:.6rem; line-height:1.4; color:var(--fg-faint);
+}
+.video-card__note span:last-child{color:var(--fg-dim);}
+
+@media (max-width:1180px){
+  .exhibit__grid{grid-template-columns:1fr; gap:28px;}
+  .exhibit__grid > div:first-child{display:block;}
+  .project-media, .proof-grid, .tags, .exhibit__actions, .exhibit__title, .exhibit__dek, .exhibit__body{grid-column:auto; grid-row:auto;}
+}
+@media (max-width:1040px){
+  .project-media{grid-template-columns:1fr;}
+  .media-panel--video{min-height:auto;}
+  .video-card{aspect-ratio:16/8.7;}
+}
+@media (max-width:980px){
+  .proof-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:620px){
+  .media-panel{padding:10px;}
+  .media-panel__head{padding-bottom:10px;}
+  .gallery__thumbs, .gallery__thumbs--3{grid-template-columns:repeat(2,1fr);}
+  .video-card{aspect-ratio:16/10.2;}
+  .video-card__play{width:58px; height:58px;}
+  .video-card__copy{padding-right:24px;}
+  .video-card__copy small{display:none;}
+  .video-card__format{display:none;}
+}
+
+/* ============================================================
+   APPROACH — asymmetric editorial composition
+   ============================================================ */
+.approach{
+  border-top:1px solid var(--line);
+  padding-bottom:96px;
+  background:
+    radial-gradient(700px 400px at 8% 15%, rgba(201,155,72,.055), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.014), rgba(255,255,255,.003));
+}
+.approach .sec-intro{padding-bottom:34px;}
+.approach .sec-intro p:not(.eyebrow){color:#C8D0DB;}
+.approach-board{
+  display:grid;
+  grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);
+  grid-template-rows:1fr 1fr;
+  gap:16px;
+}
+.principle{
+  position:relative;
+  border:1px solid rgba(255,255,255,.11);
+  background:linear-gradient(145deg, rgba(45,56,71,.34), rgba(24,31,42,.72));
+  padding:28px 30px;
+  overflow:hidden;
+}
+.principle::after{
+  content:"";
+  position:absolute; inset:auto -20% -55% 15%; height:75%;
+  background:radial-gradient(ellipse, rgba(201,155,72,.08), transparent 68%);
+  pointer-events:none;
+}
+.principle--lead{
+  grid-row:1 / 3;
+  min-height:390px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:34px 36px;
+  border-color:rgba(201,155,72,.42);
+  background:
+    linear-gradient(180deg, rgba(28,35,48,.18), rgba(20,26,35,.92)),
+    repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(255,255,255,.025) 31px, rgba(255,255,255,.025) 32px);
+}
+.principle__num{
+  position:absolute; top:22px; right:24px;
+  font-family:var(--mono); font-size:clamp(3.5rem,7vw,6.4rem); font-weight:600;
+  line-height:.85; color:rgba(232,191,113,.12); letter-spacing:-.08em;
+}
+.principle--lead .principle__num{top:28px; right:30px; font-size:clamp(5.4rem,10vw,9rem);}
+.principle__label{
+  position:relative; z-index:1;
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:var(--mono); font-size:.66rem; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--amber-bright); margin-bottom:16px;
+}
+.principle__label::before{content:""; width:22px; height:1px; background:var(--amber);}
+.principle h3{
+  position:relative; z-index:1;
+  font-family:var(--mono); color:#F5F1E9; font-size:clamp(1.25rem,2vw,1.7rem);
+  line-height:1.18; margin-bottom:14px; max-width:18ch;
+}
+.principle--lead h3{font-size:clamp(1.8rem,3vw,2.55rem); max-width:13ch;}
+.principle p{
+  position:relative; z-index:1;
+  color:#C7D0DB; line-height:1.72; font-size:.96rem; max-width:58ch;
+}
+.principle--lead p{font-size:1.02rem; max-width:52ch;}
+@media (max-width:900px){
+  .approach-board{grid-template-columns:1fr; grid-template-rows:auto;}
+  .principle--lead{grid-row:auto; min-height:340px;}
+}
+@media (max-width:620px){
+  .principle,.principle--lead{padding:24px; min-height:auto;}
+  .principle__num{font-size:4.5rem;}
+}
+
+/* ============================================================
+   ABOUT — light paper dossier
+   ============================================================ */
+.about{
+  border-top:1px solid #D8CEB4;
+  background:
+    linear-gradient(90deg, rgba(86,72,45,.035) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(86,72,45,.025) 1px, transparent 1px),
+    var(--paper);
+  background-size:48px 48px;
+  color:var(--paper-ink);
+  padding-bottom:92px;
+}
+.about .eyebrow{color:#766F60;}
+.about .eyebrow::before{background:var(--brick);}
+.about .sec-intro h2{color:var(--paper-ink); max-width:820px;}
+.about__grid{display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:64px; align-items:start;}
+.about__copy{padding-top:4px;}
+.about__copy p{color:var(--paper-ink-dim); line-height:1.82; margin-bottom:20px; font-size:1rem; max-width:52ch;}
+.about__copy p:first-child{font-size:1.08rem; color:#403A30;}
+.about__copy p b{color:var(--paper-ink); font-weight:700;}
+.profile-sheet{
+  border:1px solid #BEB293;
+  background:rgba(255,255,255,.28);
+  box-shadow:12px 14px 0 rgba(79,66,38,.065);
+}
+.profile-sheet__head{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 18px;
+  border-bottom:1px solid #CFC4A8;
+  font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; color:#6E6658;
+}
+.profile-sheet__head b{color:var(--brick); font-size:.72rem;}
+.profile-facts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}
+.profile-fact{
+  min-height:118px;
+  padding:20px 20px 18px;
+  border-right:1px solid #D2C7AA;
+  border-bottom:1px solid #D2C7AA;
+}
+.profile-fact:nth-child(2n){border-right:none;}
+.profile-fact:nth-child(5),.profile-fact:nth-child(6){border-bottom:none;}
+.profile-fact__key{
+  display:block; font-family:var(--mono); font-size:.65rem; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:#8A806D; margin-bottom:9px;
+}
+.profile-fact strong{display:block; color:var(--paper-ink); font-size:1rem; line-height:1.35; margin-bottom:5px;}
+.profile-fact small{display:block; color:#70695B; font-size:.82rem; line-height:1.5;}
+.about__right{display:flex; flex-direction:column; gap:28px; min-width:0;}
+.hust-gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.hust-photo{
+  position:relative;
+  overflow:hidden;
+  border:1px solid #BEB293;
+  background:#D8CFBA;
+  min-height:0;
+  aspect-ratio:3 / 4;
+}
+.hust-photo img{
+  width:100%; height:100%; object-fit:cover;
+  filter:none;
+  transition:transform .55s var(--ease);
+}
+.hust-photo--main img{object-position:center 44%;}
+.hust-photo--robot img{object-position:center 48%;}
+.hust-photo:hover img{transform:scale(1.015);}
+.hust-photo figcaption{
+  position:absolute; left:0; right:0; bottom:0;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 14px 11px;
+  background:linear-gradient(180deg,transparent,rgba(19,18,15,.78));
+  color:#F7F2E8;
+  font-family:var(--mono); font-size:.64rem; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+.hust-gallery__note{
+  margin-top:-12px;
+  color:#756D5E;
+  font-family:var(--mono); font-size:.68rem; line-height:1.6;
+  letter-spacing:.03em;
+}
+.language-levels{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid #D2C7AA;
+}
+.language-level{
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:13px 18px;
+  border-right:1px solid #D2C7AA;
+  border-bottom:1px solid #D2C7AA;
+  font-family:var(--mono); font-size:.7rem;
+}
+.language-level:nth-child(2n){border-right:none;}
+.language-level:nth-last-child(-n+2){border-bottom:none;}
+.language-level span{color:#756D5E;}
+.language-level strong{color:var(--paper-ink); font-size:.72rem; white-space:nowrap;}
+@media (max-width:900px){
+  .about__grid{grid-template-columns:1fr; gap:40px;}
+}
+@media (max-width:680px){
+  .hust-gallery{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:560px){
+  .hust-gallery{grid-template-columns:1fr;}
+
+  .profile-facts{grid-template-columns:1fr;}
+  .profile-fact,.profile-fact:nth-child(2n),.profile-fact:nth-last-child(-n+2){border-right:none; border-bottom:1px solid #D2C7AA;}
+  .profile-fact:nth-child(6){border-bottom:none;}
+  .language-levels{grid-template-columns:1fr;}
+  .language-level,.language-level:nth-child(2n),.language-level:nth-last-child(-n+2){border-right:none; border-bottom:1px solid #D2C7AA;}
+  .language-level:last-child{border-bottom:none;}
+}
+
+/* ============================================================
+   CONTACT — direct closing panel
+   ============================================================ */
+.contact{
+  border-top:1px solid var(--line);
+  padding:88px 0 94px;
+  position:relative; overflow:hidden;
+  background:linear-gradient(135deg, rgba(45,56,71,.2), rgba(21,27,36,.1));
+}
+.contact::before{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 45% 70% at 100% 0%, rgba(201,155,72,.095), transparent 65%);
+  pointer-events:none;
+}
+.contact__inner{
+  position:relative;
+  display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+  gap:72px; align-items:end;
+}
+.contact__copy{max-width:690px;}
+.contact h2{
+  font-family:var(--mono); font-weight:600; font-size:clamp(2rem,4vw,3.3rem);
+  line-height:1.08; margin:16px 0 18px; max-width:15ch;
+}
+.contact__lede{color:#C4CCD7; font-size:1.02rem; line-height:1.72; margin:0; max-width:54ch;}
+.contact__availability{
+  display:inline-flex; align-items:center; gap:9px;
+  margin-top:26px; padding:8px 12px;
+  border:1px solid rgba(201,155,72,.48);
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--amber-bright);
+}
+.contact__availability::before{content:""; width:7px; height:7px; border-radius:50%; background:#6FCF97; box-shadow:0 0 0 4px rgba(111,207,151,.13);}
+.contact__links{display:flex; flex-direction:column; border-top:1px solid var(--line);}
+.clink{
+  display:flex; align-items:center; justify-content:space-between; gap:18px;
+  font-family:var(--mono); font-size:.9rem; font-weight:600;
+  border-bottom:1px solid var(--line); padding:18px 4px;
+  transition:padding .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+}
+.clink span{color:var(--amber-bright);}
+.clink:hover{color:var(--amber-bright); padding-left:10px; border-color:rgba(201,155,72,.45);}
+@media (max-width:860px){
+  .contact__inner{grid-template-columns:1fr; gap:42px; align-items:start;}
+  .contact h2{max-width:18ch;}
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{border-top:1px solid var(--line); padding:24px var(--pad);}
+.footer__inner{
+  max-width:var(--container); margin-inline:auto;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+  font-family:var(--mono); font-size:.75rem; color:var(--fg-faint);
+}
+.footer__inner a{color:var(--fg-faint); transition:color .2s var(--ease);}
+.footer__inner a:hover{color:var(--amber-bright);}
+
+#work, #approach, #about, #contact{scroll-margin-top:64px;}
+
+/* ============================================================
+   MODAL — shared overlay for lightbox + video
+   ============================================================ */
+.modal{
+  position:fixed; inset:0; z-index:1000;
+  display:flex; align-items:center; justify-content:center;
+  padding:5vh 4vw;
+  background:rgba(6,7,10,.88);
+  backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden;
+  transition:opacity .3s var(--ease), visibility 0s linear .3s;
+}
+.modal.is-open{opacity:1; visibility:visible; transition:opacity .3s var(--ease);}
+.modal__close{
+  position:absolute; top:22px; right:clamp(16px,4vw,44px);
+  width:42px; height:42px; border:1px solid var(--line-soft);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--fg-dim); border-radius:50%; z-index:5;
+  transition:color .2s var(--ease), border-color .2s var(--ease), transform .2s var(--ease);
+}
+.modal__close:hover{color:var(--fg); border-color:var(--fg-faint); transform:rotate(90deg);}
+
+/* lightbox */
+.lightbox__frame{
+  position:relative; max-width:min(1100px,92vw); max-height:86vh;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+}
+.lightbox__frame img{max-height:76vh; width:auto; border:1px solid var(--line-soft); border-radius:var(--r-md); object-fit:contain;}
+.lightbox__cap{
+  font-family:var(--mono); font-size:.8rem; color:var(--fg-dim); text-align:center;
+  display:flex; align-items:center; gap:14px;
+}
+.lightbox__cap b{color:var(--amber-bright);}
+.lightbox__nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:46px; height:46px; border:1px solid var(--line-soft); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; color:var(--fg-dim);
+  background:rgba(10,12,16,.5);
+  transition:color .2s var(--ease), border-color .2s var(--ease);
+}
+.lightbox__nav:hover{color:var(--fg); border-color:var(--amber);}
+.lightbox__nav--prev{left:clamp(-56px,-4vw,0px);}
+.lightbox__nav--next{right:clamp(-56px,-4vw,0px);}
+
+/* video modal */
+.videobox{width:min(920px,92vw);}
+.videobox__frame{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:var(--ink-900); border:1px solid var(--line-soft); border-radius:var(--r-md);
+  overflow:hidden; display:flex; align-items:center; justify-content:center;
+}
+.videobox video{width:100%; height:100%; object-fit:contain; background:#000;}
+.videobox__fallback{
+  position:absolute; inset:0; display:none; align-items:stretch; justify-content:stretch;
+  text-align:left; color:var(--fg-dim); background:var(--ink-900); overflow:hidden;
+}
+.videobox__fallback::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(10,12,16,.18), rgba(10,12,16,.96) 64%);
+}
+.videobox__fallback img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:top; filter:saturate(.65) brightness(.55);}
+.videobox__fallback-copy{
+  position:relative; z-index:2; margin-left:auto; width:min(420px,58%);
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:10px; padding:34px;
+}
+.videobox__fallback strong{color:var(--fg); font-size:1.05rem; font-weight:600;}
+.videobox__fallback span:not(.stamp){font-size:.83rem; line-height:1.55;}
+.videobox__fallback code{font-family:var(--mono); color:var(--amber-bright);}
+.videobox__fallback .stamp{transform:rotate(-2deg); margin-top:6px;}
+@media (max-width:640px){
+  .videobox__fallback::after{background:linear-gradient(0deg, rgba(10,12,16,.98) 0%, rgba(10,12,16,.78) 70%, rgba(10,12,16,.25));}
+  .videobox__fallback-copy{width:100%; margin-top:auto; padding:24px;}
+}
+.videobox__title{
+  margin-top:16px; text-align:center; font-family:var(--mono); font-size:.85rem; color:var(--fg-dim);
+}
+
+@media (max-width:640px){
+  .lightbox__nav{display:none;}
+}
+@media (max-width:640px){
+  .exhibit{padding:54px 0 62px;}
+  .proof-grid{grid-template-columns:1fr;}
+}
+
+
+/* ============================================================
+   REFINED WORK SECTION — LIGHTER, LOWER-FATIGUE CANVAS
+   Keeps two explicit media boxes: screenshots + video.
+   ============================================================ */
+.work{
+  color:#1D2733;
+  background:
+    radial-gradient(900px 420px at 8% 0%, rgba(201,155,72,.08), transparent 58%),
+    linear-gradient(180deg,#F1F3F5 0%,#E8ECF0 100%);
+  border-top:1px solid rgba(24,34,45,.12);
+}
+.work .sec-intro{
+  border-bottom:1px solid rgba(24,34,45,.12);
+}
+.work .eyebrow{color:#66717E;}
+.work .eyebrow::before{background:#A36F1F;}
+.work .sec-intro p:not(.eyebrow){color:#53606D;}
+.exhibit{
+  background:rgba(255,255,255,.22);
+  border-top:1px solid rgba(24,34,45,.11);
+}
+.exhibit:nth-of-type(even){background:rgba(255,255,255,.08);}
+.exhibit__head{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:20px;
+  color:#687482;
+}
+.exhibit__ref{color:#9B6818;}
+.exhibit__num{color:#76818E; text-align:right;}
+.exhibit__ownership{
+  justify-self:center;
+  color:#6D7885;
+  letter-spacing:.08em;
+  text-align:center;
+}
+.exhibit__title{color:#18222D;}
+.exhibit__dek{color:#A46F1D;}
+.exhibit__body{color:#52606E;}
+.exhibit__body b{color:#1D2733;}
+.proof-grid{
+  background:rgba(28,39,51,.12);
+  border-color:rgba(28,39,51,.12);
+}
+.proof,
+.exhibit:nth-of-type(even) .proof{
+  background:rgba(255,255,255,.72);
+}
+.proof__cite{color:#7B8794;}
+.proof__value{color:#9D691A;}
+.proof__label{color:#5D6976;}
+.tag,
+.exhibit:nth-of-type(even) .tag{
+  color:#465463;
+  background:rgba(255,255,255,.58);
+  border-color:rgba(28,39,51,.12);
+}
+.tag--new{color:#8F5B12; border-color:rgba(163,111,31,.48); background:rgba(232,191,113,.16);}
+.exhibit .btn--outline{
+  color:#25313D;
+  border-color:rgba(28,39,51,.22);
+  background:rgba(255,255,255,.34);
+}
+.exhibit .btn--outline:hover{
+  color:#8F5B12;
+  border-color:#B67B25;
+  background:rgba(255,255,255,.8);
+  box-shadow:0 10px 22px rgba(43,54,67,.08);
+}
+.exhibit .btn--play{box-shadow:0 8px 18px rgba(85,42,28,.12);}
+.project-media{
+  grid-template-columns:minmax(0,1.04fr) minmax(280px,.96fr);
+  gap:18px;
+}
+.media-panel,
+.exhibit:nth-of-type(even) .media-panel{
+  background:rgba(255,255,255,.68);
+  border-color:rgba(28,39,51,.14);
+  box-shadow:0 12px 30px rgba(42,54,67,.08);
+}
+.media-panel--shots{backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);}
+.media-panel--video{background:rgba(255,255,255,.50);}
+.media-panel__title{color:#25313D;}
+.media-panel__index{color:#74808C; border-color:rgba(28,39,51,.12); background:rgba(255,255,255,.44);}
+.gallery__main,.gallery__thumb{border-color:rgba(28,39,51,.16); background:#DDE3E8;}
+.video-card{border-color:rgba(28,39,51,.22);}
+.video-card__note{color:#66727F;}
+.video-card__note span:last-child{color:#798591;}
+
+/* Focus and reduced motion */
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-offset:4px;}
+@media (prefers-reduced-motion: reduce){
+  .hero .btn--solid,.nav__status .dot{animation:none!important;}
+}
+
+@media (max-width:1080px){
+  .hero__inner{grid-template-areas:"word" "lead" "bottom" "proof";}
+  .hero__bottom{padding-top:0;}
+}
+@media (max-width:980px){
+  .exhibit__head{grid-template-columns:auto auto;}
+  .exhibit__ownership{grid-column:1 / -1; grid-row:2; justify-self:start; text-align:left;}
+  .project-media{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:760px){
+  .project-media{grid-template-columns:1fr; gap:14px;}
+  .media-panel{padding:12px;}
+  .exhibit__ownership{font-size:.64rem;}
+  .proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .proof{padding:17px 14px;}
+}
+</style>
+<!-- Deployment URL: update these absolute URLs if the portfolio is hosted anywhere other than oriolmartz.github.io. -->
+<link href="https://oriolmartz.github.io/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="Oriol Martínez Ribas · AI Engineer" property="og:title"/>
+<meta content="End-to-end AI systems that turn uncertain data into auditable operational and commercial decisions." property="og:description"/>
+<meta content="https://oriolmartz.github.io/" property="og:url"/>
+<meta content="Oriol Martínez Ribas · AI Engineer" property="og:site_name"/>
+<meta content="https://oriolmartz.github.io/assets/social-preview.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Oriol Martínez Ribas · AI engineering portfolio" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Oriol Martínez Ribas · AI Engineer" name="twitter:title"/>
+<meta content="End-to-end AI systems for auditable operational and commercial decisions." name="twitter:description"/>
+<meta content="https://oriolmartz.github.io/assets/social-preview.png" name="twitter:image"/>
+<meta content="Oriol Martínez Ribas · AI engineering portfolio" name="twitter:image:alt"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23151b24'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='monospace' font-size='27' font-weight='700' fill='%23e8bf71'%3EOM%3C/text%3E%3C/svg%3E" rel="icon"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Oriol Martínez Ribas",
+  "jobTitle": "AI Engineer",
+  "url": "https://oriolmartz.github.io/",
+  "image": "https://oriolmartz.github.io/assets/social-preview.png",
+  "sameAs": [
+    "https://github.com/oriolmartz",
+    "https://linkedin.com/in/oriolmartz"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Universitat Politècnica de Catalunya"
+  }
+}
+</script></head>
+<body>
+<nav class="nav" id="nav">
+<a class="nav__mark" href="#top"><span class="bracket">[</span>OMR<span class="bracket">]</span></a>
+<div class="nav__links">
+<a href="#work">Work</a>
+<a href="#approach">Approach</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+<div class="nav__status"><span class="dot"></span>Available February 2027</div>
+<button aria-expanded="false" aria-label="Toggle menu" class="nav__toggle" id="navToggle"><span></span><span></span></button>
+</nav>
+<header class="hero" id="top">
+<span class="hero__tab">DOSSIER · REVIEW</span>
+<div class="hero__inner">
+<div class="hero__word reveal">PORTFOLIO</div>
+<div class="hero__lead">
+<p class="eyebrow">Oriol Martínez Ribas · AI Engineer · Barcelona</p>
+<h1 class="reveal">I build AI systems<br/>for <em>real decisions.</em></h1>
+<p class="hero__lede reveal">AI Engineer with a production backend foundation at Inetum, currently completing a BSc in Artificial Intelligence at UPC. I design and ship end-to-end systems that turn uncertain data into <b>auditable operational and commercial decisions</b>, not isolated model outputs.</p>
+</div>
+<div class="hero__proof">
+<div class="ledger reveal">
+<div class="ledger__head">Primary sources, not marketing copy</div>
+<div class="ledger__row">
+<span class="ledger__idx">01</span>
+<span class="ledger__text"><b>7,079,081 source flights</b> processed; the deployed artifact was evaluated once on a 50,453-flight untouched temporal test <span>· Flight Delay Risk, operational ML</span></span>
+</div>
+<div class="ledger__row">
+<span class="ledger__idx">02</span>
+<span class="ledger__text"><b>Multi-seed stability check</b> on a Gaussian HMM across 5 real assets <span>· Quant Regime Tracer, market-regime inference</span></span>
+</div>
+<div class="ledger__row">
+<span class="ledger__idx">03</span>
+<span class="ledger__text"><b>141 / 141 automated tests passing</b>, 7 / 7 canonical cases correct <span>· Evidence Route, agentic B2B account routing</span></span>
+</div>
+</div>
+</div>
+<div class="hero__bottom">
+<span class="stamp">AI engineering opportunities · Feb 2027</span>
+<div class="hero__scrollcue">
+<a href="#work"><span>Selected systems below</span><span class="arrow">↓</span></a>
+</div>
+<div class="btn-row">
+<a class="btn btn--solid" href="#work">Review the work ↓</a>
+<div class="icon-links">
+<a aria-label="GitHub" href="https://github.com/oriolmartz" rel="noopener" target="_blank"><svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.77 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.16.69-3.83-1.34-3.83-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.62 0-1.24.44-2.26 1.17-3.05-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16a10.9 10.9 0 015.72 0c2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.81 1.17 3.05 0 4.37-2.66 5.33-5.19 5.61.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .3.2.66.79.55 4.5-1.5 7.76-5.76 7.76-10.78C23.02 5.24 18.27.5 12 .5z"></path></svg></a>
+<a aria-label="LinkedIn" href="https://linkedin.com/in/oriolmartz" rel="noopener" target="_blank"><svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"></path></svg></a>
+<a aria-label="Email" href="mailto:oriol@oaibuilds.com"><svg fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18"><rect height="15" rx="1.5" width="19" x="2.5" y="4.5"></rect><path d="M3 6l9 7 9-7"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="work" id="work">
+<div class="sec-intro reveal">
+<p class="eyebrow">Selected work · 05 systems</p><h2 class="vh">Selected AI systems</h2>
+<p>Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.</p>
+</div>
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">01</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 01 of 05</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF FDR · v1.5.0</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 01 / 05</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M2.5 16.5l19-7c1-.4 1.6.7.8 1.4l-6.3 5.6 1.4 5.8c.2.9-.9 1.4-1.5.7l-3.7-4.3-4 2 .3 2.6-1.6-.5-1-2.3-2.3-.9 2.5-1.6z"></path></svg></span><h3 class="exhibit__title">Flight Delay Risk</h3></div>
+<p class="exhibit__dek reveal">Pre-departure delay prediction for risk-based operations.</p>
+<p class="exhibit__body reveal">An end-to-end supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">1.64×</div><div class="proof__label">Top-decile prioritisation lift</div></div>
+<div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">28.0%</div><div class="proof__label">Precision in the priority queue</div></div>
+<div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">1.3 pp</div><div class="proof__label">Final-test calibration gap</div></div>
+<div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">50,453</div><div class="proof__label">Flights in untouched temporal test</div></div>
+</div>
+<div class="tags reveal"><span class="tag">Machine Learning</span><span class="tag">Flight Delay Prediction</span><span class="tag">Model Comparison</span><span class="tag">Temporal Validation</span><span class="tag">Probability Calibration</span><span class="tag">Operational Decision Support</span></div>
+
+</div>
+<div class="project-media reveal">
+<section aria-label="Flight Delay Risk product screenshots" class="media-panel media-panel--shots" data-gallery="flight-delay-risk">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Interface evidence</span><h4 class="media-panel__title">Product screens</h4></div>
+<span class="media-panel__index">05 frames</span>
+</div>
+<div class="gallery__main" data-idx="0">
+<img alt="Flight Delay Risk overview" loading="lazy" src="assets/projects/flight-delay-risk/landing.png"/>
+<div class="cap">348 model-supported · 343 mapped</div>
+</div>
+<div class="gallery__thumbs">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Flight Delay Risk single-flight analysis" loading="lazy" src="assets/projects/flight-delay-risk/analysis.png"/>
+<div class="cap">A single flight, with its contributing evidence</div>
+</div>
+<div class="gallery__thumb" data-idx="2">
+<img alt="Flight Delay Risk ranked queue" loading="lazy" src="assets/projects/flight-delay-risk/ranking.png"/>
+<div class="cap">The ops queue, ranked by risk</div>
+</div>
+<div class="gallery__thumb" data-idx="3">
+<img alt="Flight Delay Risk weather context" loading="lazy" src="assets/projects/flight-delay-risk/weather.png"/>
+<div class="cap">Real NOAA conditions, paired per flight</div>
+</div>
+<div class="gallery__thumb" data-idx="4">
+<img alt="Flight Delay Risk validation" loading="lazy" src="assets/projects/flight-delay-risk/validation.png"/>
+<div class="cap">Calibration and temporal validation</div>
+</div>
+</div>
+</section>
+<section aria-label="Flight Delay Risk video demo" class="media-panel media-panel--video">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
+<span class="media-panel__index">Demo 01</span>
+</div>
+<button aria-label="Play Flight Delay Risk product walkthrough" class="video-card" data-poster="assets/projects/flight-delay-risk/analysis.png" data-title="Flight Delay Risk: product walkthrough" data-video="flight-delay-risk-demo.mp4">
+<img alt="Flight Delay Risk analysis video preview" class="video-card__poster" loading="lazy" src="assets/projects/flight-delay-risk/analysis.png"/>
+<span class="video-card__top"><span class="video-card__type">Product demo</span><span class="video-card__format">Video · fullscreen</span></span>
+<span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
+<span class="video-card__copy"><strong>From schedule and weather to an ops queue</strong><small>Flight analysis, risk ranking and validation evidence.</small></span>
+<span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
+<span aria-hidden="true" class="video-card__rail"></span>
+</button>
+<div class="video-card__note"><span>Click to open player</span><span>Pre-departure workflow</span></div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/flight-delay-risk" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">02</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 02 of 05</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF QRT · Regime Traceback</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 02 / 05</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M3 17l5.5-6 4 3L20 6"></path><path d="M14.5 6H20v5.5"></path></svg></span><h3 class="exhibit__title">Quant Regime Tracer</h3></div>
+<p class="exhibit__dek reveal">Interpretable market regime detection with probabilistic time-series models.</p>
+<p class="exhibit__body reveal">A probabilistic time-series platform for five real assets using Gaussian Hidden Markov Models, engineered risk features and BIC-based model selection. Chronological validation and multi-seed stability checks assess robustness, while posterior probabilities, entropy and per-date feature evidence make each regime assignment inspectable.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[02]</span><div class="proof__value">5</div><div class="proof__label">Real assets validated</div></div>
+<div class="proof"><span class="proof__cite">[02]</span><div class="proof__value">8</div><div class="proof__label">Engineered risk features</div></div>
+<div class="proof"><span class="proof__cite">[02]</span><div class="proof__value">k=2–5</div><div class="proof__label">Regime candidates compared</div></div>
+<div class="proof"><span class="proof__cite">[02]</span><div class="proof__value">29</div><div class="proof__label">Backend tests passed</div></div>
+</div>
+<div class="tags reveal"><span class="tag">Probabilistic Machine Learning</span><span class="tag">Time-Series Analysis</span><span class="tag">Hidden Markov Models</span><span class="tag">Market Regime Detection</span><span class="tag">Model Selection</span><span class="tag">Explainable Inference</span></div>
+
+</div>
+<div class="project-media reveal">
+<section aria-label="Quant Regime Tracer product screenshots" class="media-panel media-panel--shots" data-gallery="quant-regime-tracer">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Interface evidence</span><h4 class="media-panel__title">Product screens</h4></div>
+<span class="media-panel__index">05 frames</span>
+</div>
+<div class="gallery__main" data-idx="0">
+<img alt="Quant Regime Tracer overview" loading="lazy" src="assets/projects/quant-regime-tracer/hero.png"/>
+<div class="cap">Regime overlay on real market data</div>
+</div>
+<div class="gallery__thumbs">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Quant Regime Tracer dashboard" loading="lazy" src="assets/projects/quant-regime-tracer/dashboard.png"/>
+<div class="cap">The probability behind the current call</div>
+</div>
+<div class="gallery__thumb gallery__thumb--tall" data-idx="2">
+<img alt="Quant Regime Tracer traceback" loading="lazy" src="assets/projects/quant-regime-tracer/traceback.png"/>
+<div class="cap">Regime Traceback for a single date</div>
+</div>
+<div class="gallery__thumb" data-idx="3">
+<img alt="Quant Regime Tracer comparison" loading="lazy" src="assets/projects/quant-regime-tracer/compare.png"/>
+<div class="cap">Regime behaviour, ranked across assets</div>
+</div>
+<div class="gallery__thumb" data-idx="4">
+<img alt="Quant Regime Tracer validation" loading="lazy" src="assets/projects/quant-regime-tracer/validation.png"/>
+<div class="cap">Model selection, shown not asserted</div>
+</div>
+</div>
+</section>
+<section aria-label="Quant Regime Tracer video demo" class="media-panel media-panel--video">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
+<span class="media-panel__index">Demo 02</span>
+</div>
+<button aria-label="Play Quant Regime Tracer product walkthrough" class="video-card" data-poster="assets/projects/quant-regime-tracer/dashboard.png" data-title="Quant Regime Tracer: product walkthrough" data-video="quant-regime-tracer-demo.mp4">
+<img alt="Quant Regime Tracer dashboard video preview" class="video-card__poster" loading="lazy" src="assets/projects/quant-regime-tracer/dashboard.png"/>
+<span class="video-card__top"><span class="video-card__type">Product demo</span><span class="video-card__format">Video · fullscreen</span></span>
+<span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
+<span class="video-card__copy"><strong>From raw prices to an explainable regime</strong><small>Inference, posterior evidence, traceback and validation.</small></span>
+<span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
+<span aria-hidden="true" class="video-card__rail"></span>
+</button>
+<div class="video-card__note"><span>Click to open player</span><span>Model-to-interface flow</span></div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/quant-regime-tracer" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">03</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 03 of 05</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF ER · v2.4.0</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 03 / 05</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><circle cx="6" cy="6" r="2.4"></circle><circle cx="18" cy="18" r="2.4"></circle><path d="M6 8.4V13a4 4 0 0 0 4 4h3.6"></path></svg></span><h3 class="exhibit__title">Evidence Route</h3></div>
+<p class="exhibit__dek reveal">Evidence-backed account research and routing with agents, RAG and MCP.</p>
+<p class="exhibit__body reveal">An LLM-powered account intelligence workflow that combines first-party research with hybrid RAG, separates verified claims from hypotheses and routes accounts through structured decision rules. Its MCP-compatible agent interface preserves source provenance, evaluates retrieval on labelled queries and exports executive-ready briefs.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">141</div><div class="proof__label">Automated tests passed</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">40</div><div class="proof__label">Labelled RAG queries evaluated</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">7 / 7</div><div class="proof__label">Canonical routing cases correct</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">100</div><div class="proof__label">Accounts per API batch</div></div>
+</div>
+<div class="tags reveal"><span class="tag">AI Agents</span><span class="tag">LLMs</span><span class="tag">Hybrid RAG</span><span class="tag">Model Context Protocol</span><span class="tag">Evidence Grounding</span><span class="tag">B2B Account Intelligence</span></div>
+
+</div>
+<div class="project-media reveal">
+<section aria-label="Evidence Route product screenshots" class="media-panel media-panel--shots" data-gallery="evidence-route">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Interface evidence</span><h4 class="media-panel__title">Product screens</h4></div>
+<span class="media-panel__index">04 frames</span>
+</div>
+<div class="gallery__main" data-idx="0">
+<img alt="Evidence Route research workspace" loading="lazy" src="assets/projects/evidence-route/overview.png"/>
+<div class="cap">Research workspace, one account evaluated end to end</div>
+</div>
+<div class="gallery__thumbs gallery__thumbs--3">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Evidence Route routing gate" loading="lazy" src="assets/projects/evidence-route/routing.png"/>
+<div class="cap">The routing gate, evidence attached</div>
+</div>
+<div class="gallery__thumb gallery__thumb--tall" data-idx="2">
+<img alt="Evidence Route claim verification" loading="lazy" src="assets/projects/evidence-route/provenance.png"/>
+<div class="cap">Claim verification against the source</div>
+</div>
+<div class="gallery__thumb" data-idx="3">
+<img alt="Evidence Route exported report" loading="lazy" src="assets/projects/evidence-route/report.png"/>
+<div class="cap">The exported account dossier</div>
+</div>
+</div>
+</section>
+<section aria-label="Evidence Route video demo" class="media-panel media-panel--video">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
+<span class="media-panel__index">Demo 03</span>
+</div>
+<button aria-label="Play Evidence Route product walkthrough" class="video-card" data-poster="assets/projects/evidence-route/routing.png" data-title="Evidence Route: product walkthrough" data-video="evidenceroute-demo.mp4">
+<img alt="Evidence Route routing interface video preview" class="video-card__poster" loading="lazy" src="assets/projects/evidence-route/routing.png"/>
+<span class="video-card__top"><span class="video-card__type">Product demo</span><span class="video-card__format">Video · fullscreen</span></span>
+<span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
+<span class="video-card__copy"><strong>From public signals to a routed account</strong><small>Research, evidence gate, commercial fit and export.</small></span>
+<span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
+<span aria-hidden="true" class="video-card__rail"></span>
+</button>
+<div class="video-card__note"><span>Click to open player</span><span>End-to-end flow</span></div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/evidence-route" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">04</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 04 of 05</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF NS · v0.2.0</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 04 / 05</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><circle cx="8" cy="8" r="3.2"></circle><circle cx="17" cy="9" r="2.2"></circle><circle cx="12" cy="17" r="2.6"></circle><path d="M10.4 9.8L14.8 16M9.9 6.8l4.9 1.4"></path></svg></span><h3 class="exhibit__title">Narrative Shift</h3></div>
+<p class="exhibit__dek reveal">Probabilistic NLP for tracking narratives across the European AI Act debate.</p>
+<p class="exhibit__body reveal">An NLP pipeline that learns latent topics from attributable European AI Act sources using a custom collapsed-Gibbs LDA implementation. Source-held-out validation and cross-seed alignment test topic stability, while source-balanced profiles and Jensen-Shannon divergence compare narratives across actors in an interactive React atlas.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">20</div><div class="proof__label">Attributable public sources</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">1,035</div><div class="proof__label">Retained corpus sentences</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">0.781</div><div class="proof__label">Cross-seed topic stability</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">44</div><div class="proof__label">Automated tests passed</div></div>
+</div>
+<div class="tags reveal"><span class="tag">Natural Language Processing</span><span class="tag">Topic Modeling</span><span class="tag">Probabilistic Modeling</span><span class="tag tag--new">Latent Dirichlet Allocation</span><span class="tag">Source-held-out Validation</span><span class="tag">Narrative Intelligence</span></div>
+
+</div>
+<div class="project-media reveal">
+<section aria-label="Narrative Shift product screenshots" class="media-panel media-panel--shots" data-gallery="narrative-shift">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Interface evidence</span><h4 class="media-panel__title">Product screens</h4></div>
+<span class="media-panel__index">03 frames</span>
+</div>
+<div class="gallery__main gallery__main--contain" data-idx="0">
+<img alt="Narrative Shift European topic atlas overview" loading="lazy" src="assets/projects/narrative-shift/overview.png"/>
+<div class="cap">The European AI Act topic atlas and selected probabilistic model</div>
+</div>
+<div class="gallery__thumbs gallery__thumbs--2">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Six latent topics discovered by Narrative Shift" loading="lazy" src="assets/projects/narrative-shift/topics.png"/>
+<div class="cap">Six topics discovered from co-occurrence, not manual labels</div>
+</div>
+<div class="gallery__thumb gallery__thumb--tall" data-idx="2">
+<img alt="Narrative Shift actor divergence comparison" loading="lazy" src="assets/projects/narrative-shift/divergence.png"/>
+<div class="cap">Source-balanced actor profiles and Jensen–Shannon divergence</div>
+</div>
+</div>
+</section>
+<section aria-label="Narrative Shift video demo" class="media-panel media-panel--video">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
+<span class="media-panel__index">Demo 04</span>
+</div>
+<button aria-label="Play Narrative Shift product walkthrough" class="video-card" data-poster="assets/projects/narrative-shift/overview.png" data-title="Narrative Shift: product walkthrough" data-video="" data-video-pending="true">
+<img alt="Narrative Shift topic atlas video preview" class="video-card__poster" loading="lazy" src="assets/projects/narrative-shift/overview.png"/>
+<span class="video-card__top"><span class="video-card__type">Product demo</span><span class="video-card__format">Video · fullscreen</span></span>
+<span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
+<span class="video-card__copy"><strong>From public sources to a source-linked topic atlas</strong><small>Corpus, model selection, actor divergence and attributable evidence.</small></span>
+<span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
+<span aria-hidden="true" class="video-card__rail"></span>
+</button>
+<div class="video-card__note"><span>Click to open player</span><span>Corpus-to-atlas flow</span></div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/narrative-shift" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">05</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 05 of 05</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF MWO · HackUPC 2026</span>
+<span class="exhibit__ownership">HackUPC team project · Competition prototype</span><span class="exhibit__num">Exhibit 05 / 05</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M4 20V4h16v16"></path><path d="M4 9h16M4 14h16"></path><path d="M8 9v5M15 9v5"></path></svg></span><h3 class="exhibit__title">Warehouse Optimizer</h3></div>
+<p class="exhibit__dek reveal">Constraint-aware rack placement for the HackUPC 2026 Mecalux challenge.</p>
+<p class="exhibit__body reveal">A team-built hackathon prototype that converts warehouse boundaries, obstacles, ceiling profiles and bay catalogues into feasible rack layouts under a fixed runtime budget. Its heuristic search combines multi-strategy shelf packing, access-gap reuse, residual-space filling and local repair, while the FastAPI interface provides 2D/3D inspection and evaluator-ready CSV export.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">5</div><div class="proof__label">Public challenge cases included</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">4</div><div class="proof__label">Constraint input files per solve</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">2D / 3D</div><div class="proof__label">Interactive layout inspection</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">CSV</div><div class="proof__label">Evaluator-ready placement export</div></div>
+</div>
+<div class="tags reveal"><span class="tag">Heuristic Optimisation</span><span class="tag">Spatial Search</span><span class="tag">Constraint Validation</span><span class="tag">FastAPI</span><span class="tag">Three.js</span><span class="tag tag--new">HackUPC 2026</span></div>
+</div>
+<div class="project-media reveal">
+<section aria-label="Warehouse Optimizer product screenshots" class="media-panel media-panel--shots" data-gallery="mecalux-warehouse-optimizer">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Competition build</span><h4 class="media-panel__title">Interface and output</h4></div>
+<span class="media-panel__index">03 frames</span>
+</div>
+<div class="gallery__main gallery__main--contain" data-idx="0">
+<img alt="Warehouse Optimizer result with placed racks and solve metrics" loading="lazy" src="assets/projects/mecalux-warehouse-optimizer/results.png"/>
+<div class="cap">Constraint-aware placement with metrics, gap zones and ceiling sections</div>
+</div>
+<div class="gallery__thumbs gallery__thumbs--2">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Warehouse Optimizer challenge input screen" loading="lazy" src="assets/projects/mecalux-warehouse-optimizer/upload.png"/>
+<div class="cap">Four challenge inputs or a built-in example case</div>
+</div>
+<div class="gallery__thumb" data-idx="2">
+<img alt="HackUPC 2026 Mecalux Warehouse Optimizer project cover" loading="lazy" src="assets/projects/mecalux-warehouse-optimizer/challenge-hero.jpg"/>
+<div class="cap">HackUPC 2026 · Mecalux challenge build</div>
+</div>
+</div>
+</section>
+<section aria-label="Warehouse Optimizer video demo" class="media-panel media-panel--video">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Competition walkthrough</span><h4 class="media-panel__title">See the solver in motion</h4></div>
+<span class="media-panel__index">Demo 05</span>
+</div>
+<button aria-label="Play Warehouse Optimizer competition walkthrough" class="video-card" data-poster="assets/projects/mecalux-warehouse-optimizer/results.png" data-title="Warehouse Optimizer: HackUPC walkthrough" data-video="warehouse-optimizer-demo.mp4">
+<img alt="Warehouse Optimizer result video preview" class="video-card__poster" loading="lazy" src="assets/projects/mecalux-warehouse-optimizer/results.png"/>
+<span class="video-card__top"><span class="video-card__type">Hackathon demo</span><span class="video-card__format">Video · fullscreen</span></span>
+<span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
+<span class="video-card__copy"><strong>From warehouse constraints to an inspectable rack layout</strong><small>Input parsing, optimisation, 2D/3D review and CSV export.</small></span>
+<span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
+<span aria-hidden="true" class="video-card__rail"></span>
+</button>
+<div class="video-card__note"><span>Click to open player</span><span>Competition workflow</span></div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/mecalux-hackupc-2026" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+</section>
+<section class="approach" id="approach">
+<div class="sec-intro reveal">
+<p class="eyebrow">How I work</p>
+<h2>How I turn models into usable systems.</h2>
+<p>The model is only one layer. I design around evidence, failure modes and the decision a person ultimately has to make with the output.</p>
+</div>
+<div class="container">
+<div class="approach-board">
+<article class="principle principle--lead reveal">
+<span class="principle__num">01</span>
+<span class="principle__label">Evidence</span>
+<h3>Make every important claim traceable.</h3>
+<p>Model and product decisions should point to measurable evidence: a test, a benchmark or a held-out score. If I cannot show where a number came from, it does not belong on the page.</p>
+</article>
+<article class="principle reveal">
+<span class="principle__num">02</span>
+<span class="principle__label">Systems</span>
+<h3>Build beyond the notebook.</h3>
+<p>Data pipeline, validation, API, interface and human review are part of the product, not afterthoughts.</p>
+</article>
+<article class="principle reveal">
+<span class="principle__num">03</span>
+<span class="principle__label">Use</span>
+<h3>Optimise for the decision.</h3>
+<p>The relevant question is not only whether a model performs, but whether its output improves a real decision under real constraints.</p>
+</article>
+</div>
+</div>
+</section>
+<section class="about" id="about">
+<div class="sec-intro reveal">
+<p class="eyebrow">Profile</p>
+<h2>Software foundation. AI systems focus. International direction.</h2>
+</div>
+<div class="container">
+<div class="about__grid">
+<div class="about__copy reveal">
+<p>I am an <b>AI Engineer</b> with a backend foundation in enterprise software and a current focus on applied machine learning, probabilistic systems and decision intelligence. I am completing a BSc in Artificial Intelligence at UPC after working on backend services and APIs at Inetum.</p>
+<p>That sequence shapes how I build: data pipelines, validation, APIs, interfaces and human review are part of the system, not afterthoughts around a model.</p>
+<p>An academic programme at <b>Huazhong University of Science and Technology (HUST)</b> in Wuhan expanded that perspective through direct exposure to China, international collaboration and applied AI and robotics.</p>
+<p>I am particularly interested in AI engineering, AI solutions and technology consulting roles where technical systems must produce clear operational or commercial outcomes.</p>
+</div>
+<div class="about__right">
+<div class="hust-gallery reveal" aria-label="HUST academic programme photographs">
+<figure class="hust-photo hust-photo--main">
+<img alt="Oriol Martínez at Huazhong University of Science and Technology in Wuhan" loading="lazy" src="assets/about/hust-campus.jpg"/>
+<figcaption><span>HUST · Wuhan</span><span>China</span></figcaption>
+</figure>
+<figure class="hust-photo hust-photo--robot">
+<img alt="Oriol Martínez with a humanoid robot during an AI and robotics session at HUST" loading="lazy" src="assets/about/hust-robotics.jpg"/>
+<figcaption><span>AI &amp; robotics</span><span>2025</span></figcaption>
+</figure>
+</div>
+<p class="hust-gallery__note reveal">Original photographs from the HUST academic programme · Wuhan, China.</p>
+<aside aria-label="Profile summary" class="profile-sheet reveal">
+<div class="profile-sheet__head"><span>Profile brief · OMR</span><b>Active</b></div>
+<div class="profile-facts">
+<div class="profile-fact"><span class="profile-fact__key">Education</span><strong>AI Engineering · UPC FIB</strong><small>Machine learning, probabilistic modelling and distributed systems.</small></div>
+<div class="profile-fact"><span class="profile-fact__key">Foundation</span><strong>Backend · Inetum</strong><small>APIs, enterprise applications and production software.</small></div>
+<div class="profile-fact"><span class="profile-fact__key">International</span><strong>HUST · Wuhan</strong><small>Academic programme in China with continued Mandarin study.</small></div>
+<div class="profile-fact"><span class="profile-fact__key">Focus</span><strong>Applied AI systems</strong><small>ML engineering, agentic workflows and decision support.</small></div>
+<div class="profile-fact"><span class="profile-fact__key">Availability</span><strong>AI Engineering · 2027</strong><small>Barcelona, Europe or remote from February.</small></div>
+<div class="profile-fact"><span class="profile-fact__key">Direction</span><strong>Technical × commercial</strong><small>Building systems that connect engineering evidence with business decisions.</small></div>
+<div class="language-levels" aria-label="Language proficiency">
+<div class="language-level"><span>Spanish</span><strong>Native</strong></div>
+<div class="language-level"><span>Catalan</span><strong>Native</strong></div>
+<div class="language-level"><span>English</span><strong>C1</strong></div>
+<div class="language-level"><span>Mandarin Chinese</span><strong>B1</strong></div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</section>
+<section class="contact" id="contact">
+<div class="container">
+<div class="contact__inner reveal">
+<div class="contact__copy">
+<p class="eyebrow">Get in touch</p>
+<h2>Open to AI engineering opportunities.</h2>
+<p class="contact__lede">The best way to assess fit is to discuss a real system, constraint or product decision.</p>
+<span class="contact__availability">Available from February 2027</span>
+</div>
+<div class="contact__links">
+<a class="clink" href="mailto:oriol@oaibuilds.com"><span>Email Oriol</span><span>↗</span></a>
+<a class="clink" href="https://linkedin.com/in/oriolmartz" rel="noopener" target="_blank"><span>LinkedIn</span><span>↗</span></a>
+<a class="clink" href="https://github.com/oriolmartz" rel="noopener" target="_blank"><span>GitHub</span><span>↗</span></a>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="footer__inner">
+<span>© 2026 Oriol Martínez Ribas</span>
+<a href="#top">Back to top ↑</a>
+</div>
+</footer>
+<div aria-hidden="true" aria-label="Screenshot viewer" aria-modal="true" class="modal" id="lightbox" role="dialog">
+<button aria-label="Close" class="modal__close" id="lightboxClose">✕</button>
+<button aria-label="Previous image" class="lightbox__nav lightbox__nav--prev" id="lightboxPrev">‹</button>
+<div class="lightbox__frame">
+<img alt="" id="lightboxImg" src=""/>
+<div class="lightbox__cap"><b id="lightboxIdx">01</b><span id="lightboxCap"></span></div>
+</div>
+<button aria-label="Next image" class="lightbox__nav lightbox__nav--next" id="lightboxNext">›</button>
+</div>
+<div aria-hidden="true" aria-label="Demo video player" aria-modal="true" class="modal" id="videoModal" role="dialog">
+<button aria-label="Close" class="modal__close" id="videoClose">✕</button>
+<div class="videobox">
+<div class="videobox__frame">
+<video controls="" id="videoEl" playsinline="" preload="metadata"></video>
+<div class="videobox__fallback" id="videoFallback">
+<img alt="Product demo preview" id="videoFallbackPoster"/>
+<div class="videobox__fallback-copy"><strong>Demo video pending upload</strong><span>The interface and playback slot are ready; the walkthrough will appear here when the MP4 is added.</span><span class="stamp">Video slot ready</span></div>
+</div>
+</div>
+<div class="videobox__title" id="videoTitle"></div>
+</div>
+</div>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- nav scroll state ---------- */
+  var nav = document.getElementById('nav');
+  var onScroll = function(){
+    if(window.scrollY > 30) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  };
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---------- mobile nav toggle ---------- */
+  var toggle = document.getElementById('navToggle');
+  var links = document.querySelector('.nav__links');
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      links.classList.toggle('is-open');
+      toggle.classList.toggle('is-active');
+      toggle.setAttribute('aria-expanded', links.classList.contains('is-open') ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(links.querySelectorAll('a'), function(a){
+      a.addEventListener('click', function(){
+        links.classList.remove('is-open');
+        toggle.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded','false');
+      });
+    });
+  }
+
+  /* ---------- scroll reveal ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* ---------- lightbox ---------- */
+  var GALLERIES = {
+    'evidence-route': [
+      {src:'assets/projects/evidence-route/overview.png',   cap:'Research workspace, one account evaluated end to end'},
+      {src:'assets/projects/evidence-route/routing.png',     cap:'The routing gate, evidence attached'},
+      {src:'assets/projects/evidence-route/provenance.png',  cap:'Claim verification against the source'},
+      {src:'assets/projects/evidence-route/report.png',      cap:'The exported account dossier'}
+    ],
+    'quant-regime-tracer': [
+      {src:'assets/projects/quant-regime-tracer/hero.png',       cap:'Regime overlay on real market data'},
+      {src:'assets/projects/quant-regime-tracer/dashboard.png',  cap:'The probability behind the current call'},
+      {src:'assets/projects/quant-regime-tracer/traceback.png',  cap:'Regime Traceback for a single date'},
+      {src:'assets/projects/quant-regime-tracer/compare.png',    cap:'Regime behaviour, ranked across assets'},
+      {src:'assets/projects/quant-regime-tracer/validation.png', cap:'Model selection, shown not asserted'}
+    ],
+    'flight-delay-risk': [
+      {src:'assets/projects/flight-delay-risk/landing.png',    cap:'348 model-supported · 343 mapped'},
+      {src:'assets/projects/flight-delay-risk/analysis.png',   cap:'A single flight, with its contributing evidence'},
+      {src:'assets/projects/flight-delay-risk/ranking.png',    cap:'The ops queue, ranked by risk'},
+      {src:'assets/projects/flight-delay-risk/weather.png',    cap:'Real NOAA conditions, paired per flight'},
+      {src:'assets/projects/flight-delay-risk/validation.png', cap:'Calibration and temporal validation'}
+    ],
+    'narrative-shift': [
+      {src:'assets/projects/narrative-shift/overview.png',   cap:'The European AI Act topic atlas and selected probabilistic model'},
+      {src:'assets/projects/narrative-shift/topics.png',     cap:'Six topics discovered from co-occurrence, not manual labels'},
+      {src:'assets/projects/narrative-shift/divergence.png', cap:'Source-balanced actor profiles and Jensen–Shannon divergence'}
+    ],
+    'mecalux-warehouse-optimizer': [
+      {src:'assets/projects/mecalux-warehouse-optimizer/results.png',        cap:'Constraint-aware placement with metrics, gap zones and ceiling sections'},
+      {src:'assets/projects/mecalux-warehouse-optimizer/upload.png',         cap:'Four challenge inputs or a built-in example case'},
+      {src:'assets/projects/mecalux-warehouse-optimizer/challenge-hero.jpg', cap:'HackUPC 2026 · Mecalux challenge build'}
+    ]
+  };
+
+  var lightbox   = document.getElementById('lightbox');
+  var lbImg      = document.getElementById('lightboxImg');
+  var lbCap      = document.getElementById('lightboxCap');
+  var lbIdx      = document.getElementById('lightboxIdx');
+  var curKey = null, curIdx = 0;
+
+  function pad2(n){ return (n<10?'0':'')+n; }
+  function showSlide(){
+    var set = GALLERIES[curKey];
+    var item = set[curIdx];
+    lbImg.src = item.src;
+    lbImg.alt = item.cap;
+    lbCap.textContent = item.cap;
+    lbIdx.textContent = pad2(curIdx+1) + ' / ' + pad2(set.length);
+  }
+  function openLightbox(key, idx){
+    curKey = key; curIdx = idx;
+    showSlide();
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+  }
+  document.querySelectorAll('[data-gallery]').forEach(function(wrap){
+    var key = wrap.getAttribute('data-gallery');
+    wrap.querySelectorAll('.gallery__main, .gallery__thumb').forEach(function(el){
+      el.addEventListener('click', function(){
+        openLightbox(key, parseInt(el.getAttribute('data-idx'),10));
+      });
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxNext').addEventListener('click', function(){
+    curIdx = (curIdx+1) % GALLERIES[curKey].length; showSlide();
+  });
+  document.getElementById('lightboxPrev').addEventListener('click', function(){
+    curIdx = (curIdx-1+GALLERIES[curKey].length) % GALLERIES[curKey].length; showSlide();
+  });
+  lightbox.addEventListener('click', function(e){ if(e.target===lightbox) closeLightbox(); });
+
+  /* ---------- video modal ---------- */
+  var videoModal = document.getElementById('videoModal');
+  var videoEl = document.getElementById('videoEl');
+  var videoFallback = document.getElementById('videoFallback');
+  var videoTitle = document.getElementById('videoTitle');
+  var videoFallbackPoster = document.getElementById('videoFallbackPoster');
+
+  function openVideo(filename, title, poster, pending){
+    videoTitle.textContent = title || '';
+    videoFallbackPoster.src = poster || '';
+    videoEl.poster = poster || '';
+    videoModal.classList.add('is-open');
+    videoModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+
+    if(pending || !filename){
+      videoEl.pause();
+      videoEl.removeAttribute('src');
+      videoEl.style.display = 'none';
+      videoFallback.style.display = 'flex';
+      return;
+    }
+
+    videoFallback.style.display = 'none';
+    videoEl.style.display = 'block';
+    videoEl.src = 'assets/video/' + filename;
+    videoEl.load();
+    var playPromise = videoEl.play();
+    if(playPromise && playPromise.catch) playPromise.catch(function(){ /* autoplay blocked is fine, controls remain */ });
+  }
+  function closeVideo(){
+    videoModal.classList.remove('is-open');
+    videoModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    videoEl.pause();
+    videoEl.removeAttribute('src');
+    videoEl.load();
+  }
+  videoEl.addEventListener('error', function(){
+    videoEl.style.display = 'none';
+    videoFallback.style.display = 'flex';
+  });
+  document.querySelectorAll('[data-video]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      openVideo(
+        btn.getAttribute('data-video'),
+        btn.getAttribute('data-title'),
+        btn.getAttribute('data-poster'),
+        btn.getAttribute('data-video-pending') === 'true'
+      );
+    });
+  });
+  document.getElementById('videoClose').addEventListener('click', closeVideo);
+  videoModal.addEventListener('click', function(e){ if(e.target===videoModal) closeVideo(); });
+
+  /* ---------- shared: escape key ---------- */
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    if(lightbox.classList.contains('is-open')) closeLightbox();
+    if(videoModal.classList.contains('is-open')) closeVideo();
+  });
+})();
+</script>
+</body>
+</html>
