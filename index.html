@@ -797,7 +797,8 @@ body::before{
 .video-card__note span:last-child{color:var(--fg-dim);}
 
 @media (max-width:1180px){
-  .exhibit__grid{grid-template-columns:1fr; gap:28px;}
+  .exhibit__grid,
+  .exhibit:nth-of-type(even) .exhibit__grid{grid-template-columns:1fr; gap:28px;}
   .exhibit__grid > div:first-child{display:block;}
   .project-media, .proof-grid, .tags, .exhibit__actions, .exhibit__title, .exhibit__dek, .exhibit__body{grid-column:auto; grid-row:auto;}
 }
@@ -1633,7 +1634,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
 <span class="media-panel__index">Demo 04</span>
 </div>
-<button aria-label="Play Narrative Shift product walkthrough" class="video-card" data-poster="assets/projects/narrative-shift/overview.png" data-title="Narrative Shift: product walkthrough" data-video="" data-video-pending="true">
+<button aria-label="Play Narrative Shift product walkthrough" class="video-card" data-poster="assets/projects/narrative-shift/overview.png" data-title="Narrative Shift: product walkthrough" data-video="narrative-shift-demo.mp4">
 <img alt="Narrative Shift topic atlas video preview" class="video-card__poster" loading="lazy" src="assets/projects/narrative-shift/overview.png"/>
 <span class="video-card__top"><span class="video-card__type">Product demo</span><span class="video-card__format">Video · fullscreen</span></span>
 <span aria-hidden="true" class="video-card__play"><svg fill="currentColor" viewbox="0 0 24 24"><path d="M8 5.6v12.8L18.5 12 8 5.6z"></path></svg></span>
@@ -1828,7 +1829,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <button aria-label="Close" class="modal__close" id="videoClose">✕</button>
 <div class="videobox">
 <div class="videobox__frame">
-<video controls="" id="videoEl" playsinline="" preload="metadata"></video>
+<video controls="" id="videoEl" playsinline=""></video>
 <div class="videobox__fallback" id="videoFallback">
 <img alt="Product demo preview" id="videoFallbackPoster"/>
 <div class="videobox__fallback-copy"><strong>Demo video pending upload</strong><span>The interface and playback slot are ready; the walkthrough will appear here when the MP4 is added.</span><span class="stamp">Video slot ready</span></div>
@@ -1969,25 +1970,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   var videoTitle = document.getElementById('videoTitle');
   var videoFallbackPoster = document.getElementById('videoFallbackPoster');
 
-  function openVideo(filename, title, poster, pending){
+  function openVideo(filename, title, poster){
     videoTitle.textContent = title || '';
     videoFallbackPoster.src = poster || '';
     videoEl.poster = poster || '';
-    videoModal.classList.add('is-open');
-    videoModal.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
-
-    if(pending || !filename){
-      videoEl.pause();
-      videoEl.removeAttribute('src');
-      videoEl.style.display = 'none';
-      videoFallback.style.display = 'flex';
-      return;
-    }
-
     videoFallback.style.display = 'none';
     videoEl.style.display = 'block';
     videoEl.src = 'assets/video/' + filename;
+    videoModal.classList.add('is-open');
+    videoModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
     videoEl.load();
     var playPromise = videoEl.play();
     if(playPromise && playPromise.catch) playPromise.catch(function(){ /* autoplay blocked is fine, controls remain */ });
@@ -2006,12 +1998,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   });
   document.querySelectorAll('[data-video]').forEach(function(btn){
     btn.addEventListener('click', function(){
-      openVideo(
-        btn.getAttribute('data-video'),
-        btn.getAttribute('data-title'),
-        btn.getAttribute('data-poster'),
-        btn.getAttribute('data-video-pending') === 'true'
-      );
+      openVideo(btn.getAttribute('data-video'), btn.getAttribute('data-title'), btn.getAttribute('data-poster'));
     });
   });
   document.getElementById('videoClose').addEventListener('click', closeVideo);
