@@ -183,11 +183,43 @@ body::before{
   box-shadow:0 0 0 3px rgba(111,207,151,.15);
   animation:pulse-dot 2.4s ease-in-out infinite;
 }
+.nav__actions{display:flex; align-items:center; gap:12px;}
+.language-switch{
+  display:flex; align-items:center; gap:5px;
+  padding:4px 7px;
+  border:1px solid var(--line);
+  border-radius:var(--r-pill);
+  background:rgba(255,255,255,.025);
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--fg-faint);
+}
+.language-switch__option{
+  min-width:25px;
+  padding:2px 3px;
+  color:var(--fg-faint);
+  font-family:inherit;
+  font-size:inherit;
+  font-weight:600;
+  letter-spacing:.06em;
+  border-radius:var(--r-pill);
+  transition:color .2s var(--ease), background .2s var(--ease);
+}
+.language-switch__option:hover{color:var(--fg);}
+.language-switch__option.is-active{
+  color:var(--ink-950);
+  background:var(--amber);
+}
 @keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.4;}}
 .nav__toggle{display:none;}
 
+@media (max-width: 1050px){
+  .nav__status{display:none;}
+}
 @media (max-width: 860px){
   .nav__status{display:none;}
+  .nav__actions{gap:9px;}
+  .language-switch{padding:4px 6px;}
   .nav__links{
     display:none; position:absolute; top:100%; left:0; right:0;
     flex-direction:column; gap:0; background:rgba(10,12,16,.97);
@@ -1321,8 +1353,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
 </div>
+<div class="nav__actions">
+<div class="language-switch" aria-label="Language selector" role="group">
+<button type="button" class="language-switch__option is-active" data-lang="en" aria-pressed="true">EN</button>
+<span aria-hidden="true">/</span>
+<button type="button" class="language-switch__option" data-lang="es" aria-pressed="false">ES</button>
+</div>
 <div class="nav__status"><span class="dot"></span>Available February 2027</div>
 <button aria-expanded="false" aria-label="Toggle menu" class="nav__toggle" id="navToggle"><span></span><span></span></button>
+</div>
 </nav>
 <header class="hero" id="top">
 <span class="hero__tab">DOSSIER · REVIEW</span>
@@ -1331,7 +1370,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <div class="hero__lead">
 <p class="eyebrow">Oriol Martínez Ribas · AI Engineer · Barcelona</p>
 <h1 class="reveal">I build AI systems<br/>for <em>real decisions.</em></h1>
-<p class="hero__lede reveal">AI Engineer with a production backend foundation at Inetum, currently completing a BSc in Artificial Intelligence at UPC. I design and ship end-to-end systems that turn uncertain data into <b>auditable operational and commercial decisions</b>, not isolated model outputs.</p>
+<p class="hero__lede reveal">I build AI systems that move beyond the model and into real-world use. With a background in software development and Artificial Intelligence studies at UPC, I work across data, models, software and product.</p>
 </div>
 <div class="hero__proof">
 <div class="ledger reveal">
@@ -1755,10 +1794,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <div class="container">
 <div class="about__grid">
 <div class="about__copy reveal">
-<p>I am an <b>AI Engineer</b> with a backend foundation in enterprise software and a current focus on applied machine learning, probabilistic systems and decision intelligence. I am completing a BSc in Artificial Intelligence at UPC after working on backend services and APIs at Inetum.</p>
-<p>That sequence shapes how I build: data pipelines, validation, APIs, interfaces and human review are part of the system, not afterthoughts around a model.</p>
-<p>An academic programme at <b>Huazhong University of Science and Technology (HUST)</b> in Wuhan expanded that perspective through direct exposure to China, international collaboration and applied AI and robotics.</p>
-<p>I am particularly interested in AI engineering, AI solutions and technology consulting roles where technical systems must produce clear operational or commercial outcomes.</p>
+<p>I build applied AI systems across data, models, software and product. Before studying Artificial Intelligence at UPC, I worked on backend services and APIs at Inetum, which gave me a practical engineering foundation and a clear view of what it takes to turn models into usable systems.</p>
+<p>That experience shapes how I work: data pipelines, validation, APIs, interfaces and human review are designed as part of the solution from the beginning, not added around a model at the end.</p>
+<p>An academic programme at Huazhong University of Science and Technology (HUST) in Wuhan broadened that perspective through international collaboration and direct exposure to applied AI, robotics and China’s technology ecosystem.</p>
+<p>I am particularly interested in AI engineering, AI solutions and technology consulting roles where technical systems need to create clear operational or commercial value.</p>
 </div>
 <div class="about__right">
 <div class="hust-gallery reveal" aria-label="HUST academic programme photographs">
@@ -1838,6 +1877,308 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <div class="videobox__title" id="videoTitle"></div>
 </div>
 </div>
+<script>
+(function(){
+  "use strict";
+  var ES = {
+  "Work": "Proyectos",
+  "Approach": "Enfoque",
+  "About": "Perfil",
+  "Contact": "Contacto",
+  "Available February 2027": "Disponible en febrero de 2027",
+  "DOSSIER · REVIEW": "DOSSIER · REVISIÓN",
+  "I build AI systems": "Construyo sistemas de IA",
+  "for": "para",
+  "real decisions.": "decisiones reales.",
+  "I build AI systems that move beyond the model and into real-world use. With a background in software development and Artificial Intelligence studies at UPC, I work across data, models, software and product.": "Construyo sistemas de IA que van más allá del modelo y llegan al uso real. Con experiencia en desarrollo de software y estudios de Inteligencia Artificial en la UPC, trabajo en datos, modelos, software y producto.",
+  "Primary sources, not marketing copy": "Fuentes primarias, no texto de marketing",
+  "7,079,081 source flights": "7.079.081 vuelos de origen",
+  "processed; the deployed artifact was evaluated once on a 50,453-flight untouched temporal test": "procesados; el artefacto desplegado se evaluó una única vez sobre un test temporal intacto de 50.453 vuelos",
+  "· Flight Delay Risk, operational ML": "· Flight Delay Risk, ML operativo",
+  "Multi-seed stability check": "Comprobación de estabilidad con múltiples semillas",
+  "on a Gaussian HMM across 5 real assets": "de un HMM gaussiano sobre 5 activos reales",
+  "· Quant Regime Tracer, market-regime inference": "· Quant Regime Tracer, inferencia de regímenes de mercado",
+  "141 / 141 automated tests passing": "141 / 141 tests automatizados superados",
+  ", 7 / 7 canonical cases correct": ", 7 / 7 casos canónicos correctos",
+  "· Evidence Route, agentic B2B account routing": "· Evidence Route, enrutamiento agéntico de cuentas B2B",
+  "AI engineering opportunities · Feb 2027": "Oportunidades en ingeniería de IA · Feb 2027",
+  "Selected systems below": "Sistemas seleccionados abajo",
+  "Review the work ↓": "Ver los proyectos ↓",
+  "Selected work · 05 systems": "Proyectos seleccionados · 05 sistemas",
+  "Selected AI systems": "Sistemas de IA seleccionados",
+  "Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Cinco sistemas end-to-end, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
+  "Independent · End-to-end design and implementation": "Independiente · Diseño e implementación end-to-end",
+  "HackUPC team project · Competition prototype": "Proyecto de equipo HackUPC · Prototipo de competición",
+  "Case file · 01 of 05": "Caso · 01 de 05",
+  "Case file · 02 of 05": "Caso · 02 de 05",
+  "Case file · 03 of 05": "Caso · 03 de 05",
+  "Case file · 04 of 05": "Caso · 04 de 05",
+  "Case file · 05 of 05": "Caso · 05 de 05",
+  "Exhibit 01 / 05": "Proyecto 01 / 05",
+  "Exhibit 02 / 05": "Proyecto 02 / 05",
+  "Exhibit 03 / 05": "Proyecto 03 / 05",
+  "Exhibit 04 / 05": "Proyecto 04 / 05",
+  "Exhibit 05 / 05": "Proyecto 05 / 05",
+  "Pre-departure delay prediction for risk-based operations.": "Predicción de retrasos antes de la salida para operaciones basadas en riesgo.",
+  "An end-to-end supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.": "Un sistema end-to-end de aprendizaje supervisado que puntúa vuelos programados utilizando únicamente datos disponibles antes de la salida. El pipeline compara familias de modelos, integra datos meteorológicos históricos de NOAA, calibra probabilidades y valida sobre particiones cronológicas antes de producir una cola operativa priorizada.",
+  "Top-decile prioritisation lift": "Lift de priorización en el decil superior",
+  "Precision in the priority queue": "Precisión en la cola prioritaria",
+  "Final-test calibration gap": "Brecha de calibración en el test final",
+  "Flights in untouched temporal test": "Vuelos en el test temporal intacto",
+  "Interface evidence": "Evidencia de interfaz",
+  "Product screens": "Capturas del producto",
+  "05 frames": "05 capturas",
+  "04 frames": "04 capturas",
+  "03 frames": "03 capturas",
+  "348 model-supported · 343 mapped": "348 respaldados por el modelo · 343 mapeados",
+  "A single flight, with its contributing evidence": "Un vuelo individual con la evidencia que contribuye a su riesgo",
+  "The ops queue, ranked by risk": "La cola operativa ordenada por riesgo",
+  "Real NOAA conditions, paired per flight": "Condiciones reales de NOAA asociadas a cada vuelo",
+  "Calibration and temporal validation": "Calibración y validación temporal",
+  "Product walkthrough": "Recorrido del producto",
+  "Competition walkthrough": "Recorrido de la competición",
+  "See the system in motion": "Mira el sistema en funcionamiento",
+  "See the solver in motion": "Mira el optimizador en funcionamiento",
+  "Product demo": "Demo del producto",
+  "Hackathon demo": "Demo del hackathon",
+  "Video · fullscreen": "Vídeo · pantalla completa",
+  "From schedule and weather to an ops queue": "Del horario y el tiempo a una cola operativa",
+  "Flight analysis, risk ranking and validation evidence.": "Análisis de vuelos, ranking de riesgo y evidencia de validación.",
+  "PLAY ↗": "REPRODUCIR ↗",
+  "Click to open player": "Pulsa para abrir el reproductor",
+  "Pre-departure workflow": "Flujo previo a la salida",
+  "View repository ↗": "Ver repositorio ↗",
+  "Interpretable market regime detection with probabilistic time-series models.": "Detección interpretable de regímenes de mercado con modelos probabilísticos de series temporales.",
+  "A probabilistic time-series platform for five real assets using Gaussian Hidden Markov Models, engineered risk features and BIC-based model selection. Chronological validation and multi-seed stability checks assess robustness, while posterior probabilities, entropy and per-date feature evidence make each regime assignment inspectable.": "Una plataforma probabilística de series temporales para cinco activos reales que utiliza modelos ocultos de Markov gaussianos, variables de riesgo diseñadas y selección de modelos basada en BIC. La validación cronológica y las comprobaciones de estabilidad con múltiples semillas evalúan la robustez, mientras que las probabilidades posteriores, la entropía y la evidencia por fecha permiten inspeccionar cada asignación de régimen.",
+  "Real assets validated": "Activos reales validados",
+  "Engineered risk features": "Variables de riesgo diseñadas",
+  "Regime candidates compared": "Candidatos de régimen comparados",
+  "Backend tests passed": "Tests de backend superados",
+  "Regime overlay on real market data": "Regímenes superpuestos sobre datos reales de mercado",
+  "The probability behind the current call": "La probabilidad detrás del régimen actual",
+  "Regime Traceback for a single date": "Regime Traceback para una fecha concreta",
+  "Regime behaviour, ranked across assets": "Comportamiento de regímenes comparado entre activos",
+  "Model selection, shown not asserted": "Selección de modelos mostrada, no solo afirmada",
+  "From raw prices to an explainable regime": "De precios brutos a un régimen explicable",
+  "Inference, posterior evidence, traceback and validation.": "Inferencia, evidencia posterior, trazabilidad y validación.",
+  "Model-to-interface flow": "Flujo del modelo a la interfaz",
+  "Evidence-backed account research and routing with agents, RAG and MCP.": "Investigación y enrutamiento de cuentas respaldados por evidencia con agentes, RAG y MCP.",
+  "An LLM-powered account intelligence workflow that combines first-party research with hybrid RAG, separates verified claims from hypotheses and routes accounts through structured decision rules. Its MCP-compatible agent interface preserves source provenance, evaluates retrieval on labelled queries and exports executive-ready briefs.": "Un flujo de inteligencia de cuentas impulsado por LLM que combina investigación de primera mano con RAG híbrido, separa afirmaciones verificadas de hipótesis y enruta cuentas mediante reglas de decisión estructuradas. Su interfaz agéntica compatible con MCP conserva la procedencia de las fuentes, evalúa la recuperación sobre consultas etiquetadas y exporta informes preparados para dirección.",
+  "Automated tests passed": "Tests automatizados superados",
+  "Labelled RAG queries evaluated": "Consultas RAG etiquetadas evaluadas",
+  "Canonical routing cases correct": "Casos canónicos de enrutamiento correctos",
+  "Accounts per API batch": "Cuentas por lote de API",
+  "Research workspace, one account evaluated end to end": "Espacio de investigación con una cuenta evaluada end-to-end",
+  "The routing gate, evidence attached": "La decisión de enrutamiento con evidencia adjunta",
+  "Claim verification against the source": "Verificación de afirmaciones frente a la fuente",
+  "The exported account dossier": "El dossier de cuenta exportado",
+  "From public signals to a routed account": "De señales públicas a una cuenta enrutada",
+  "Research, evidence gate, commercial fit and export.": "Investigación, control de evidencia, encaje comercial y exportación.",
+  "End-to-end flow": "Flujo end-to-end",
+  "Probabilistic NLP for tracking narratives across the European AI Act debate.": "NLP probabilístico para seguir narrativas en el debate europeo sobre la Ley de IA.",
+  "An NLP pipeline that learns latent topics from attributable European AI Act sources using a custom collapsed-Gibbs LDA implementation. Source-held-out validation and cross-seed alignment test topic stability, while source-balanced profiles and Jensen-Shannon divergence compare narratives across actors in an interactive React atlas.": "Un pipeline de NLP que aprende temas latentes a partir de fuentes atribuibles sobre la Ley Europea de IA mediante una implementación propia de LDA con Gibbs colapsado. La validación dejando fuentes fuera y la alineación entre semillas prueban la estabilidad de los temas, mientras que los perfiles equilibrados por fuente y la divergencia de Jensen-Shannon comparan narrativas entre actores en un atlas interactivo en React.",
+  "Attributable public sources": "Fuentes públicas atribuibles",
+  "Retained corpus sentences": "Frases retenidas del corpus",
+  "Cross-seed topic stability": "Estabilidad de temas entre semillas",
+  "The European AI Act topic atlas and selected probabilistic model": "El atlas temático de la Ley Europea de IA y el modelo probabilístico seleccionado",
+  "Six topics discovered from co-occurrence, not manual labels": "Seis temas descubiertos por coocurrencia, no mediante etiquetas manuales",
+  "Source-balanced actor profiles and Jensen–Shannon divergence": "Perfiles de actores equilibrados por fuente y divergencia de Jensen–Shannon",
+  "From public sources to a source-linked topic atlas": "De fuentes públicas a un atlas temático vinculado a sus fuentes",
+  "Corpus, model selection, actor divergence and attributable evidence.": "Corpus, selección de modelo, divergencia entre actores y evidencia atribuible.",
+  "Corpus-to-atlas flow": "Flujo del corpus al atlas",
+  "Constraint-aware rack placement for the HackUPC 2026 Mecalux challenge.": "Colocación de estanterías bajo restricciones para el reto de Mecalux en HackUPC 2026.",
+  "A team-built hackathon prototype that converts warehouse boundaries, obstacles, ceiling profiles and bay catalogues into feasible rack layouts under a fixed runtime budget. Its heuristic search combines multi-strategy shelf packing, access-gap reuse, residual-space filling and local repair, while the FastAPI interface provides 2D/3D inspection and evaluator-ready CSV export.": "Un prototipo de hackathon construido en equipo que convierte límites del almacén, obstáculos, perfiles de techo y catálogos de módulos en distribuciones viables de estanterías bajo un presupuesto temporal fijo. Su búsqueda heurística combina empaquetado con varias estrategias, reutilización de pasillos, relleno de espacios residuales y reparación local, mientras que la interfaz FastAPI permite inspección 2D/3D y exportación CSV preparada para el evaluador.",
+  "Public challenge cases included": "Casos públicos del reto incluidos",
+  "Constraint input files per solve": "Archivos de restricciones por ejecución",
+  "Interactive layout inspection": "Inspección interactiva de la distribución",
+  "Evaluator-ready placement export": "Exportación de posiciones lista para el evaluador",
+  "Competition build": "Proyecto de competición",
+  "Interface and output": "Interfaz y resultado",
+  "Constraint-aware placement with metrics, gap zones and ceiling sections": "Colocación bajo restricciones con métricas, zonas de paso y secciones de techo",
+  "Four challenge inputs or a built-in example case": "Cuatro entradas del reto o un caso de ejemplo integrado",
+  "HackUPC 2026 · Mecalux challenge build": "HackUPC 2026 · Proyecto para el reto de Mecalux",
+  "From warehouse constraints to an inspectable rack layout": "De las restricciones del almacén a una distribución inspeccionable de estanterías",
+  "Input parsing, optimisation, 2D/3D review and CSV export.": "Lectura de entradas, optimización, revisión 2D/3D y exportación CSV.",
+  "Competition workflow": "Flujo de competición",
+  "How I work": "Cómo trabajo",
+  "How I turn models into usable systems.": "Cómo convierto modelos en sistemas utilizables.",
+  "The model is only one layer. I design around evidence, failure modes and the decision a person ultimately has to make with the output.": "El modelo es solo una capa. Diseño alrededor de la evidencia, los modos de fallo y la decisión que una persona debe tomar finalmente con el resultado.",
+  "Evidence": "Evidencia",
+  "Make every important claim traceable.": "Hacer trazable cada afirmación importante.",
+  "Model and product decisions should point to measurable evidence: a test, a benchmark or a held-out score. If I cannot show where a number came from, it does not belong on the page.": "Las decisiones de modelo y producto deben apuntar a evidencia medible: un test, un benchmark o una métrica sobre datos reservados. Si no puedo mostrar de dónde sale un número, no debe aparecer en la página.",
+  "Systems": "Sistemas",
+  "Build beyond the notebook.": "Construir más allá del notebook.",
+  "Data pipeline, validation, API, interface and human review are part of the product, not afterthoughts.": "El pipeline de datos, la validación, la API, la interfaz y la revisión humana forman parte del producto, no son añadidos posteriores.",
+  "Use": "Uso",
+  "Optimise for the decision.": "Optimizar para la decisión.",
+  "The relevant question is not only whether a model performs, but whether its output improves a real decision under real constraints.": "La pregunta relevante no es solo si un modelo funciona, sino si su resultado mejora una decisión real bajo restricciones reales.",
+  "Profile": "Perfil",
+  "Software foundation. AI systems focus. International direction.": "Base de software. Enfoque en sistemas de IA. Proyección internacional.",
+  "I build applied AI systems across data, models, software and product. Before studying Artificial Intelligence at UPC, I worked on backend services and APIs at Inetum, which gave me a practical engineering foundation and a clear view of what it takes to turn models into usable systems.": "Construyo sistemas de IA aplicada que integran datos, modelos, software y producto. Antes de estudiar Inteligencia Artificial en la UPC, trabajé en servicios backend y APIs en Inetum, lo que me dio una base práctica de ingeniería y una visión clara de lo necesario para convertir modelos en sistemas utilizables.",
+  "That experience shapes how I work: data pipelines, validation, APIs, interfaces and human review are designed as part of the solution from the beginning, not added around a model at the end.": "Esa experiencia define mi forma de trabajar: los pipelines de datos, la validación, las APIs, las interfaces y la revisión humana se diseñan como parte de la solución desde el principio, no se añaden alrededor de un modelo al final.",
+  "An academic programme at Huazhong University of Science and Technology (HUST) in Wuhan broadened that perspective through international collaboration and direct exposure to applied AI, robotics and China’s technology ecosystem.": "Un programa académico en la Huazhong University of Science and Technology (HUST), en Wuhan, amplió esa perspectiva mediante la colaboración internacional y el contacto directo con la IA aplicada, la robótica y el ecosistema tecnológico de China.",
+  "I am particularly interested in AI engineering, AI solutions and technology consulting roles where technical systems need to create clear operational or commercial value.": "Me interesan especialmente los roles de ingeniería de IA, soluciones de IA y consultoría tecnológica en los que los sistemas técnicos deben generar un valor operativo o comercial claro.",
+  "AI & robotics": "IA y robótica",
+  "Original photographs from the HUST academic programme · Wuhan, China.": "Fotografías originales del programa académico de HUST · Wuhan, China.",
+  "Profile brief · OMR": "Resumen de perfil · OMR",
+  "Active": "Activo",
+  "Education": "Formación",
+  "AI Engineering · UPC FIB": "Ingeniería de IA · UPC FIB",
+  "Machine learning, probabilistic modelling and distributed systems.": "Machine learning, modelado probabilístico y sistemas distribuidos.",
+  "Foundation": "Base técnica",
+  "APIs, enterprise applications and production software.": "APIs, aplicaciones empresariales y software de producción.",
+  "International": "Internacional",
+  "Academic programme in China with continued Mandarin study.": "Programa académico en China y estudio continuado de mandarín.",
+  "Focus": "Enfoque",
+  "Applied AI systems": "Sistemas de IA aplicada",
+  "ML engineering, agentic workflows and decision support.": "Ingeniería de ML, flujos agénticos y apoyo a la decisión.",
+  "Availability": "Disponibilidad",
+  "Barcelona, Europe or remote from February.": "Barcelona, Europa o remoto desde febrero.",
+  "Direction": "Dirección",
+  "Technical × commercial": "Técnico × comercial",
+  "Building systems that connect engineering evidence with business decisions.": "Construcción de sistemas que conectan evidencia de ingeniería con decisiones de negocio.",
+  "Spanish": "Español",
+  "Native": "Nativo",
+  "Catalan": "Catalán",
+  "English": "Inglés",
+  "Mandarin Chinese": "Chino mandarín",
+  "Get in touch": "Contacto",
+  "Open to AI engineering opportunities.": "Abierto a oportunidades en ingeniería de IA.",
+  "The best way to assess fit is to discuss a real system, constraint or product decision.": "La mejor forma de evaluar el encaje es hablar de un sistema, una restricción o una decisión de producto reales.",
+  "Available from February 2027": "Disponible desde febrero de 2027",
+  "Email Oriol": "Escribir a Oriol",
+  "Back to top ↑": "Volver arriba ↑",
+  "Demo video pending upload": "Vídeo de demostración pendiente",
+  "The interface and playback slot are ready; the walkthrough will appear here when the MP4 is added.": "La interfaz y el reproductor están preparados; el recorrido aparecerá aquí cuando se añada el MP4.",
+  "Video slot ready": "Espacio de vídeo preparado",
+  "Flight Delay Risk: product walkthrough": "Flight Delay Risk: recorrido del producto",
+  "Quant Regime Tracer: product walkthrough": "Quant Regime Tracer: recorrido del producto",
+  "Evidence Route: product walkthrough": "Evidence Route: recorrido del producto",
+  "Narrative Shift: product walkthrough": "Narrative Shift: recorrido del producto",
+  "Warehouse Optimizer: HackUPC walkthrough": "Warehouse Optimizer: recorrido de HackUPC"
+};
+  var ATTR_ES = {
+  "Language selector": "Selector de idioma",
+  "Toggle menu": "Abrir o cerrar menú",
+  "Screenshot viewer": "Visor de capturas",
+  "Close": "Cerrar",
+  "Previous image": "Imagen anterior",
+  "Next image": "Imagen siguiente",
+  "Demo video player": "Reproductor de vídeo de demostración",
+  "Product demo preview": "Vista previa de la demostración",
+  "HUST academic programme photographs": "Fotografías del programa académico de HUST",
+  "Profile summary": "Resumen del perfil",
+  "Language proficiency": "Nivel de idiomas",
+  "Flight Delay Risk product screenshots": "Capturas del producto Flight Delay Risk",
+  "Quant Regime Tracer product screenshots": "Capturas del producto Quant Regime Tracer",
+  "Evidence Route product screenshots": "Capturas del producto Evidence Route",
+  "Narrative Shift product screenshots": "Capturas del producto Narrative Shift",
+  "Warehouse Optimizer product screenshots": "Capturas del producto Warehouse Optimizer",
+  "Flight Delay Risk video demo": "Vídeo de demostración de Flight Delay Risk",
+  "Quant Regime Tracer video demo": "Vídeo de demostración de Quant Regime Tracer",
+  "Evidence Route video demo": "Vídeo de demostración de Evidence Route",
+  "Narrative Shift video demo": "Vídeo de demostración de Narrative Shift",
+  "Warehouse Optimizer video demo": "Vídeo de demostración de Warehouse Optimizer",
+  "Play Flight Delay Risk product walkthrough": "Reproducir el recorrido de Flight Delay Risk",
+  "Play Quant Regime Tracer product walkthrough": "Reproducir el recorrido de Quant Regime Tracer",
+  "Play Evidence Route product walkthrough": "Reproducir el recorrido de Evidence Route",
+  "Play Narrative Shift product walkthrough": "Reproducir el recorrido de Narrative Shift",
+  "Play Warehouse Optimizer competition walkthrough": "Reproducir el recorrido de Warehouse Optimizer"
+};
+  var currentLanguage = 'en';
+
+  function preserveWhitespace(raw, replacement){
+    var leading = (raw.match(/^\s*/) || [''])[0];
+    var trailing = (raw.match(/\s*$/) || [''])[0];
+    return leading + replacement + trailing;
+  }
+
+  function translateValue(value, lang){
+    if(!value) return value;
+    return lang === 'es' && Object.prototype.hasOwnProperty.call(ES, value) ? ES[value] : value;
+  }
+
+  function translateTextNodes(lang){
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        var parent = node.parentElement;
+        if(!parent || parent.closest('script, style, svg, .language-switch')) return NodeFilter.FILTER_REJECT;
+        return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function(node){
+      if(typeof node.__portfolioEnglish === 'undefined') node.__portfolioEnglish = node.nodeValue;
+      var original = node.__portfolioEnglish;
+      var key = original.trim();
+      var translated = translateValue(key, lang);
+      node.nodeValue = preserveWhitespace(original, translated);
+    });
+  }
+
+  function translateAttributes(lang){
+    document.querySelectorAll('[aria-label], [title]').forEach(function(el){
+      ['aria-label','title'].forEach(function(attr){
+        if(!el.hasAttribute(attr)) return;
+        var store = '__portfolio_' + attr.replace('-', '_');
+        if(typeof el[store] === 'undefined') el[store] = el.getAttribute(attr);
+        var original = el[store];
+        var translated = lang === 'es' && ATTR_ES[original] ? ATTR_ES[original] : translateValue(original, lang);
+        el.setAttribute(attr, translated);
+      });
+    });
+  }
+
+  function updateMetadata(lang){
+    document.documentElement.lang = lang;
+    document.title = lang === 'es'
+      ? 'Oriol Martínez Ribas · Ingeniero de IA'
+      : 'Oriol Martínez Ribas · AI Engineer';
+    var descriptions = {
+      en: 'AI engineering portfolio of Oriol Martínez Ribas. End-to-end systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation.',
+      es: 'Portfolio de ingeniería de IA de Oriol Martínez Ribas. Sistemas end-to-end para riesgo operativo, inteligencia probabilística de mercados, investigación B2B basada en evidencia, análisis del debate público y optimización espacial.'
+    };
+    document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function(meta){
+      meta.setAttribute('content', descriptions[lang]);
+    });
+    document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(function(meta){
+      meta.setAttribute('content', lang === 'es' ? 'Oriol Martínez Ribas · Ingeniero de IA' : 'Oriol Martínez Ribas · AI Engineer');
+    });
+  }
+
+  function updateSwitch(lang){
+    document.querySelectorAll('.language-switch__option').forEach(function(button){
+      var active = button.getAttribute('data-lang') === lang;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function applyLanguage(lang, persist){
+    currentLanguage = lang === 'es' ? 'es' : 'en';
+    translateTextNodes(currentLanguage);
+    translateAttributes(currentLanguage);
+    updateMetadata(currentLanguage);
+    updateSwitch(currentLanguage);
+    if(persist){
+      try{ localStorage.setItem('portfolio-language', currentLanguage); }catch(e){}
+    }
+    document.dispatchEvent(new CustomEvent('portfolio-language-change', {detail: {language: currentLanguage}}));
+  }
+
+  window.portfolioT = function(value){ return translateValue(value, currentLanguage); };
+  window.getPortfolioLanguage = function(){ return currentLanguage; };
+
+  document.querySelectorAll('.language-switch__option').forEach(function(button){
+    button.addEventListener('click', function(){ applyLanguage(button.getAttribute('data-lang'), true); });
+  });
+
+  var saved = 'en';
+  try{ saved = localStorage.getItem('portfolio-language') || 'en'; }catch(e){}
+  applyLanguage(saved, false);
+})();
+</script>
 <script>
 (function(){
   "use strict";
@@ -1929,9 +2270,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   function showSlide(){
     var set = GALLERIES[curKey];
     var item = set[curIdx];
+    var caption = window.portfolioT ? window.portfolioT(item.cap) : item.cap;
     lbImg.src = item.src;
-    lbImg.alt = item.cap;
-    lbCap.textContent = item.cap;
+    lbImg.alt = caption;
+    lbCap.textContent = caption;
     lbIdx.textContent = pad2(curIdx+1) + ' / ' + pad2(set.length);
   }
   function openLightbox(key, idx){
@@ -1969,9 +2311,11 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   var videoFallback = document.getElementById('videoFallback');
   var videoTitle = document.getElementById('videoTitle');
   var videoFallbackPoster = document.getElementById('videoFallbackPoster');
+  var currentVideoTitle = '';
 
   function openVideo(filename, title, poster){
-    videoTitle.textContent = title || '';
+    currentVideoTitle = title || '';
+    videoTitle.textContent = window.portfolioT ? window.portfolioT(currentVideoTitle) : currentVideoTitle;
     videoFallbackPoster.src = poster || '';
     videoEl.poster = poster || '';
     videoFallback.style.display = 'none';
@@ -2003,6 +2347,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   });
   document.getElementById('videoClose').addEventListener('click', closeVideo);
   videoModal.addEventListener('click', function(e){ if(e.target===videoModal) closeVideo(); });
+
+  document.addEventListener('portfolio-language-change', function(){
+    if(curKey && lightbox.classList.contains('is-open')) showSlide();
+    if(currentVideoTitle && videoModal.classList.contains('is-open')){
+      videoTitle.textContent = window.portfolioT ? window.portfolioT(currentVideoTitle) : currentVideoTitle;
+    }
+  });
 
   /* ---------- shared: escape key ---------- */
   document.addEventListener('keydown', function(e){
