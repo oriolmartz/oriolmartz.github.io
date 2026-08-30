@@ -5,30 +5,30 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Oriol Martínez Ribas · AI Engineer</title>
-<meta content="AI engineering portfolio of Oriol Martínez Ribas. End-to-end systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation." name="description"/>
+<meta content="AI engineering portfolio of Oriol Martínez Ribas. End-to-end systems for operational risk, probabilistic market intelligence, governed pricing optimisation, evidence-grounded B2B research, public-debate analysis and spatial optimisation." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Serif:ital@1&amp;display=swap" rel="stylesheet"/>
 <style>
 /* ============================================================
    DESIGN TOKENS
-   A dossier opened on a candidate: dark instrument-panel canvas,
+   A dossier opened on a candidate: near-black editorial canvas,
    warm paper insets for anything "entered into evidence."
    ============================================================ */
 :root{
-  /* canvas */
-  --ink-950:#151b24;
-  --ink-900:#1c2330;
-  --ink-850:#242d3a;
-  --ink-800:#2d3847;
-  --ink-750:#384457;
-  --line:#313d4d;
-  --line-soft:#273240;
+  /* canvas — near black editorial */
+  --ink-950:#0c0c0c;
+  --ink-900:#121212;
+  --ink-850:#1a1a1a;
+  --ink-800:#242424;
+  --ink-750:#303030;
+  --line:#2a2a2a;
+  --line-soft:#1c1c1c;
 
   /* text on ink */
   --fg:#F2EEE6;
-  --fg-dim:#B5BEC9;
-  --fg-faint:#8994A3;
+  --fg-dim:#B5B0A8;
+  --fg-faint:#8A8580;
 
   /* paper (evidence insets) */
   --paper:#EFE7D3;
@@ -52,6 +52,9 @@
   --cobalt:#426FD8;
   --cobalt-bright:#8FB0FF;
   --cobalt-soft:rgba(66,111,216,.16);
+  --forest:#4E8169;
+  --forest-bright:#7FB198;
+  --forest-soft:rgba(78,129,105,.16);
 
   /* type */
   --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -71,9 +74,9 @@
 html{scroll-behavior:smooth;}
 body{
   background:
-    radial-gradient(1200px 560px at 12% -8%, rgba(201,155,72,.08), transparent 58%),
-    radial-gradient(900px 540px at 100% 18%, rgba(151,73,51,.06), transparent 58%),
-    linear-gradient(180deg, #1B2330 0%, var(--ink-950) 52%, #11161E 100%);
+    radial-gradient(1000px 500px at 15% 0%, rgba(201,155,72,.05), transparent 50%),
+    radial-gradient(800px 400px at 100% 20%, rgba(151,73,51,.03), transparent 55%),
+    linear-gradient(180deg, #121212 0%, var(--ink-950) 55%, #080808 100%);
   color:var(--fg);
   font-family:var(--sans);
   font-size:16px;
@@ -144,10 +147,14 @@ body::before{
    NAV
    ============================================================ */
 .nav{
+  /* match the hero bronze without recolouring the rest of the portfolio */
+  --amber:#B48A49;
+  --amber-bright:#C9A25F;
+  --amber-soft:rgba(180,138,73,.11);
   position:fixed; top:0; left:0; right:0; z-index:100;
   display:flex; align-items:center; justify-content:space-between;
   padding:18px var(--pad);
-  background:rgba(21,27,36,.76);
+  background:rgba(12,12,12,.85);
   backdrop-filter:blur(10px) saturate(140%);
   -webkit-backdrop-filter:blur(10px) saturate(140%);
   border-bottom:1px solid transparent;
@@ -162,8 +169,8 @@ body::before{
 .nav__mark .bracket{color:var(--amber);}
 .nav__links{display:flex; align-items:center; gap:34px;}
 .nav__links a{
-  font-family:var(--mono); font-size:.78rem; font-weight:500;
-  letter-spacing:.04em; color:var(--fg-dim);
+  font-family:var(--sans); font-size:.82rem; font-weight:500;
+  letter-spacing:.01em; color:var(--fg-dim);
   position:relative; padding:4px 0;
   transition:color .25s var(--ease);
 }
@@ -222,7 +229,7 @@ body::before{
   .language-switch{padding:4px 6px;}
   .nav__links{
     display:none; position:absolute; top:100%; left:0; right:0;
-    flex-direction:column; gap:0; background:rgba(10,12,16,.97);
+    flex-direction:column; gap:0; background:rgba(8,8,8,.98);
     border-bottom:1px solid var(--line); padding:8px 0;
   }
   .nav__links.is-open{display:flex;}
@@ -240,6 +247,10 @@ body::before{
    HERO
    ============================================================ */
 .hero{
+  /* top-cover accent: muted bronze, intentionally less golden */
+  --amber:#B48A49;
+  --amber-bright:#C9A25F;
+  --amber-soft:rgba(180,138,73,.11);
   position:relative;
   min-height:calc(100svh - 70px);
   display:flex; align-items:center; justify-content:center;
@@ -254,9 +265,9 @@ body::before{
 .hero::after{
   content:"";
   position:absolute; inset:0;
-  background:radial-gradient(ellipse 58% 48% at 24% 15%, rgba(201,155,72,.09), transparent 62%),
-             radial-gradient(ellipse 45% 38% at 100% 100%, rgba(151,73,51,.055), transparent 64%),
-             linear-gradient(180deg, rgba(28,35,48,.3) 0%, rgba(21,27,36,.12) 52%, var(--ink-900) 100%);
+  background:radial-gradient(ellipse 55% 45% at 22% 12%, rgba(201,155,72,.06), transparent 60%),
+             radial-gradient(ellipse 45% 38% at 100% 100%, rgba(151,73,51,.04), transparent 64%),
+             linear-gradient(180deg, rgba(20,20,20,.2) 0%, rgba(12,12,12,.08) 52%, var(--ink-900) 100%);
   pointer-events:none;
 }
 .hero__tab{
@@ -286,9 +297,9 @@ body::before{
   grid-area:word;
   font-family:var(--mono);
   font-weight:700;
-  font-size:clamp(3.4rem,6.4vw,6rem);
-  line-height:.86;
-  letter-spacing:.075em;
+  font-size:clamp(3.8rem,6.8vw,6.45rem);
+  line-height:.88;
+  letter-spacing:-.045em;
   color:var(--fg);
   text-transform:uppercase;
   white-space:nowrap;
@@ -297,26 +308,57 @@ body::before{
 .hero__word::after{
   content:"AI ENGINEERING · 2026";
   display:inline-block;
-  margin-left:18px;
+  margin-left:24px;
   vertical-align:top;
-  transform:translateY(.8em);
-  font-size:.105em;
+  transform:translateY(.58em);
+  font-size:.165em;
+  font-weight:600;
   line-height:1;
-  letter-spacing:.18em;
+  letter-spacing:.115em;
   color:var(--amber-bright);
 }
+
+.hero__identity{
+  font-family:var(--sans);
+  font-size:.94rem;
+  letter-spacing:.068em;
+  color:var(--fg-dim);
+  gap:.62em;
+  flex-wrap:wrap;
+}
+.hero__identity::before{margin-right:.08em;}
+.hero__name{
+  color:var(--fg);
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:1.02em;
+  letter-spacing:.065em;
+}
+.hero__meta{
+  color:var(--fg-faint);
+  font-family:var(--mono);
+  font-size:.82em;
+  font-weight:500;
+  letter-spacing:.105em;
+}
+
 .hero__lead{grid-area:lead; min-width:0; padding-top:4px;}
 .hero__proof{grid-area:proof; min-width:0; padding-top:2px;}
 .hero h1{
-  font-family:var(--mono); font-weight:600;
-  font-size:clamp(2.6rem,4.35vw,4.35rem);
-  line-height:1.02; letter-spacing:-.018em;
+  font-family:var(--mono); font-weight:500;
+  font-size:clamp(2.75rem,4.5vw,4.55rem);
+  line-height:.99; letter-spacing:-.045em;
   color:var(--fg); margin:18px 0 24px;
 }
 .hero h1 em{font-style:normal; color:var(--amber-bright);}
+html[lang="es"] .hero h1{
+  font-size:clamp(2.65rem,4.05vw,4.1rem);
+}
 .hero__lede{
-  font-size:clamp(1rem,1.22vw,1.12rem); line-height:1.7;
-  color:var(--fg-dim); max-width:57ch; margin-bottom:0;
+  font-family:var(--sans);
+  font-size:1.06rem; line-height:1.68;
+  letter-spacing:-.008em;
+  color:#B6B1A9; max-width:57ch; margin-bottom:0;
 }
 .hero__lede b{color:var(--fg); font-weight:600;}
 
@@ -324,24 +366,35 @@ body::before{
 .ledger{
   border:1px solid var(--line); border-left:2px solid var(--amber);
   padding:22px 26px;
-  background:rgba(28,35,48,.84);
-  box-shadow:0 22px 50px rgba(0,0,0,.14);
+  background:rgba(18,18,18,.92);
+  box-shadow:0 22px 50px rgba(0,0,0,.28);
 }
 .ledger__head{
-  font-family:var(--mono); font-size:.69rem; font-weight:600; letter-spacing:.16em;
-  color:var(--fg-faint); margin-bottom:16px; text-transform:uppercase;
+  font-family:var(--mono); font-size:.7rem; font-weight:600; letter-spacing:.14em;
+  color:var(--fg-faint); margin-bottom:14px; text-transform:uppercase;
 }
 .ledger__row{
-  display:flex; gap:15px; align-items:baseline;
-  padding:12px 0; border-top:1px solid var(--line-soft);
+  display:flex; gap:14px; align-items:flex-start;
+  padding:14px 0; border-top:1px solid var(--line-soft);
 }
 .ledger__row:first-of-type{border-top:none; padding-top:0;}
 .ledger__idx{
-  font-family:var(--mono); font-size:.78rem; color:var(--amber); flex:none; width:27px;
+  font-family:var(--mono);
+  font-size:.94rem;
+  font-weight:700;
+  flex:none;
+  width:30px;
+  padding-top:1px;
+  color:var(--amber-bright);
+  background:linear-gradient(135deg,#D4B273 0%,#B48A49 52%,#7E5D2D 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 14px rgba(180,138,73,.07);
 }
-.ledger__text{font-size:.9rem; color:var(--fg-dim); line-height:1.5;}
-.ledger__text b{color:var(--fg); font-weight:600;}
-.ledger__text span{color:var(--fg-faint);}
+.ledger__text{font-family:var(--sans); font-size:.9rem; color:var(--fg-dim); line-height:1.45; display:flex; flex-direction:column; gap:4px;}
+.ledger__text b{color:var(--fg); font-weight:600; font-size:.97rem; letter-spacing:-.012em;}
+.ledger__text span{color:#A39E96; font-size:.8rem; font-family:var(--sans); letter-spacing:-.004em; line-height:1.5;}
 
 .hero__bottom{
   grid-area:bottom;
@@ -352,16 +405,16 @@ body::before{
   padding-top:2px;
 }
 .stamp{
-  font-family:var(--mono); font-size:.72rem; font-weight:700; letter-spacing:.1em;
+  font-family:var(--mono); font-size:.68rem; font-weight:600; letter-spacing:.09em;
   color:var(--amber-bright);
-  border:1.5px solid var(--amber-bright); border-radius:var(--r-pill);
-  padding:10px 18px;
-  transform:rotate(-2deg);
+  border:1px solid color-mix(in srgb, var(--amber) 72%, transparent); border-radius:var(--r-pill);
+  padding:9px 16px;
+  transform:none;
   position:relative;
   text-transform:uppercase;
   white-space:nowrap;
 }
-.stamp::before{content:"●"; margin-right:8px; font-size:.6rem; vertical-align:middle;}
+.stamp::before{content:"●"; margin-right:8px; font-size:.52rem; vertical-align:middle; opacity:.78;}
 .btn-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-self:end;}
 .btn{
   font-family:var(--mono); font-size:.82rem; font-weight:600; letter-spacing:.03em;
@@ -374,27 +427,26 @@ body::before{
 }
 .btn--solid{background:var(--amber); color:var(--ink-950); box-shadow:0 8px 18px rgba(0,0,0,.10);}
 .btn--solid:hover{background:var(--amber-bright); box-shadow:0 12px 26px rgba(0,0,0,.16);}
-.hero .btn--solid{animation:reviewPulse 2.3s ease-in-out infinite;}
-.hero .btn--solid:hover{animation-play-state:paused;}
-@keyframes reviewPulse{
-  0%,100%{background:var(--amber); box-shadow:0 8px 18px rgba(0,0,0,.10), 0 0 0 0 rgba(232,191,113,.00);}
-  50%{background:var(--amber-bright); box-shadow:0 12px 26px rgba(0,0,0,.16), 0 0 0 7px rgba(232,191,113,.14);}
-}
+.hero .btn--solid{font-weight:700; box-shadow:0 8px 18px rgba(0,0,0,.14);}
+.hero .btn--solid:hover{background:var(--amber-bright); box-shadow:0 12px 26px rgba(0,0,0,.18);}
 .btn--ghost{border:1px solid var(--line); color:var(--fg-dim);}
 .btn--ghost:hover{border-color:var(--fg-faint); color:var(--fg); box-shadow:0 10px 22px rgba(0,0,0,.10);}
-.icon-links{display:flex; gap:18px;}
-.icon-links a{color:var(--fg-faint); transition:color .2s var(--ease); display:flex; align-items:center; justify-content:center;}
-.icon-links a:hover{color:var(--amber-bright);}
+.icon-links{display:flex; gap:14px; margin-left:2px;}
+.icon-links a{color:var(--fg-faint); opacity:.78; transition:color .2s var(--ease), opacity .2s var(--ease); display:flex; align-items:center; justify-content:center;}
+.icon-links a:hover{color:var(--amber-bright); opacity:1;}
 .hero__scrollcue{
   justify-self:center;
   display:inline-flex; align-items:center; gap:12px;
   font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
   color:var(--fg-faint);
 }
-.hero__scrollcue::before{content:""; width:42px; height:1px; background:linear-gradient(90deg, var(--amber), rgba(201,155,72,0));}
+.hero__scrollcue::before{content:""; width:42px; height:1px; background:linear-gradient(90deg, var(--amber), rgba(180,138,73,0));}
 .hero__scrollcue a{display:inline-flex; align-items:center; gap:10px; color:var(--fg-dim); transition:color .2s var(--ease), transform .2s var(--ease);}
 .hero__scrollcue a:hover{color:var(--amber-bright); transform:translateY(1px);}
 .hero__scrollcue .arrow{color:var(--amber-bright); font-size:.9rem; line-height:1;}
+
+
+
 
 @media (max-width:1080px){
   .hero{min-height:auto; padding:116px var(--pad) 46px;}
@@ -416,6 +468,7 @@ body::before{
   .hero__word{font-size:clamp(2.8rem,13vw,4.4rem); letter-spacing:.04em;}
   .hero__word::after{display:none;}
   .hero h1{font-size:clamp(2.35rem,12vw,3.5rem);}
+  html[lang="es"] .hero h1{font-size:clamp(2.2rem,11vw,3.25rem);}
   .ledger{padding:18px;}
   .hero__bottom{grid-template-columns:1fr; justify-items:start;}
   .btn-row{justify-self:start;}
@@ -474,9 +527,10 @@ body::before{
 /* per-project colour identity — each system gets its own signature accent */
 .exhibit:nth-of-type(1){--acc:var(--amber); --acc-bright:var(--amber-bright); --acc-soft:var(--amber-soft); --repo-fg:#18222D;}
 .exhibit:nth-of-type(2){--acc:var(--teal); --acc-bright:var(--teal-bright); --acc-soft:var(--teal-soft); --repo-fg:#F8FCFC;}
-.exhibit:nth-of-type(3){--acc:var(--brick); --acc-bright:var(--brick-bright); --acc-soft:var(--brick-soft); --repo-fg:#FFF8F4;}
-.exhibit:nth-of-type(4){--acc:var(--plum); --acc-bright:var(--plum-bright); --acc-soft:var(--plum-soft); --repo-fg:#FCF9FF;}
-.exhibit:nth-of-type(5){--acc:var(--cobalt); --acc-bright:var(--cobalt-bright); --acc-soft:var(--cobalt-soft); --repo-fg:#F8FAFF;}
+.exhibit:nth-of-type(3){--acc:var(--forest); --acc-bright:var(--forest-bright); --acc-soft:var(--forest-soft); --repo-fg:#F8FCF9;}
+.exhibit:nth-of-type(4){--acc:var(--brick); --acc-bright:var(--brick-bright); --acc-soft:var(--brick-soft); --repo-fg:#FFF8F4;}
+.exhibit:nth-of-type(5){--acc:var(--plum); --acc-bright:var(--plum-bright); --acc-soft:var(--plum-soft); --repo-fg:#FCF9FF;}
+.exhibit:nth-of-type(6){--acc:var(--cobalt); --acc-bright:var(--cobalt-bright); --acc-soft:var(--cobalt-soft); --repo-fg:#F8FAFF;}
 .exhibit::before{
   content:"";
   position:absolute; inset:0 0 auto 0; height:3px;
@@ -596,6 +650,8 @@ body::before{
   gap:14px;
   align-items:stretch;
 }
+.project-media--no-video{grid-template-columns:1fr;}
+.project-media--no-video .media-panel--shots{width:100%;}
 .project-media__repo{
   grid-column:1 / -1;
   display:flex;
@@ -1308,6 +1364,281 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   .proof-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .proof{padding:17px 14px;}
 }
+
+
+/* ============================================================
+   FINAL STEEL EDITORIAL HERO
+   Recruiter-first: warm charcoal + ivory + muted steel blue.
+   Scope: hero + nav only. The rest of the portfolio is untouched.
+   ============================================================ */
+.nav{
+  --amber:#8398A3;
+  --amber-bright:#A7B7BE;
+  --amber-soft:rgba(131,152,163,.10);
+  background:rgba(17,17,15,.90);
+}
+.nav__mark .bracket{color:var(--amber-bright);}
+.nav__links a::after{background:var(--amber);}
+.language-switch__option.is-active{background:var(--amber); color:#11110F;}
+
+.hero{
+  --amber:#8398A3;
+  --amber-bright:#A7B7BE;
+  --amber-soft:rgba(131,152,163,.10);
+  --steel-dark:#60747E;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(241,238,231,.030) 39px, rgba(241,238,231,.030) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(241,238,231,.030) 39px, rgba(241,238,231,.030) 40px),
+    #11110F;
+  color:#F1EEE7;
+}
+.hero::after{
+  background:
+    radial-gradient(ellipse 54% 40% at 21% 10%, rgba(131,152,163,.030), transparent 63%),
+    linear-gradient(180deg, rgba(20,20,18,.05) 0%, rgba(17,17,15,.015) 54%, rgba(10,10,9,.72) 100%);
+}
+.hero__word,
+.hero h1,
+.hero__name,
+.hero .ledger__text b{color:#F1EEE7;}
+.hero__word::after{color:var(--amber-bright);}
+.hero__identity{color:#AAA69E;}
+.hero__identity::before{background:var(--amber);}
+.hero__meta{color:#7F7C77;}
+.hero h1 em{color:var(--amber-bright);}
+.hero__lede{color:#B8B4AC; max-width:55ch;}
+
+/* Dossier tab: steel rule rather than a coloured sticker */
+.hero__tab{
+  color:var(--amber-bright);
+  background:rgba(17,17,15,.96);
+  border:1px solid rgba(167,183,190,.46);
+  border-left:none;
+  border-radius:0 2px 2px 0;
+}
+
+/* Evidence reads as an editorial column, not a dashboard card */
+.hero .ledger{
+  border:0;
+  border-left:2px solid var(--amber);
+  padding:15px 0 13px 32px;
+  background:transparent;
+  box-shadow:none;
+}
+.hero .ledger__head{
+  position:relative;
+  color:#A8A49D;
+  font-size:.69rem;
+  margin-bottom:16px;
+  padding-bottom:13px;
+}
+.hero .ledger__head::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:0;
+  width:32px; height:1px;
+  background:var(--amber);
+}
+.hero .ledger__row{
+  gap:20px;
+  padding:19px 0 21px;
+  border-top:1px solid rgba(167,183,190,.18);
+}
+.hero .ledger__row:first-of-type{border-top:none; padding-top:3px;}
+.hero .ledger__idx{
+  width:40px;
+  padding-top:1px;
+  font-size:1.38rem;
+  line-height:1;
+  font-weight:500;
+  letter-spacing:-.045em;
+  background:linear-gradient(180deg,#B5C1C6 0%,#8398A3 56%,#60747E 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:none;
+}
+.hero .ledger__text{
+  font-family:var(--sans);
+  color:#B5B1AA;
+  font-size:.90rem;
+  line-height:1.52;
+  gap:6px;
+}
+.hero .ledger__text b{font-size:.97rem; font-weight:600;}
+.hero .ledger__text span{font-family:var(--sans); color:#94928E; font-size:.79rem; line-height:1.48;}
+
+/* Bottom controls: aligned, quiet, editorial */
+.hero .stamp{
+  color:var(--amber-bright);
+  border:1px solid rgba(167,183,190,.50);
+  border-radius:2px;
+  padding:8px 14px;
+  transform:none;
+  background:rgba(131,152,163,.018);
+  font-size:.67rem;
+  font-weight:600;
+  letter-spacing:.105em;
+}
+.hero .stamp::before{opacity:.72;}
+.hero__scrollcue::before{background:linear-gradient(90deg,var(--amber),rgba(131,152,163,0));}
+.hero__scrollcue a{color:#92979A;}
+.hero__scrollcue .arrow,
+.hero__scrollcue a:hover{color:var(--amber-bright);}
+
+/* CTA behaves like an editorial navigation cue rather than a SaaS button */
+.hero .btn--solid{
+  position:relative;
+  padding:10px 0 8px;
+  border-radius:0;
+  background:transparent;
+  color:var(--amber-bright);
+  box-shadow:none;
+  text-transform:uppercase;
+  letter-spacing:.105em;
+  font-size:.75rem;
+  font-weight:650;
+}
+.hero .btn--solid::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,var(--amber),rgba(131,152,163,.14));
+  transform-origin:left;
+  transition:transform .25s var(--ease), opacity .25s var(--ease);
+}
+.hero .btn--solid:hover{
+  background:transparent;
+  color:#D3DEE3;
+  box-shadow:none;
+}
+.hero .btn--solid:hover::after{transform:scaleX(.76); opacity:.82;}
+.hero .icon-links a{color:#8F9393; opacity:.68;}
+.hero .icon-links a:hover{color:var(--amber-bright); opacity:1;}
+
+@media (min-width:1081px){
+  .hero__inner{column-gap:clamp(62px,6.7vw,102px);}
+  .hero__proof{padding-top:6px;}
+}
+@media (max-width:700px){
+  .hero .ledger{padding-left:20px;}
+  .hero .ledger__idx{width:34px; font-size:1.18rem;}
+  .hero .btn--solid{font-size:.70rem;}
+}
+
+
+
+/* ============================================================
+   FINAL STEEL COHERENCE — LOWER SECTIONS
+   Carries the hero's warm-charcoal / ivory / muted-steel language
+   through Approach, About and Contact without altering Work cases.
+   ============================================================ */
+
+/* APPROACH — technical editorial, no bronze cast */
+.approach{
+  border-top:1px solid rgba(167,183,190,.16);
+  background:
+    radial-gradient(720px 420px at 8% 14%, rgba(131,152,163,.035), transparent 64%),
+    linear-gradient(180deg,#11110F 0%,#0F0F0E 100%);
+}
+.approach .eyebrow{color:#92908B;}
+.approach .eyebrow::before{background:#8398A3;}
+.approach .sec-intro p:not(.eyebrow){color:#B8B4AC;}
+.approach .principle{
+  border-color:rgba(167,183,190,.15);
+  background:linear-gradient(145deg,rgba(27,28,28,.78),rgba(17,17,16,.94));
+}
+.approach .principle::after{
+  background:radial-gradient(ellipse,rgba(131,152,163,.055),transparent 69%);
+}
+.approach .principle--lead{
+  border-color:rgba(131,152,163,.44);
+  background:
+    linear-gradient(180deg,rgba(24,25,25,.22),rgba(15,15,14,.95)),
+    repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(241,238,231,.022) 31px,rgba(241,238,231,.022) 32px);
+}
+.approach .principle__num{color:rgba(131,152,163,.13);}
+.approach .principle__label{color:#A7B7BE;}
+.approach .principle__label::before{background:#8398A3;}
+.approach .principle h3{color:#F1EEE7;}
+.approach .principle p{color:#B8B4AC;}
+
+/* ABOUT — warm off-white paper, but contemporary rather than vintage */
+.about{
+  border-top:1px solid #D0CDC5;
+  background:
+    linear-gradient(90deg,rgba(74,82,85,.030) 1px,transparent 1px),
+    linear-gradient(0deg,rgba(74,82,85,.024) 1px,transparent 1px),
+    #F0EEE8;
+  background-size:48px 48px;
+  color:#252421;
+}
+.about .eyebrow{color:#74716C;}
+.about .eyebrow::before{background:#8398A3;}
+.about .sec-intro h2{color:#252421;}
+.about__copy p{color:#66635E;}
+.about__copy p:first-child{color:#403E39;}
+.about__copy p b{color:#252421;}
+.about .profile-sheet{
+  border-color:#C9C6BE;
+  background:rgba(255,255,255,.40);
+  box-shadow:9px 11px 0 rgba(55,61,63,.045);
+}
+.about .profile-sheet__head{
+  border-bottom-color:#D1CEC6;
+  color:#696762;
+}
+.about .profile-sheet__head b{color:#5F7465;}
+.about .profile-fact{
+  border-right-color:#D1CEC6;
+  border-bottom-color:#D1CEC6;
+}
+.about .profile-fact__key{color:#6F858F;}
+.about .profile-fact strong{color:#252421;}
+.about .profile-fact small{color:#6D6A65;}
+.about .hust-photo{
+  border-color:#C9C6BE;
+  background:#D9D6CF;
+}
+.about .hust-gallery__note{color:#6D6A65;}
+.about .language-levels{border-top-color:#D1CEC6;}
+.about .language-level{
+  border-right-color:#D1CEC6;
+  border-bottom-color:#D1CEC6;
+}
+.about .language-level span{color:#6D6A65;}
+.about .language-level strong{color:#252421;}
+
+/* CONTACT — same cover language as hero, quieter and conclusive */
+.contact{
+  border-top:1px solid rgba(167,183,190,.16);
+  background:linear-gradient(145deg,#11110F 0%,#0D0D0C 100%);
+}
+.contact::before{
+  background:radial-gradient(ellipse 46% 72% at 100% 0%,rgba(131,152,163,.065),transparent 66%);
+}
+.contact .eyebrow{color:#92908B;}
+.contact .eyebrow::before{background:#8398A3;}
+.contact h2{color:#F1EEE7;}
+.contact__lede{color:#B8B4AC;}
+.contact__availability{
+  border-color:rgba(131,152,163,.52);
+  color:#A7B7BE;
+  background:rgba(131,152,163,.018);
+}
+.contact__links{border-top-color:rgba(167,183,190,.18);}
+.contact .clink{border-bottom-color:rgba(167,183,190,.18);}
+.contact .clink span{color:#A7B7BE;}
+.contact .clink:hover{
+  color:#C6D2D7;
+  border-color:rgba(131,152,163,.48);
+}
+
+/* Footer belongs to the same closing chapter */
+footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
+.footer__inner a:hover{color:#A7B7BE;}
+
 </style>
 <!-- Deployment URL: update these absolute URLs if the portfolio is hosted anywhere other than oriolmartz.github.io. -->
 <link href="https://oriolmartz.github.io/" rel="canonical"/>
@@ -1325,7 +1656,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <meta content="End-to-end AI systems for auditable operational and commercial decisions." name="twitter:description"/>
 <meta content="https://oriolmartz.github.io/assets/social-preview.png" name="twitter:image"/>
 <meta content="Oriol Martínez Ribas · AI engineering portfolio" name="twitter:image:alt"/>
-<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23151b24'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='monospace' font-size='27' font-weight='700' fill='%23e8bf71'%3EOM%3C/text%3E%3C/svg%3E" rel="icon"/>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230c0c0c'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='monospace' font-size='27' font-weight='700' fill='%23e8bf71'%3EOM%3C/text%3E%3C/svg%3E" rel="icon"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1368,24 +1699,24 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <div class="hero__inner">
 <div class="hero__word reveal">PORTFOLIO</div>
 <div class="hero__lead">
-<p class="eyebrow">Oriol Martínez Ribas · AI Engineer · Barcelona</p>
-<h1 class="reveal">I build AI systems<br/>for <em>real decisions.</em></h1>
-<p class="hero__lede reveal">I build AI systems that move beyond the model and into real-world use. With a background in software development and Artificial Intelligence studies at UPC, I work across data, models, software and product.</p>
+<p class="eyebrow hero__identity"><span class="hero__name">Oriol Martínez Ribas</span><span class="hero__meta">· AI Engineer · Barcelona</span></p>
+<h1 class="reveal">AI systems<br/>for <em>real decisions.</em></h1>
+<p class="hero__lede reveal">End-to-end systems across data, models and product — designed to move from model output to real-world decisions.</p>
 </div>
 <div class="hero__proof">
 <div class="ledger reveal">
 <div class="ledger__head">Primary sources, not marketing copy</div>
 <div class="ledger__row">
 <span class="ledger__idx">01</span>
-<span class="ledger__text"><b>7,079,081 source flights</b> processed; the deployed artifact was evaluated once on a 50,453-flight untouched temporal test <span>· Flight Delay Risk, operational ML</span></span>
+<span class="ledger__text"><b>7.0M flights processed</b><span>Temporal holdout · 50,453 flights · Flight Delay Risk</span></span>
 </div>
 <div class="ledger__row">
 <span class="ledger__idx">02</span>
-<span class="ledger__text"><b>Multi-seed stability check</b> on a Gaussian HMM across 5 real assets <span>· Quant Regime Tracer, market-regime inference</span></span>
+<span class="ledger__text"><b>Multi-seed HMM stability</b><span>5 real assets · Quant Regime Tracer</span></span>
 </div>
 <div class="ledger__row">
 <span class="ledger__idx">03</span>
-<span class="ledger__text"><b>141 / 141 automated tests passing</b>, 7 / 7 canonical cases correct <span>· Evidence Route, agentic B2B account routing</span></span>
+<span class="ledger__text"><b>143/143 tests · 7/7 routing cases</b><span>Evidence Route · agentic B2B</span></span>
 </div>
 </div>
 </div>
@@ -1407,16 +1738,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 </header>
 <section class="work" id="work">
 <div class="sec-intro reveal">
-<p class="eyebrow">Selected work · 05 systems</p><h2 class="vh">Selected AI systems</h2>
-<p>Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.</p>
+<p class="eyebrow">Selected work · 06 systems</p><h2 class="vh">Selected AI systems</h2>
+<p>Six end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, a pricing decision to govern, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.</p>
 </div>
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">01</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 01 of 05</div>
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 01 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF FDR · v1.5.0</span>
-<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 01 / 05</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 01 / 06</span>
 </div>
 <div class="exhibit__grid">
 <div>
@@ -1486,10 +1817,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">02</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 02 of 05</div>
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 02 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF QRT · Regime Traceback</span>
-<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 02 / 05</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 02 / 06</span>
 </div>
 <div class="exhibit__grid">
 <div>
@@ -1559,10 +1890,64 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">03</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 03 of 05</div>
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 03 of 06</div>
+<div class="exhibit__head">
+<span class="exhibit__ref">REF PDE · Governed pricing</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 03 / 06</span>
+</div>
+<div class="exhibit__grid">
+<div>
+<div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M4 7.5h10.5l5 4.5-5 4.5H4z"></path><circle cx="8" cy="12" r="1.5"></circle><path d="M15 8.5V5M15 19v-3.5"></path></svg></span><h3 class="exhibit__title">Price Decision Engine</h3></div>
+<p class="exhibit__dek reveal">Governed pricing optimisation from demand elasticity to executable price.</p>
+<p class="exhibit__body reveal">A decision-support system that estimates product-level price elasticity, simulates commercially feasible candidates and optimises under margin and volume constraints. Shared policy checks then determine whether a recommendation can execute automatically or must pause for persistent human approval, while FastAPI, Streamlit and the copilot converge on the same deterministic pricing and governance layers.</p>
+<div class="proof-grid reveal">
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">0.06</div><div class="proof__label">Mean absolute elasticity error</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">93%</div><div class="proof__label">True elasticity inside estimated 95% CI</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">6.4%</div><div class="proof__label">Median temporal holdout MAPE</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">43 + 4</div><div class="proof__label">Tests passed + integration tests skipped</div></div>
+</div>
+<div class="tags reveal"><span class="tag">Pricing Optimisation</span><span class="tag">Demand Elasticity</span><span class="tag">Constrained Optimisation</span><span class="tag">LangGraph</span><span class="tag">Human-in-the-loop</span><span class="tag">FastAPI</span><span class="tag">Decision Support</span></div>
+</div>
+<div class="project-media project-media--no-video reveal">
+<section aria-label="Price Decision Engine product screenshots" class="media-panel media-panel--shots" data-gallery="price-decision-engine">
+<div class="media-panel__head">
+<div><span class="media-panel__kicker">Decision-support evidence</span><h4 class="media-panel__title">Pricing workspace</h4></div>
+<span class="media-panel__index">04 frames</span>
+</div>
+<div class="gallery__main gallery__main--contain" data-idx="0">
+<img alt="Price Decision Engine pricing workspace" loading="lazy" src="assets/projects/price-decision-engine/overview.png"/>
+<div class="cap">Current economics, elasticity and the executable pricing state</div>
+</div>
+<div class="gallery__thumbs gallery__thumbs--3">
+<div class="gallery__thumb" data-idx="1">
+<img alt="Price Decision Engine recommendation with commercial guardrails" loading="lazy" src="assets/projects/price-decision-engine/recommendation.png"/>
+<div class="cap">Recommendation separated from analyst guardrails and governance status</div>
+</div>
+<div class="gallery__thumb" data-idx="2">
+<img alt="Price Decision Engine human approval workflow" loading="lazy" src="assets/projects/price-decision-engine/governance.png"/>
+<div class="cap">Sensitive moves pause for explicit human approval</div>
+</div>
+<div class="gallery__thumb" data-idx="3">
+<img alt="Price Decision Engine traceability and decision history" loading="lazy" src="assets/projects/price-decision-engine/traceability.png"/>
+<div class="cap">Scenario comparison and persisted recommendation history</div>
+</div>
+</div>
+</section>
+<div class="project-media__repo reveal">
+<a class="btn btn--repo" href="https://github.com/oriolmartz/price-decision-engine" rel="noopener" target="_blank">View repository ↗</a>
+</div>
+</div>
+</div>
+</div>
+</article>
+
+<article class="exhibit">
+<span aria-hidden="true" class="exhibit__watermark">04</span>
+<div class="container">
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 04 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF ER · v2.4.0</span>
-<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 03 / 05</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 04 / 06</span>
 </div>
 <div class="exhibit__grid">
 <div>
@@ -1570,10 +1955,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <p class="exhibit__dek reveal">Evidence-backed account research and routing with agents, RAG and MCP.</p>
 <p class="exhibit__body reveal">An LLM-powered account intelligence workflow that combines first-party research with hybrid RAG, separates verified claims from hypotheses and routes accounts through structured decision rules. Its MCP-compatible agent interface preserves source provenance, evaluates retrieval on labelled queries and exports executive-ready briefs.</p>
 <div class="proof-grid reveal">
-<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">141</div><div class="proof__label">Automated tests passed</div></div>
-<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">40</div><div class="proof__label">Labelled RAG queries evaluated</div></div>
-<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">7 / 7</div><div class="proof__label">Canonical routing cases correct</div></div>
-<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">100</div><div class="proof__label">Accounts per API batch</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">143</div><div class="proof__label">Automated tests passed</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">40</div><div class="proof__label">Labelled RAG queries evaluated</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">7 / 7</div><div class="proof__label">Canonical routing cases correct</div></div>
+<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">100</div><div class="proof__label">Accounts per API batch</div></div>
 </div>
 <div class="tags reveal"><span class="tag">AI Agents</span><span class="tag">LLMs</span><span class="tag">Hybrid RAG</span><span class="tag">Model Context Protocol</span><span class="tag">Evidence Grounding</span><span class="tag">B2B Account Intelligence</span></div>
 
@@ -1606,7 +1991,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <section aria-label="Evidence Route video demo" class="media-panel media-panel--video">
 <div class="media-panel__head">
 <div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
-<span class="media-panel__index">Demo 03</span>
+<span class="media-panel__index">Demo 04</span>
 </div>
 <button aria-label="Play Evidence Route product walkthrough" class="video-card" data-poster="assets/projects/evidence-route/routing.png" data-title="Evidence Route: product walkthrough" data-video="evidenceroute-demo.mp4">
 <img alt="Evidence Route routing interface video preview" class="video-card__poster" loading="lazy" src="assets/projects/evidence-route/routing.png"/>
@@ -1626,12 +2011,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 </div>
 </article>
 <article class="exhibit">
-<span aria-hidden="true" class="exhibit__watermark">04</span>
+<span aria-hidden="true" class="exhibit__watermark">05</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 04 of 05</div>
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 05 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF NS · v0.2.0</span>
-<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 04 / 05</span>
+<span class="exhibit__ownership">Independent · End-to-end design and implementation</span><span class="exhibit__num">Exhibit 05 / 06</span>
 </div>
 <div class="exhibit__grid">
 <div>
@@ -1639,10 +2024,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <p class="exhibit__dek reveal">Probabilistic NLP for tracking narratives across the European AI Act debate.</p>
 <p class="exhibit__body reveal">An NLP pipeline that learns latent topics from attributable European AI Act sources using a custom collapsed-Gibbs LDA implementation. Source-held-out validation and cross-seed alignment test topic stability, while source-balanced profiles and Jensen-Shannon divergence compare narratives across actors in an interactive React atlas.</p>
 <div class="proof-grid reveal">
-<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">20</div><div class="proof__label">Attributable public sources</div></div>
-<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">1,035</div><div class="proof__label">Retained corpus sentences</div></div>
-<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">0.781</div><div class="proof__label">Cross-seed topic stability</div></div>
-<div class="proof"><span class="proof__cite">[04]</span><div class="proof__value">44</div><div class="proof__label">Automated tests passed</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">20</div><div class="proof__label">Attributable public sources</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">1,035</div><div class="proof__label">Retained corpus sentences</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">0.781</div><div class="proof__label">Cross-seed topic stability</div></div>
+<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">44</div><div class="proof__label">Automated tests passed</div></div>
 </div>
 <div class="tags reveal"><span class="tag">Natural Language Processing</span><span class="tag">Topic Modeling</span><span class="tag">Probabilistic Modeling</span><span class="tag tag--new">Latent Dirichlet Allocation</span><span class="tag">Source-held-out Validation</span><span class="tag">Narrative Intelligence</span></div>
 
@@ -1671,7 +2056,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <section aria-label="Narrative Shift video demo" class="media-panel media-panel--video">
 <div class="media-panel__head">
 <div><span class="media-panel__kicker">Product walkthrough</span><h4 class="media-panel__title">See the system in motion</h4></div>
-<span class="media-panel__index">Demo 04</span>
+<span class="media-panel__index">Demo 05</span>
 </div>
 <button aria-label="Play Narrative Shift product walkthrough" class="video-card" data-poster="assets/projects/narrative-shift/overview.png" data-title="Narrative Shift: product walkthrough" data-video="narrative-shift-demo.mp4">
 <img alt="Narrative Shift topic atlas video preview" class="video-card__poster" loading="lazy" src="assets/projects/narrative-shift/overview.png"/>
@@ -1692,12 +2077,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 </article>
 
 <article class="exhibit">
-<span aria-hidden="true" class="exhibit__watermark">05</span>
+<span aria-hidden="true" class="exhibit__watermark">06</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 05 of 05</div>
+<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 06 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF MWO · HackUPC 2026</span>
-<span class="exhibit__ownership">HackUPC team project · Competition prototype</span><span class="exhibit__num">Exhibit 05 / 05</span>
+<span class="exhibit__ownership">HackUPC team project · Competition prototype</span><span class="exhibit__num">Exhibit 06 / 06</span>
 </div>
 <div class="exhibit__grid">
 <div>
@@ -1705,10 +2090,10 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <p class="exhibit__dek reveal">Constraint-aware rack placement for the HackUPC 2026 Mecalux challenge.</p>
 <p class="exhibit__body reveal">A team-built hackathon prototype that converts warehouse boundaries, obstacles, ceiling profiles and bay catalogues into feasible rack layouts under a fixed runtime budget. Its heuristic search combines multi-strategy shelf packing, access-gap reuse, residual-space filling and local repair, while the FastAPI interface provides 2D/3D inspection and evaluator-ready CSV export.</p>
 <div class="proof-grid reveal">
-<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">5</div><div class="proof__label">Public challenge cases included</div></div>
-<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">4</div><div class="proof__label">Constraint input files per solve</div></div>
-<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">2D / 3D</div><div class="proof__label">Interactive layout inspection</div></div>
-<div class="proof"><span class="proof__cite">[05]</span><div class="proof__value">CSV</div><div class="proof__label">Evaluator-ready placement export</div></div>
+<div class="proof"><span class="proof__cite">[06]</span><div class="proof__value">5</div><div class="proof__label">Public challenge cases included</div></div>
+<div class="proof"><span class="proof__cite">[06]</span><div class="proof__value">4</div><div class="proof__label">Constraint input files per solve</div></div>
+<div class="proof"><span class="proof__cite">[06]</span><div class="proof__value">2D / 3D</div><div class="proof__label">Interactive layout inspection</div></div>
+<div class="proof"><span class="proof__cite">[06]</span><div class="proof__value">CSV</div><div class="proof__label">Evaluator-ready placement export</div></div>
 </div>
 <div class="tags reveal"><span class="tag">Heuristic Optimisation</span><span class="tag">Spatial Search</span><span class="tag">Constraint Validation</span><span class="tag">FastAPI</span><span class="tag">Three.js</span><span class="tag tag--new">HackUPC 2026</span></div>
 </div>
@@ -1736,7 +2121,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 <section aria-label="Warehouse Optimizer video demo" class="media-panel media-panel--video">
 <div class="media-panel__head">
 <div><span class="media-panel__kicker">Competition walkthrough</span><h4 class="media-panel__title">See the solver in motion</h4></div>
-<span class="media-panel__index">Demo 05</span>
+<span class="media-panel__index">Demo 06</span>
 </div>
 <button aria-label="Play Warehouse Optimizer competition walkthrough" class="video-card" data-poster="assets/projects/mecalux-warehouse-optimizer/results.png" data-title="Warehouse Optimizer: HackUPC walkthrough" data-video="warehouse-optimizer-demo.mp4">
 <img alt="Warehouse Optimizer result video preview" class="video-card__poster" loading="lazy" src="assets/projects/mecalux-warehouse-optimizer/results.png"/>
@@ -1888,17 +2273,31 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   "Available February 2027": "Disponible en febrero de 2027",
   "DOSSIER · REVIEW": "DOSSIER · REVISIÓN",
   "I build AI systems": "Construyo sistemas de IA",
+  "AI systems": "Sistemas de IA",
   "for": "para",
   "real decisions.": "decisiones reales.",
   "I build AI systems that move beyond the model and into real-world use. With a background in software development and Artificial Intelligence studies at UPC, I work across data, models, software and product.": "Construyo sistemas de IA que van más allá del modelo y llegan al uso real. Con experiencia en desarrollo de software y estudios de Inteligencia Artificial en la UPC, trabajo en datos, modelos, software y producto.",
   "Primary sources, not marketing copy": "Fuentes primarias, no texto de marketing",
+  "End-to-end systems across data, models and product — designed to move from model output to real-world decisions.": "Sistemas end-to-end de datos, modelos y producto — diseñados para convertir resultados de modelos en decisiones del mundo real.",
+  "Temporal holdout · 50,453 flights · Flight Delay Risk": "Holdout temporal · 50.453 vuelos · Flight Delay Risk",
+  "Multi-seed HMM stability": "Estabilidad HMM multi-semilla",
+  "5 real assets · Quant Regime Tracer": "5 activos reales · Quant Regime Tracer",
+  "143/143 tests · 7/7 routing cases": "143/143 tests · 7/7 casos de enrutamiento",
+  "Evidence Route · agentic B2B": "Evidence Route · B2B agéntico",
+  "7.0M flights processed": "7,0M vuelos procesados",
+  "Temporal test · 50,453 flights · Flight Delay Risk": "Test temporal · 50.453 vuelos · Flight Delay Risk",
+  "Multi-seed HMM stability": "Estabilidad HMM multi-semilla",
+  "5 real assets · Quant Regime Tracer": "5 activos reales · Quant Regime Tracer",
+  "143/143 tests · 7/7 cases": "143/143 tests · 7/7 casos",
+  "Evidence Route · agentic routing": "Evidence Route · enrutamiento agéntico",
+  "End-to-end systems across data, models, software and product — built to support real operational and commercial decisions.": "Sistemas end-to-end de datos, modelos, software y producto — diseñados para apoyar decisiones operativas y comerciales reales.",
   "7,079,081 source flights": "7.079.081 vuelos de origen",
-  "processed; the deployed artifact was evaluated once on a 50,453-flight untouched temporal test": "procesados; el artefacto desplegado se evaluó una única vez sobre un test temporal intacto de 50.453 vuelos",
+  "processed; the frozen release artifact was evaluated once on a 50,453-flight untouched temporal test": "procesados; el artefacto congelado de la release se evaluó una única vez sobre un test temporal intacto de 50.453 vuelos",
   "· Flight Delay Risk, operational ML": "· Flight Delay Risk, ML operativo",
   "Multi-seed stability check": "Comprobación de estabilidad con múltiples semillas",
   "on a Gaussian HMM across 5 real assets": "de un HMM gaussiano sobre 5 activos reales",
   "· Quant Regime Tracer, market-regime inference": "· Quant Regime Tracer, inferencia de regímenes de mercado",
-  "141 / 141 automated tests passing": "141 / 141 tests automatizados superados",
+  "143 / 143 automated tests passing": "143 / 143 tests automatizados superados",
   ", 7 / 7 canonical cases correct": ", 7 / 7 casos canónicos correctos",
   "· Evidence Route, agentic B2B account routing": "· Evidence Route, enrutamiento agéntico de cuentas B2B",
   "AI engineering opportunities · Feb 2027": "Oportunidades en ingeniería de IA · Feb 2027",
@@ -1906,7 +2305,37 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   "Review the work ↓": "Ver los proyectos ↓",
   "Selected work · 05 systems": "Proyectos seleccionados · 05 sistemas",
   "Selected AI systems": "Sistemas de IA seleccionados",
-  "Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Cinco sistemas end-to-end, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
+
+  "Selected work · 06 systems": "Proyectos seleccionados · 06 sistemas",
+  "Six end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, a pricing decision to govern, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Seis sistemas end-to-end, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una decisión de precio que gobernar, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
+  "Case file · 01 of 06": "Caso · 01 de 06",
+  "Case file · 02 of 06": "Caso · 02 de 06",
+  "Case file · 03 of 06": "Caso · 03 de 06",
+  "Case file · 04 of 06": "Caso · 04 de 06",
+  "Case file · 05 of 06": "Caso · 05 de 06",
+  "Case file · 06 of 06": "Caso · 06 de 06",
+  "Exhibit 01 / 06": "Proyecto 01 / 06",
+  "Exhibit 02 / 06": "Proyecto 02 / 06",
+  "Exhibit 03 / 06": "Proyecto 03 / 06",
+  "Exhibit 04 / 06": "Proyecto 04 / 06",
+  "Exhibit 05 / 06": "Proyecto 05 / 06",
+  "Exhibit 06 / 06": "Proyecto 06 / 06",
+  "Governed pricing optimisation from demand elasticity to executable price.": "Optimización de precios gobernada, desde la elasticidad de demanda hasta un precio ejecutable.",
+  "A decision-support system that estimates product-level price elasticity, simulates commercially feasible candidates and optimises under margin and volume constraints. Shared policy checks then determine whether a recommendation can execute automatically or must pause for persistent human approval, while FastAPI, Streamlit and the copilot converge on the same deterministic pricing and governance layers.": "Un sistema de apoyo a la decisión que estima la elasticidad de precio por producto, simula candidatos comercialmente viables y optimiza bajo restricciones de margen y volumen. Las políticas compartidas determinan después si una recomendación puede ejecutarse automáticamente o debe detenerse para una aprobación humana persistente, mientras FastAPI, Streamlit y el copiloto convergen en las mismas capas deterministas de pricing y gobernanza.",
+  "Mean absolute elasticity error": "Error absoluto medio de elasticidad",
+  "True elasticity inside estimated 95% CI": "Elasticidad real dentro del IC estimado del 95%",
+  "Median temporal holdout MAPE": "MAPE mediano en holdout temporal",
+  "Tests passed + integration tests skipped": "Tests superados + tests de integración omitidos",
+  "Pricing Optimisation": "Optimización de precios",
+  "Demand Elasticity": "Elasticidad de demanda",
+  "Constrained Optimisation": "Optimización con restricciones",
+  "Decision Support": "Apoyo a la decisión",
+  "Decision-support evidence": "Evidencia de apoyo a la decisión",
+  "Pricing workspace": "Espacio de trabajo de pricing",
+  "Current economics, elasticity and the executable pricing state": "Economía actual, elasticidad y estado de pricing ejecutable",
+  "Recommendation separated from analyst guardrails and governance status": "Recomendación separada de las restricciones del analista y del estado de gobernanza",
+  "Sensitive moves pause for explicit human approval": "Los cambios sensibles se detienen para una aprobación humana explícita",
+  "Scenario comparison and persisted recommendation history": "Comparación de escenarios e historial persistente de recomendaciones",  "Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Cinco sistemas end-to-end, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
   "Independent · End-to-end design and implementation": "Independiente · Diseño e implementación end-to-end",
   "HackUPC team project · Competition prototype": "Proyecto de equipo HackUPC · Prototipo de competición",
   "Case file · 01 of 05": "Caso · 01 de 05",
@@ -2071,7 +2500,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   "Language proficiency": "Nivel de idiomas",
   "Flight Delay Risk product screenshots": "Capturas del producto Flight Delay Risk",
   "Quant Regime Tracer product screenshots": "Capturas del producto Quant Regime Tracer",
-  "Evidence Route product screenshots": "Capturas del producto Evidence Route",
+
+  "Price Decision Engine product screenshots": "Capturas del producto Price Decision Engine",
+  "Price Decision Engine pricing workspace": "Espacio de trabajo de Price Decision Engine",
+  "Price Decision Engine recommendation with commercial guardrails": "Recomendación de Price Decision Engine con restricciones comerciales",
+  "Price Decision Engine human approval workflow": "Flujo de aprobación humana de Price Decision Engine",
+  "Price Decision Engine traceability and decision history": "Trazabilidad e historial de decisiones de Price Decision Engine",  "Evidence Route product screenshots": "Capturas del producto Evidence Route",
   "Narrative Shift product screenshots": "Capturas del producto Narrative Shift",
   "Warehouse Optimizer product screenshots": "Capturas del producto Warehouse Optimizer",
   "Flight Delay Risk video demo": "Vídeo de demostración de Flight Delay Risk",
