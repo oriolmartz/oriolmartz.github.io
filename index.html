@@ -305,6 +305,24 @@ body::before{
   white-space:nowrap;
   text-shadow:0 20px 55px rgba(0,0,0,.16);
 }
+.hero__word-o{
+  position:relative;
+  display:inline-block;
+}
+.hero__word-o::after{
+  content:"";
+  position:absolute;
+  /* Optical centering inside the IBM Plex Mono O counter. */
+  left:54%;
+  top:54%;
+  width:.082em;
+  height:.082em;
+  border-radius:50%;
+  background:var(--amber);
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
 .hero__word::after{
   content:"AI ENGINEERING · 2026";
   display:inline-block;
@@ -321,25 +339,29 @@ body::before{
 .hero__identity{
   font-family:var(--sans);
   font-size:.94rem;
-  letter-spacing:.068em;
+  letter-spacing:0;
   color:var(--fg-dim);
-  gap:.62em;
+  gap:.70em;
   flex-wrap:wrap;
+  text-transform:none;
 }
 .hero__identity::before{margin-right:.08em;}
 .hero__name{
   color:var(--fg);
   font-family:var(--sans);
   font-weight:700;
-  font-size:1.02em;
-  letter-spacing:.065em;
+  font-size:1.12rem;
+  letter-spacing:-.015em;
+  line-height:1.15;
+  text-transform:none;
 }
 .hero__meta{
   color:var(--fg-faint);
   font-family:var(--mono);
-  font-size:.82em;
+  font-size:.76rem;
   font-weight:500;
-  letter-spacing:.105em;
+  letter-spacing:.10em;
+  text-transform:uppercase;
 }
 
 .hero__lead{grid-area:lead; min-width:0; padding-top:4px;}
@@ -1463,10 +1485,28 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
   color:#B5B1AA;
   font-size:.90rem;
   line-height:1.52;
-  gap:6px;
+  gap:5px;
+  min-width:0;
 }
-.hero .ledger__text b{font-size:.97rem; font-weight:600;}
-.hero .ledger__text span{font-family:var(--sans); color:#94928E; font-size:.79rem; line-height:1.48;}
+.hero .ledger__text b{
+  font-size:.97rem;
+  font-weight:600;
+  line-height:1.35;
+}
+.hero .ledger__metrics{
+  font-family:var(--sans);
+  color:#A09D97;
+  font-size:.76rem;
+  line-height:1.45;
+  letter-spacing:-.006em;
+}
+.hero .ledger__stack{
+  font-family:var(--mono);
+  color:#7F969F;
+  font-size:.64rem;
+  line-height:1.45;
+  letter-spacing:.035em;
+}
 
 /* Bottom controls: aligned, quiet, editorial */
 .hero .stamp{
@@ -1639,6 +1679,42 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--amber); outline-off
 footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 .footer__inner a:hover{color:#A7B7BE;}
 
+
+/* Explicit recruiter-friendly email row */
+.contact .clink--email{
+  align-items:baseline;
+}
+.contact .clink--email .clink__label{
+  flex:none;
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:#8398A3;
+}
+.contact .clink--email .clink__value{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--mono);
+  font-size:.84rem;
+  font-weight:500;
+  letter-spacing:-.01em;
+  color:var(--fg);
+  text-transform:none;
+}
+.contact .clink--email .clink__arrow{
+  color:#A7B7BE;
+  transition:transform .25s var(--ease), color .25s var(--ease);
+}
+.contact .clink--email:hover .clink__value{color:#A7B7BE;}
+.contact .clink--email:hover .clink__arrow{transform:translate(2px,-2px); color:#C4D0D5;}
+@media (max-width:620px){
+  .contact .clink--email{align-items:flex-start; flex-direction:column; gap:7px;}
+  .contact .clink--email .clink__value{font-size:.78rem; overflow-wrap:anywhere;}
+}
+
 </style>
 <!-- Deployment URL: update these absolute URLs if the portfolio is hosted anywhere other than oriolmartz.github.io. -->
 <link href="https://oriolmartz.github.io/" rel="canonical"/>
@@ -1697,7 +1773,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <header class="hero" id="top">
 <span class="hero__tab">DOSSIER · REVIEW</span>
 <div class="hero__inner">
-<div class="hero__word reveal">PORTFOLIO</div>
+<div class="hero__word reveal">PORTFOLI<span class="hero__word-o" aria-hidden="true">O</span><span class="vh">O</span></div>
 <div class="hero__lead">
 <p class="eyebrow hero__identity"><span class="hero__name">Oriol Martínez Ribas</span><span class="hero__meta">· AI Engineer · Barcelona</span></p>
 <h1 class="reveal">AI systems<br/>for <em>real decisions.</em></h1>
@@ -1708,15 +1784,27 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="ledger__head">Primary sources, not marketing copy</div>
 <div class="ledger__row">
 <span class="ledger__idx">01</span>
-<span class="ledger__text"><b>7.0M flights processed</b><span>Temporal holdout · 50,453 flights · Flight Delay Risk</span></span>
+<span class="ledger__text">
+  <b>7.0M+ flights processed</b>
+  <span class="ledger__metrics">50,453-flight untouched test · 1.64× top-decile lift · 28.0% precision</span>
+  <span class="ledger__stack">NOAA weather · temporal validation · probability calibration</span>
+</span>
 </div>
 <div class="ledger__row">
 <span class="ledger__idx">02</span>
-<span class="ledger__text"><b>Multi-seed HMM stability</b><span>5 real assets · Quant Regime Tracer</span></span>
+<span class="ledger__text">
+  <b>Multi-seed Gaussian HMM stability</b>
+  <span class="ledger__metrics">5 assets · 8 engineered features · k=2–5 candidates · 29 backend tests</span>
+  <span class="ledger__stack">BIC selection · posterior probabilities · entropy traceback</span>
+</span>
 </div>
 <div class="ledger__row">
 <span class="ledger__idx">03</span>
-<span class="ledger__text"><b>143/143 tests · 7/7 routing cases</b><span>Evidence Route · agentic B2B</span></span>
+<span class="ledger__text">
+  <b>143/143 tests · 7/7 routing cases</b>
+  <span class="ledger__metrics">40 labelled RAG queries · 100 accounts per API batch</span>
+  <span class="ledger__stack">Hybrid RAG · MCP · source provenance</span>
+</span>
 </div>
 </div>
 </div>
@@ -1730,7 +1818,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="icon-links">
 <a aria-label="GitHub" href="https://github.com/oriolmartz" rel="noopener" target="_blank"><svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.77 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.16.69-3.83-1.34-3.83-1.34-.52-1.31-1.26-1.66-1.26-1.66-1.03-.7.08-.69.08-.69 1.14.08 1.74 1.17 1.74 1.17 1.01 1.73 2.65 1.23 3.3.94.1-.73.4-1.23.72-1.51-2.52-.29-5.17-1.26-5.17-5.62 0-1.24.44-2.26 1.17-3.05-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.16a10.9 10.9 0 015.72 0c2.18-1.47 3.14-1.16 3.14-1.16.62 1.57.23 2.73.11 3.02.73.79 1.17 1.81 1.17 3.05 0 4.37-2.66 5.33-5.19 5.61.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .3.2.66.79.55 4.5-1.5 7.76-5.76 7.76-10.78C23.02 5.24 18.27.5 12 .5z"></path></svg></a>
 <a aria-label="LinkedIn" href="https://linkedin.com/in/oriolmartz" rel="noopener" target="_blank"><svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"></path></svg></a>
-<a aria-label="Email" href="mailto:oriol@oaibuilds.com"><svg fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18"><rect height="15" rx="1.5" width="19" x="2.5" y="4.5"></rect><path d="M3 6l9 7 9-7"></path></svg></a>
+<a aria-label="Email" href="mailto:oriol.martinez.ribas@gmail.com"><svg fill="none" height="18" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" width="18"><rect height="15" rx="1.5" width="19" x="2.5" y="4.5"></rect><path d="M3 6l9 7 9-7"></path></svg></a>
 </div>
 </div>
 </div>
@@ -2227,7 +2315,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <span class="contact__availability">Available from February 2027</span>
 </div>
 <div class="contact__links">
-<a class="clink" href="mailto:oriol@oaibuilds.com"><span>Email Oriol</span><span>↗</span></a>
+<a class="clink clink--email" href="mailto:oriol.martinez.ribas@gmail.com"><span class="clink__label">Email</span><span class="clink__value">oriol.martinez.ribas@gmail.com <span class="clink__arrow">↗</span></span></a>
 <a class="clink" href="https://linkedin.com/in/oriolmartz" rel="noopener" target="_blank"><span>LinkedIn</span><span>↗</span></a>
 <a class="clink" href="https://github.com/oriolmartz" rel="noopener" target="_blank"><span>GitHub</span><span>↗</span></a>
 </div>
@@ -2284,7 +2372,14 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "5 real assets · Quant Regime Tracer": "5 activos reales · Quant Regime Tracer",
   "143/143 tests · 7/7 routing cases": "143/143 tests · 7/7 casos de enrutamiento",
   "Evidence Route · agentic B2B": "Evidence Route · B2B agéntico",
-  "7.0M flights processed": "7,0M vuelos procesados",
+  "7.0M+ flights processed": "7,0M+ vuelos procesados",
+  "50,453-flight untouched test · 1.64× top-decile lift · 28.0% precision": "Test intacto de 50.453 vuelos · lift 1,64× en el decil superior · 28,0% de precisión",
+  "NOAA weather · temporal validation · probability calibration": "Meteorología NOAA · validación temporal · calibración de probabilidades",
+  "Multi-seed Gaussian HMM stability": "Estabilidad HMM gaussiano multi-semilla",
+  "5 assets · 8 engineered features · k=2–5 candidates · 29 backend tests": "5 activos · 8 variables diseñadas · candidatos k=2–5 · 29 tests de backend",
+  "BIC selection · posterior probabilities · entropy traceback": "Selección BIC · probabilidades posteriores · trazabilidad por entropía",
+  "40 labelled RAG queries · 100 accounts per API batch": "40 consultas RAG etiquetadas · 100 cuentas por lote de API",
+  "Hybrid RAG · MCP · source provenance": "RAG híbrido · MCP · procedencia de fuentes",
   "Temporal test · 50,453 flights · Flight Delay Risk": "Test temporal · 50.453 vuelos · Flight Delay Risk",
   "Multi-seed HMM stability": "Estabilidad HMM multi-semilla",
   "5 real assets · Quant Regime Tracer": "5 activos reales · Quant Regime Tracer",
