@@ -51,13 +51,10 @@ Included and connected:
 - `flight-delay-risk-demo.mp4`
 - `quant-regime-tracer-demo.mp4`
 - `evidenceroute-demo.mp4`
+- `narrative-shift-demo.mp4`
 - `warehouse-optimizer-demo.mp4`
 
-The Narrative Shift walkthrough is not included in the supplied source ZIP. Its card opens an intentional preview placeholder without requesting a missing file. To activate it later:
-
-1. Add `assets/video/narrative-shift-demo.mp4`.
-2. In `index.html`, find the Narrative Shift video button.
-3. Set `data-video="narrative-shift-demo.mp4"` and remove `data-video-pending="true"`.
+All five walkthroughs are included under `assets/video/` and connected from `index.html`.
 
 ## Local preview
 
