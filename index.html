@@ -635,17 +635,6 @@ html[lang="es"] .hero h1{
 @media (max-width:760px){
 .exhibit__watermark{display:none;} }
 
-/* case-file tab — light paper accent reintroduced into the dark canvas */
-.exhibit__tab{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--mono); font-size:.66rem; font-weight:600; letter-spacing:.13em; text-transform:uppercase;
-  color:var(--paper-ink); background:var(--paper);
-  padding:7px 14px 7px 10px; border-radius:2px 10px 10px 2px;
-  margin-bottom:22px;
-  box-shadow:0 8px 18px rgba(0,0,0,.22);
-}
-.exhibit__tab-dot{width:7px; height:7px; border-radius:50%; background:var(--acc); flex:none;}
-
 .exhibit__head{
   display:flex; justify-content:space-between; align-items:baseline;
   margin-bottom:28px; flex-wrap:wrap; gap:10px;
@@ -1911,19 +1900,18 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="work-tldr__inner">
 <div class="work-tldr__label">TL;DR</div>
 <div class="work-tldr__content">
-<div class="work-tldr__row"><span class="work-tldr__num">01</span><span class="work-tldr__name">Flight Delay Risk</span><span class="work-tldr__signal">7.0M+ flights processed · 1.64× top-decile lift</span></div>
-<div class="work-tldr__row"><span class="work-tldr__num">02</span><span class="work-tldr__name">Quant Regime Tracer</span><span class="work-tldr__signal">5 real assets · multi-seed Gaussian HMM</span></div>
-<div class="work-tldr__row"><span class="work-tldr__num">03</span><span class="work-tldr__name">Price Decision Engine</span><span class="work-tldr__signal">0.06 elasticity MAE · 93% coverage of estimated 95% CI</span></div>
-<div class="work-tldr__row"><span class="work-tldr__num">04</span><span class="work-tldr__name">Evidence Route</span><span class="work-tldr__signal">143 tests · 7/7 routing cases · 40 labelled RAG queries</span></div>
-<div class="work-tldr__row"><span class="work-tldr__num">05</span><span class="work-tldr__name">Narrative Shift</span><span class="work-tldr__signal">0.781 cross-seed topic stability · 20 attributable sources</span></div>
-<div class="work-tldr__row"><span class="work-tldr__num">06</span><span class="work-tldr__name">Warehouse Optimizer</span><span class="work-tldr__signal">HackUPC 2026 · heuristic search · 2D/3D inspection</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">01</span><span class="work-tldr__name">Flight Delay Risk</span><span class="work-tldr__signal">7.0M+ U.S. flights · 64% stronger top-risk prioritisation</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">02</span><span class="work-tldr__name">Quant Regime Tracer</span><span class="work-tldr__signal">5 markets · stable regime detection across repeated runs</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">03</span><span class="work-tldr__name">Price Decision Engine</span><span class="work-tldr__signal">Pricing recommendations tested on later unseen periods</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">04</span><span class="work-tldr__name">Evidence Route</span><span class="work-tldr__signal">143 tests · 7/7 routing scenarios correct</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">05</span><span class="work-tldr__name">Narrative Shift</span><span class="work-tldr__signal">20 public sources · stable topics across repeated runs</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">06</span><span class="work-tldr__name">Warehouse Optimizer</span><span class="work-tldr__signal">HackUPC · warehouse optimisation with 2D/3D inspection</span></div>
 </div>
 </div>
 </div>
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">01</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 01 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF FDR · v1.5.0</span>
 <span class="exhibit__ownership">Independent project</span><span class="exhibit__num">Exhibit 01 / 06</span>
@@ -1931,7 +1919,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="exhibit__grid">
 <div>
 <div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M2.5 16.5l19-7c1-.4 1.6.7.8 1.4l-6.3 5.6 1.4 5.8c.2.9-.9 1.4-1.5.7l-3.7-4.3-4 2 .3 2.6-1.6-.5-1-2.3-2.3-.9 2.5-1.6z"></path></svg></span><h3 class="exhibit__title">Flight Delay Risk</h3></div>
-<p class="exhibit__dek reveal">Pre-departure delay prediction for risk-based operations.</p>
+<p class="exhibit__dek reveal">Pre-departure delay prediction across U.S. flights.</p>
 <p class="exhibit__body reveal">A supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.</p>
 <div class="proof-grid reveal">
 <div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">1.64×</div><div class="proof__label">Top-decile prioritisation lift</div></div>
@@ -1996,7 +1984,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">02</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 02 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF QRT · Regime Traceback</span>
 <span class="exhibit__ownership">Independent project</span><span class="exhibit__num">Exhibit 02 / 06</span>
@@ -2069,7 +2056,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">03</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 03 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF PDE · Governed pricing</span>
 <span class="exhibit__ownership">Independent project</span><span class="exhibit__num">Exhibit 03 / 06</span>
@@ -2123,7 +2109,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">04</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 04 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF ER · v2.4.0</span>
 <span class="exhibit__ownership">Independent project</span><span class="exhibit__num">Exhibit 04 / 06</span>
@@ -2192,7 +2177,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">05</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 05 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF NS · v0.2.0</span>
 <span class="exhibit__ownership">Independent project</span><span class="exhibit__num">Exhibit 05 / 06</span>
@@ -2258,7 +2242,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">06</span>
 <div class="container">
-<div class="exhibit__tab"><span class="exhibit__tab-dot"></span>Case file · 06 of 06</div>
 <div class="exhibit__head">
 <span class="exhibit__ref">REF MWO · HackUPC 2026</span>
 <span class="exhibit__ownership">HackUPC team project · Competition prototype</span><span class="exhibit__num">Exhibit 06 / 06</span>
@@ -2371,8 +2354,8 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <p>An academic programme at Huazhong University of Science and Technology (HUST) in Wuhan broadened that perspective through international collaboration and direct exposure to applied AI, robotics and China’s technology ecosystem.</p>
 <p>I am particularly interested in AI engineering, AI solutions and technology consulting roles.</p>
 <div class="about__aside">
-<span class="about__aside-label">Outside the work</span>
-<p>Outside work, I usually end up reading about technology, markets and space, or studying Mandarin. I also try to keep an active life. I’m drawn to things that make me understand how a system works, whether it is software, a machine or an idea.</p>
+<span class="about__aside-label">Outside work</span>
+<p>I usually end up reading about technology, markets and space, or studying Mandarin. I also try to keep an active life. I’m drawn to things that make me understand how a system works, whether it is software, a machine or an idea.</p>
 </div>
 </div>
 <div class="about__right">
@@ -2503,18 +2486,12 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 
   "Selected work · 06 systems": "Proyectos seleccionados · 06 sistemas",
   "Six systems across operational ML, market inference, pricing, B2B research, NLP and spatial optimisation. Each case includes the interface, validation and implementation evidence.": "Seis sistemas de ML operativo, inferencia de mercados, pricing, investigación B2B, NLP y optimización espacial. Cada caso incluye la interfaz, la validación y la evidencia de implementación.",
-  "7.0M+ flights processed · 1.64× top-decile lift": "7,0M+ vuelos procesados · 1,64× lift en el decil superior",
-  "5 real assets · multi-seed Gaussian HMM": "5 activos reales · HMM gaussiano multi-semilla",
-  "0.06 elasticity MAE · 93% coverage of estimated 95% CI": "0,06 MAE de elasticidad · 93% de cobertura del IC estimado del 95%",
-  "143 tests · 7/7 routing cases · 40 labelled RAG queries": "143 tests · 7/7 casos de enrutamiento · 40 consultas RAG etiquetadas",
-  "0.781 cross-seed topic stability · 20 attributable sources": "0,781 de estabilidad temática entre semillas · 20 fuentes atribuibles",
-  "HackUPC 2026 · heuristic search · 2D/3D inspection": "HackUPC 2026 · búsqueda heurística · inspección 2D/3D",
-  "Case file · 01 of 06": "Caso · 01 de 06",
-  "Case file · 02 of 06": "Caso · 02 de 06",
-  "Case file · 03 of 06": "Caso · 03 de 06",
-  "Case file · 04 of 06": "Caso · 04 de 06",
-  "Case file · 05 of 06": "Caso · 05 de 06",
-  "Case file · 06 of 06": "Caso · 06 de 06",
+  "7.0M+ U.S. flights · 64% stronger top-risk prioritisation": "7,0M+ vuelos procesados · 1,64× lift en el decil superior",
+  "5 markets · stable regime detection across repeated runs": "5 activos reales · HMM gaussiano multi-semilla",
+  "Pricing recommendations tested on later unseen periods": "0,06 MAE de elasticidad · 93% de cobertura del IC estimado del 95%",
+  "143 tests · 7/7 routing scenarios correct": "143 tests · 7/7 casos de enrutamiento · 40 consultas RAG etiquetadas",
+  "20 public sources · stable topics across repeated runs": "0,781 de estabilidad temática entre semillas · 20 fuentes atribuibles",
+  "HackUPC · warehouse optimisation with 2D/3D inspection": "HackUPC 2026 · búsqueda heurística · inspección 2D/3D",
   "Exhibit 01 / 06": "Proyecto 01 / 06",
   "Exhibit 02 / 06": "Proyecto 02 / 06",
   "Exhibit 03 / 06": "Proyecto 03 / 06",
@@ -2549,7 +2526,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Exhibit 03 / 05": "Proyecto 03 / 05",
   "Exhibit 04 / 05": "Proyecto 04 / 05",
   "Exhibit 05 / 05": "Proyecto 05 / 05",
-  "Pre-departure delay prediction for risk-based operations.": "Predicción de retrasos antes de la salida para operaciones basadas en riesgo.",
+  "Pre-departure delay prediction across U.S. flights.": "Predicción de retrasos antes de la salida para operaciones basadas en riesgo.",
   "A supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.": "Sistema de aprendizaje supervisado que puntúa vuelos programados utilizando únicamente datos disponibles antes de la salida. El pipeline compara familias de modelos, integra datos meteorológicos históricos de NOAA, calibra probabilidades y valida sobre particiones cronológicas antes de producir una cola operativa priorizada.",
   "Top-decile prioritisation lift": "Lift de priorización en el decil superior",
   "Precision in the priority queue": "Precisión en la cola prioritaria",
@@ -2653,8 +2630,8 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Over time, my focus shifted toward applied AI systems. Today I am especially interested in how models connect with validation, APIs, interfaces and decision-making processes.": "Con el tiempo, mi foco se desplazó hacia los sistemas de IA aplicada. Hoy me interesa especialmente cómo se conectan los modelos con la validación, las APIs, las interfaces y los procesos de decisión.",
   "An academic programme at Huazhong University of Science and Technology (HUST) in Wuhan broadened that perspective through international collaboration and direct exposure to applied AI, robotics and China’s technology ecosystem.": "Un programa académico en la Huazhong University of Science and Technology (HUST), en Wuhan, amplió esa perspectiva mediante la colaboración internacional y el contacto directo con la IA aplicada, la robótica y el ecosistema tecnológico de China.",
   "I am particularly interested in AI engineering, AI solutions and technology consulting roles.": "Me interesan especialmente los roles de ingeniería de IA, soluciones de IA y consultoría tecnológica.",
-  "Outside the work": "Fuera del trabajo",
-  "Outside work, I usually end up reading about technology, markets and space, or studying Mandarin. I also try to keep an active life. I’m drawn to things that make me understand how a system works, whether it is software, a machine or an idea.": "Fuera del trabajo, suelo acabar leyendo sobre tecnología, mercados y espacio, o estudiando mandarín. También intento mantener una vida bastante activa. Me atraen especialmente las cosas que me obligan a entender cómo funciona un sistema, ya sea software, una máquina o una idea.",
+  "Outside work": "Fuera del trabajo",
+  "I usually end up reading about technology, markets and space, or studying Mandarin. I also try to keep an active life. I’m drawn to things that make me understand how a system works, whether it is software, a machine or an idea.": "Fuera del trabajo, suelo acabar leyendo sobre tecnología, mercados y espacio, o estudiando mandarín. También intento mantener una vida bastante activa. Me atraen especialmente las cosas que me obligan a entender cómo funciona un sistema, ya sea software, una máquina o una idea.",
   "AI & robotics": "IA y robótica",
   "Original photographs from the HUST academic programme · Wuhan, China.": "Fotografías originales del programa académico de HUST · Wuhan, China.",
   "Profile brief · OMR": "Resumen de perfil · OMR",
