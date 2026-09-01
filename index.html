@@ -533,6 +533,67 @@ html[lang="es"] .hero h1{
   .work .sec-intro{grid-template-columns:1fr; gap:18px; padding-top:30px; padding-bottom:30px;}
   .work .sec-intro .eyebrow{padding-top:0;}
 }
+
+
+/* TL;DR — fast scan without replacing the detailed case files */
+.work-tldr{
+  max-width:var(--container);
+  margin-inline:auto;
+  padding:0 var(--pad) 34px;
+}
+.work-tldr__inner{
+  display:grid;
+  grid-template-columns:minmax(110px,.28fr) minmax(0,1.72fr);
+  border-top:1px solid rgba(255,255,255,.16);
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.work-tldr__label{
+  padding:18px 22px 18px 0;
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.16em;
+  color:#D0D9DE;
+}
+.work-tldr__content{
+  border-left:1px solid rgba(255,255,255,.14);
+  padding:10px 0 10px 24px;
+}
+.work-tldr__row{
+  display:grid;
+  grid-template-columns:32px minmax(180px,.86fr) minmax(0,1.14fr);
+  gap:14px;
+  align-items:baseline;
+  padding:8px 0;
+}
+.work-tldr__num{
+  font-family:var(--mono);
+  font-size:.68rem;
+  font-weight:700;
+  color:#B7C4CB;
+}
+.work-tldr__name{
+  font-family:var(--mono);
+  font-size:.80rem;
+  font-weight:600;
+  color:#FAF7F0;
+}
+.work-tldr__signal{
+  font-family:var(--mono);
+  font-size:.72rem;
+  line-height:1.45;
+  color:#D7DEE5;
+}
+@media (max-width:760px){
+  .work-tldr{padding-bottom:28px;}
+  .work-tldr__inner{grid-template-columns:1fr;}
+  .work-tldr__label{padding:13px 0 8px;}
+  .work-tldr__content{border-left:none; padding:0 0 10px;}
+  .work-tldr__row{grid-template-columns:28px minmax(0,1fr); gap:2px 10px; padding:8px 0;}
+  .work-tldr__num{grid-row:1 / span 2;}
+  .work-tldr__name{grid-column:2;}
+  .work-tldr__signal{grid-column:2; font-size:.65rem;}
+}
 .exhibit{
   border-top:1px solid rgba(255,255,255,.08);
   padding:72px 0 80px;
@@ -1845,6 +1906,19 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <p class="eyebrow">Selected work · 06 systems</p><h2 class="vh">Selected AI systems</h2>
 <p>Six systems across operational ML, market inference, pricing, B2B research, NLP and spatial optimisation. Each case includes the interface, validation and implementation evidence.</p>
 </div>
+<div class="work-tldr reveal" aria-label="Work summary">
+<div class="work-tldr__inner">
+<div class="work-tldr__label">TL;DR</div>
+<div class="work-tldr__content">
+<div class="work-tldr__row"><span class="work-tldr__num">01</span><span class="work-tldr__name">Flight Delay Risk</span><span class="work-tldr__signal">7.0M+ flights processed · 1.64× top-decile lift</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">02</span><span class="work-tldr__name">Quant Regime Tracer</span><span class="work-tldr__signal">5 real assets · multi-seed Gaussian HMM</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">03</span><span class="work-tldr__name">Price Decision Engine</span><span class="work-tldr__signal">0.06 elasticity MAE · 93% coverage of estimated 95% CI</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">04</span><span class="work-tldr__name">Evidence Route</span><span class="work-tldr__signal">143 tests · 7/7 routing cases · 40 labelled RAG queries</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">05</span><span class="work-tldr__name">Narrative Shift</span><span class="work-tldr__signal">0.781 cross-seed topic stability · 20 attributable sources</span></div>
+<div class="work-tldr__row"><span class="work-tldr__num">06</span><span class="work-tldr__name">Warehouse Optimizer</span><span class="work-tldr__signal">HackUPC 2026 · heuristic search · 2D/3D inspection</span></div>
+</div>
+</div>
+</div>
 <article class="exhibit">
 <span aria-hidden="true" class="exhibit__watermark">01</span>
 <div class="container">
@@ -1857,7 +1931,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div>
 <div class="exhibit__titlewrap reveal"><span aria-hidden="true" class="exhibit__icon"><svg viewbox="0 0 24 24"><path d="M2.5 16.5l19-7c1-.4 1.6.7.8 1.4l-6.3 5.6 1.4 5.8c.2.9-.9 1.4-1.5.7l-3.7-4.3-4 2 .3 2.6-1.6-.5-1-2.3-2.3-.9 2.5-1.6z"></path></svg></span><h3 class="exhibit__title">Flight Delay Risk</h3></div>
 <p class="exhibit__dek reveal">Pre-departure delay prediction for risk-based operations.</p>
-<p class="exhibit__body reveal">An end-to-end supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.</p>
+<p class="exhibit__body reveal">A supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.</p>
 <div class="proof-grid reveal">
 <div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">1.64×</div><div class="proof__label">Top-decile prioritisation lift</div></div>
 <div class="proof"><span class="proof__cite">[01]</span><div class="proof__value">28.0%</div><div class="proof__label">Precision in the priority queue</div></div>
@@ -2411,7 +2485,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "5 real assets · Quant Regime Tracer": "5 activos reales · Quant Regime Tracer",
   "143/143 tests · 7/7 cases": "143/143 tests · 7/7 casos",
   "Evidence Route · agentic routing": "Evidence Route · enrutamiento agéntico",
-  "End-to-end systems across data, models, software and product — built to support real operational and commercial decisions.": "Sistemas end-to-end de datos, modelos, software y producto — diseñados para apoyar decisiones operativas y comerciales reales.",
+  "Systems across data, models, software and product — built to support real operational and commercial decisions.": "Sistemas basados en datos, modelos, software y producto — diseñados para apoyar decisiones operativas y comerciales reales.",
   "7,079,081 source flights": "7.079.081 vuelos de origen",
   "processed; the frozen release artifact was evaluated once on a 50,453-flight untouched temporal test": "procesados; el artefacto congelado de la release se evaluó una única vez sobre un test temporal intacto de 50.453 vuelos",
   "· Flight Delay Risk, operational ML": "· Flight Delay Risk, ML operativo",
@@ -2429,6 +2503,12 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 
   "Selected work · 06 systems": "Proyectos seleccionados · 06 sistemas",
   "Six systems across operational ML, market inference, pricing, B2B research, NLP and spatial optimisation. Each case includes the interface, validation and implementation evidence.": "Seis sistemas de ML operativo, inferencia de mercados, pricing, investigación B2B, NLP y optimización espacial. Cada caso incluye la interfaz, la validación y la evidencia de implementación.",
+  "7.0M+ flights processed · 1.64× top-decile lift": "7,0M+ vuelos procesados · 1,64× lift en el decil superior",
+  "5 real assets · multi-seed Gaussian HMM": "5 activos reales · HMM gaussiano multi-semilla",
+  "0.06 elasticity MAE · 93% coverage of estimated 95% CI": "0,06 MAE de elasticidad · 93% de cobertura del IC estimado del 95%",
+  "143 tests · 7/7 routing cases · 40 labelled RAG queries": "143 tests · 7/7 casos de enrutamiento · 40 consultas RAG etiquetadas",
+  "0.781 cross-seed topic stability · 20 attributable sources": "0,781 de estabilidad temática entre semillas · 20 fuentes atribuibles",
+  "HackUPC 2026 · heuristic search · 2D/3D inspection": "HackUPC 2026 · búsqueda heurística · inspección 2D/3D",
   "Case file · 01 of 06": "Caso · 01 de 06",
   "Case file · 02 of 06": "Caso · 02 de 06",
   "Case file · 03 of 06": "Caso · 03 de 06",
@@ -2456,7 +2536,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Current economics, elasticity and the executable pricing state": "Economía actual, elasticidad y estado de pricing ejecutable",
   "Recommendation separated from analyst guardrails and governance status": "Recomendación separada de las restricciones del analista y del estado de gobernanza",
   "Sensitive moves pause for explicit human approval": "Los cambios sensibles se detienen para una aprobación humana explícita",
-  "Scenario comparison and persisted recommendation history": "Comparación de escenarios e historial persistente de recomendaciones",  "Five end-to-end systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Cinco sistemas end-to-end, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
+  "Scenario comparison and persisted recommendation history": "Comparación de escenarios e historial persistente de recomendaciones",  "Six systems, each turning an ambiguous situation into an auditable result: a flight to prioritise, a market regime to trace, an account to route, a public debate to map or a warehouse layout to optimise. The interface, validation and engineering evidence are presented together.": "Seis sistemas, cada uno transforma una situación ambigua en un resultado auditable: un vuelo que priorizar, un régimen de mercado que rastrear, una cuenta que enrutar, un debate público que cartografiar o una distribución de almacén que optimizar. La interfaz, la validación y la evidencia de ingeniería se presentan conjuntamente.",
   "Independent project": "Proyecto independiente",
   "HackUPC team project · Competition prototype": "Proyecto de equipo HackUPC · Prototipo de competición",
   "Case file · 01 of 05": "Caso · 01 de 05",
@@ -2470,7 +2550,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Exhibit 04 / 05": "Proyecto 04 / 05",
   "Exhibit 05 / 05": "Proyecto 05 / 05",
   "Pre-departure delay prediction for risk-based operations.": "Predicción de retrasos antes de la salida para operaciones basadas en riesgo.",
-  "An end-to-end supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.": "Un sistema end-to-end de aprendizaje supervisado que puntúa vuelos programados utilizando únicamente datos disponibles antes de la salida. El pipeline compara familias de modelos, integra datos meteorológicos históricos de NOAA, calibra probabilidades y valida sobre particiones cronológicas antes de producir una cola operativa priorizada.",
+  "A supervised learning system that scores scheduled flights using only pre-departure data. The pipeline compares model families, integrates point-in-time NOAA weather, calibrates probabilities and validates on chronological holdouts before producing a ranked operations queue.": "Sistema de aprendizaje supervisado que puntúa vuelos programados utilizando únicamente datos disponibles antes de la salida. El pipeline compara familias de modelos, integra datos meteorológicos históricos de NOAA, calibra probabilidades y valida sobre particiones cronológicas antes de producir una cola operativa priorizada.",
   "Top-decile prioritisation lift": "Lift de priorización en el decil superior",
   "Precision in the priority queue": "Precisión en la cola prioritaria",
   "Final-test calibration gap": "Brecha de calibración en el test final",
@@ -2696,8 +2776,8 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
       ? 'Oriol Martinez Ribas · Portfolio de Ingeniería de IA'
       : 'Oriol Martinez Ribas · AI Engineering Portfolio';
     var descriptions = {
-      en: 'AI engineering portfolio of Oriol Martinez Ribas. End-to-end systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation.',
-      es: 'Portfolio de ingeniería de IA de Oriol Martinez Ribas. Sistemas end-to-end para riesgo operativo, inteligencia probabilística de mercados, investigación B2B basada en evidencia, análisis del debate público y optimización espacial.'
+      en: 'AI engineering portfolio of Oriol Martinez Ribas. Systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation.',
+      es: 'Portfolio de ingeniería de IA de Oriol Martinez Ribas. Sistemas para riesgo operativo, inteligencia probabilística de mercados, investigación B2B basada en evidencia, análisis del debate público y optimización espacial.'
     };
     document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function(meta){
       meta.setAttribute('content', descriptions[lang]);
