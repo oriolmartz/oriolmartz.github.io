@@ -544,8 +544,8 @@ html[lang="es"] .hero h1{
 .work-tldr__inner{
   display:grid;
   grid-template-columns:minmax(110px,.28fr) minmax(0,1.72fr);
-  border-top:1px solid rgba(255,255,255,.16);
-  border-bottom:1px solid rgba(255,255,255,.16);
+  border-top:1px solid rgba(74,85,96,.22);
+  border-bottom:1px solid rgba(74,85,96,.22);
 }
 .work-tldr__label{
   padding:18px 22px 18px 0;
@@ -553,10 +553,10 @@ html[lang="es"] .hero h1{
   font-size:.68rem;
   font-weight:700;
   letter-spacing:.16em;
-  color:#D0D9DE;
+  color:#3F4B56;
 }
 .work-tldr__content{
-  border-left:1px solid rgba(255,255,255,.14);
+  border-left:1px solid rgba(74,85,96,.18);
   padding:10px 0 10px 24px;
 }
 .work-tldr__row{
@@ -570,19 +570,20 @@ html[lang="es"] .hero h1{
   font-family:var(--mono);
   font-size:.68rem;
   font-weight:700;
-  color:#B7C4CB;
+  color:#61717E;
 }
 .work-tldr__name{
   font-family:var(--mono);
-  font-size:.80rem;
-  font-weight:600;
-  color:#FAF7F0;
+  font-size:.82rem;
+  font-weight:650;
+  color:#111827;
 }
 .work-tldr__signal{
   font-family:var(--mono);
-  font-size:.72rem;
+  font-size:.74rem;
+  font-weight:500;
   line-height:1.45;
-  color:#D7DEE5;
+  color:#425466;
 }
 @media (max-width:760px){
   .work-tldr{padding-bottom:28px;}
@@ -2082,7 +2083,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">0.06</div><div class="proof__label">Mean absolute elasticity error</div></div>
 <div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">93%</div><div class="proof__label">True elasticity inside estimated 95% CI</div></div>
 <div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">6.4%</div><div class="proof__label">Median temporal holdout MAPE</div></div>
-<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">43 + 4</div><div class="proof__label">Tests passed + integration tests skipped</div></div>
+<div class="proof"><span class="proof__cite">[03]</span><div class="proof__value">43 · 4</div><div class="proof__label">Passed · integration skipped</div></div>
 </div>
 <div class="tags reveal"><span class="tag">Pricing Optimisation</span><span class="tag">Demand Elasticity</span><span class="tag">Constrained Optimisation</span><span class="tag">LangGraph</span><span class="tag">Human-in-the-loop</span><span class="tag">FastAPI</span><span class="tag">Decision Support</span></div>
 </div>
@@ -2149,7 +2150,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 </div>
 <div class="gallery__main" data-idx="0">
 <img alt="Evidence Route research workspace" loading="lazy" src="assets/projects/evidence-route/overview.png"/>
-<div class="cap">Research workspace, one account evaluated end to end</div>
+<div class="cap">Research workspace, one account evaluated across the full workflow</div>
 </div>
 <div class="gallery__thumbs gallery__thumbs--3">
 <div class="gallery__thumb" data-idx="1">
@@ -2179,7 +2180,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <span aria-hidden="true" class="video-card__corner">PLAY ↗</span>
 <span aria-hidden="true" class="video-card__rail"></span>
 </button>
-<div class="video-card__note"><span>Click to open player</span><span>End-to-end flow</span></div>
+<div class="video-card__note"><span>Click to open player</span><span>Research-to-routing flow</span></div>
 </section>
 <div class="project-media__repo reveal">
 <a class="btn btn--repo" href="https://github.com/oriolmartz/evidence-route" rel="noopener" target="_blank">View repository ↗</a>
@@ -2328,7 +2329,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <div class="sec-intro reveal">
 <p class="eyebrow">How I work</p>
 <h2>A model can perform well and still fail as a system.</h2>
-<p>The questions I keep returning to are simple: can the output be defended, can someone actually use it, and does it improve a real decision?</p>
+<p>The questions I keep returning to are simple: can the output be defended, can someone actually use it, and is it relevant to a real decision problem?</p>
 </div>
 <div class="container">
 <div class="approach-board">
@@ -2352,7 +2353,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
 <span class="principle__num">03</span>
 <span class="principle__label">Decisions</span>
 <h3>Does it change what happens next?</h3>
-<p>The final test is whether the output helps someone make a better decision under real constraints.</p>
+<p>The final test is whether the output is useful for a concrete decision under realistic constraints.</p>
 </article>
 </div>
 </div>
@@ -2498,7 +2499,6 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "AI engineering opportunities": "Oportunidades en ingeniería de IA",
   "Selected systems below": "Sistemas seleccionados abajo",
   "Review the work ↓": "Ver los proyectos ↓",
-  "Selected work · 05 systems": "Proyectos seleccionados · 05 sistemas",
   "Selected AI systems": "Sistemas de IA seleccionados",
 
   "Selected work · 06 systems": "Proyectos seleccionados · 06 sistemas",
@@ -2526,7 +2526,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Mean absolute elasticity error": "Error absoluto medio de elasticidad",
   "True elasticity inside estimated 95% CI": "Elasticidad real dentro del IC estimado del 95%",
   "Median temporal holdout MAPE": "MAPE mediano en holdout temporal",
-  "Tests passed + integration tests skipped": "Tests superados + tests de integración omitidos",
+  "Passed · integration skipped": "Superados · integración omitidos",
   "Pricing Optimisation": "Optimización de precios",
   "Demand Elasticity": "Elasticidad de demanda",
   "Constrained Optimisation": "Optimización con restricciones",
@@ -2598,13 +2598,13 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Labelled RAG queries evaluated": "Consultas RAG etiquetadas evaluadas",
   "Canonical routing cases correct": "Casos canónicos de enrutamiento correctos",
   "Accounts per API batch": "Cuentas por lote de API",
-  "Research workspace, one account evaluated end to end": "Espacio de investigación con una cuenta evaluada end-to-end",
+  "Research workspace, one account evaluated across the full workflow": "Espacio de investigación con una cuenta evaluada a lo largo de todo el flujo",
   "The routing gate, evidence attached": "La decisión de enrutamiento con evidencia adjunta",
   "Claim verification against the source": "Verificación de afirmaciones frente a la fuente",
   "The exported account dossier": "El dossier de cuenta exportado",
   "From public signals to a routed account": "De señales públicas a una cuenta enrutada",
   "Research, evidence gate, commercial fit and export.": "Investigación, control de evidencia, encaje comercial y exportación.",
-  "End-to-end flow": "Flujo end-to-end",
+  "Research-to-routing flow": "Flujo de investigación a enrutamiento",
   "Probabilistic NLP for tracking narratives across the European AI Act debate.": "NLP probabilístico para seguir narrativas en el debate europeo sobre la Ley de IA.",
   "An NLP pipeline that learns latent topics from attributable European AI Act sources using a custom collapsed-Gibbs LDA implementation. Source-held-out validation and cross-seed alignment test topic stability, while source-balanced profiles and Jensen-Shannon divergence compare narratives across actors in an interactive React atlas.": "Un pipeline de NLP que aprende temas latentes a partir de fuentes atribuibles sobre la Ley Europea de IA mediante una implementación propia de LDA con Gibbs colapsado. La validación dejando fuentes fuera y la alineación entre semillas prueban la estabilidad de los temas, mientras que los perfiles equilibrados por fuente y la divergencia de Jensen-Shannon comparan narrativas entre actores en un atlas interactivo en React.",
   "Attributable public sources": "Fuentes públicas atribuibles",
@@ -2633,7 +2633,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "Competition workflow": "Flujo de competición",
   "How I work": "Cómo trabajo",
   "A model can perform well and still fail as a system.": "Un modelo puede rendir bien y aun así fallar como sistema.",
-  "The questions I keep returning to are simple: can the output be defended, can someone actually use it, and does it improve a real decision?": "Las preguntas a las que siempre vuelvo son simples: ¿puedo defender el resultado, puede alguien usarlo de verdad y mejora una decisión real?",
+  "The questions I keep returning to are simple: can the output be defended, can someone actually use it, and is it relevant to a real decision problem?": "Las preguntas a las que siempre vuelvo son simples: ¿puedo defender el resultado, puede alguien usarlo de verdad y mejora una decisión real?",
   "Evidence": "Evidencia",
   "Can I defend the output?": "¿Puedo defender el resultado?",
   "A model is a simplification of the real world. What matters is knowing when it is useful, where it fails and what evidence supports its output.": "Un modelo es una simplificación del mundo real. Lo importante es saber cuándo es útil, dónde falla y qué evidencia sostiene su resultado.",
@@ -2644,7 +2644,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
   "The model is only one component. Data pipelines, validation, APIs, interfaces and review workflows determine whether it becomes useful software.": "El modelo es solo un componente. Los pipelines de datos, la validación, las APIs, las interfaces y los flujos de revisión determinan si se convierte en software útil.",
   "Decisions": "Decisiones",
   "Does it change what happens next?": "¿Cambia lo que ocurre después?",
-  "The final test is whether the output helps someone make a better decision under real constraints.": "La prueba final es si el resultado ayuda a alguien a tomar una mejor decisión bajo restricciones reales.",
+  "The final test is whether the output is useful for a concrete decision under realistic constraints.": "La prueba final es si el resultado ayuda a alguien a tomar una mejor decisión bajo restricciones reales.",
   "Profile": "Perfil",
   "Engineering background and current focus.": "Trayectoria de ingeniería y enfoque actual.",
   "Before studying Artificial Intelligence at UPC, I worked on backend services and APIs at Inetum.": "Antes de estudiar Inteligencia Artificial en la UPC, trabajé en servicios backend y APIs en Inetum.",
@@ -2776,8 +2776,8 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
       ? 'Oriol Martinez Ribas · Portfolio de Ingeniería de IA'
       : 'Oriol Martinez Ribas · AI Engineering Portfolio';
     var descriptions = {
-      en: 'AI engineering portfolio of Oriol Martinez Ribas. Systems for operational risk, probabilistic market intelligence, evidence-grounded B2B research, public-debate analysis and spatial optimisation.',
-      es: 'Portfolio de ingeniería de IA de Oriol Martinez Ribas. Sistemas para riesgo operativo, inteligencia probabilística de mercados, investigación B2B basada en evidencia, análisis del debate público y optimización espacial.'
+      en: 'AI engineering portfolio of Oriol Martinez Ribas. Systems for operational risk, probabilistic market intelligence, pricing optimisation, evidence-grounded B2B research, public-debate analysis and spatial optimisation.',
+      es: 'Portfolio de ingeniería de IA de Oriol Martinez Ribas. Sistemas para riesgo operativo, inteligencia probabilística de mercados, optimización de pricing, investigación B2B basada en evidencia, análisis del debate público y optimización espacial.'
     };
     document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function(meta){
       meta.setAttribute('content', descriptions[lang]);
@@ -2875,7 +2875,7 @@ footer{border-top-color:rgba(167,183,190,.16); background:#0D0D0C;}
       {src:'assets/projects/price-decision-engine/traceability.png',   cap:'Scenario comparison and persisted recommendation history'}
     ],
     'evidence-route': [
-      {src:'assets/projects/evidence-route/overview.png',   cap:'Research workspace, one account evaluated end to end'},
+      {src:'assets/projects/evidence-route/overview.png',   cap:'Research workspace, one account evaluated across the full workflow'},
       {src:'assets/projects/evidence-route/routing.png',     cap:'The routing gate, evidence attached'},
       {src:'assets/projects/evidence-route/provenance.png',  cap:'Claim verification against the source'},
       {src:'assets/projects/evidence-route/report.png',      cap:'The exported account dossier'}
